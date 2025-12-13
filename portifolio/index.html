@@ -3,528 +3,533 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Currículo — Guilherme Felipetto</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Portfólio de Guilherme Felipetto - Cientista de Dados e Desenvolvedor">
+  <title>Guilherme Felipetto | Data Scientist</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
     }
-    html {
-      scroll-behavior: smooth;
-    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Roboto', Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
       line-height: 1.6;
-      color: #ecf0f1;
-      background-color: #1d2127;
-    }
-
-    a {
-      color: #63ace5;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 30px;
-      background-color: #24272c;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-      border-radius: 8px;
     }
 
     header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 5px;
-      color: #ecf0f1;
-      font-weight: 700;
-    }
-    header p.subtitle {
-      font-size: 1rem;
-      color: #bdc3c7;
-      font-weight: 400;
+      position: fixed;
+      top: 0; width: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #334155;
+      z-index: 1000;
+      padding: 15px 0;
     }
 
     nav {
+      max-width: 1100px;
+      margin: 0 auto;
       display: flex;
-      justify-content: center;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
     }
-    nav button {
-      background-color: #3a3f47;
-      color: #ecf0f1;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
+
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    
+    .nav-links { list-style: none; display: flex; gap: 25px; }
+    .nav-links a {
+      color: var(--text-primary);
+      text-decoration: none;
       font-size: 0.95rem;
-      transition: background-color 0.2s;
       font-weight: 500;
+      transition: color 0.3s;
     }
-    nav button:hover {
-      background-color: #4e5560;
-    }
-    nav button.active {
-      background-color: #4e5560;
-    }
+    .nav-links a:hover { color: var(--accent); }
 
-    section {
-      display: none;
-      animation: fadeIn 0.4s ease-in-out;
-    }
-    section.active {
-      display: block;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+    .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
 
-    section h2 {
-      font-size: 1.9rem;
-      margin-bottom: 15px;
-      border-bottom: 2px solid #444;
-      padding-bottom: 5px;
-      color: #ecf0f1;
-      font-weight: 700;
-    }
-    .item-list {
-      margin-bottom: 25px;
-    }
-    .item-list h3 {
-      font-size: 1.3rem;
-      color: #ecf0f1;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-    .item-list .meta {
-      font-size: 0.9rem;
-      color: #bdc3c7;
-      margin-bottom: 8px;
-      font-weight: 400;
-    }
-    .item-list p {
-      font-size: 1rem;
-      color: #ecf0f1;
-      line-height: 1.5;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 0.95rem;
-    }
-    table th, table td {
-      border: 1px solid #444;
-      padding: 10px;
-      text-align: left;
-      color: #ecf0f1;
-    }
-    table th {
-      background-color: #2c2f34;
-      font-weight: 600;
-    }
-    table tbody tr:nth-child(even) {
-      background-color: #2a2d32;
-    }
-    table tbody tr:nth-child(odd) {
-      background-color: #24272c;
-    }
-
-    .contact-list {
-      list-style: none;
-      margin-top: 10px;
-    }
-    .contact-list li {
-      margin-bottom: 8px;
+    .hero {
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      font-size: 1rem;
-      color: #ecf0f1;
-    }
-    .contact-list li span.icon {
-      display: inline-block;
-      width: 20px;
+      justify-content: center;
       text-align: center;
-      margin-right: 8px;
-      color: #63ace5;
+      padding: 100px 20px 40px;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 70%);
     }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, #fff, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-content h2 {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .social-btn {
+      display: inline-block;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      transition: transform 0.2s, color 0.2s;
+    }
+    .social-btn:hover { color: var(--accent); transform: translateY(-3px); }
+
+    .btn-primary {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 30px;
+      background-color: var(--accent);
+      color: #0f172a;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .btn-primary:hover { background-color: var(--accent-hover); }
+
+    section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
+    
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      border-left: 5px solid var(--accent);
+      padding-left: 15px;
+      color: #fff;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    @media(min-width: 768px) { .about-grid { grid-template-columns: 2fr 1fr; } }
+
+    .skills-tags span {
+      display: inline-block;
+      background: #334155;
+      color: var(--accent);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin: 0 5px 10px 0;
+    }
+
+    .timeline-item {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent);
+      transition: transform 0.2s;
+    }
+    .timeline-item:hover { transform: translateX(5px); }
+    
+    .timeline-header { display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 10px; }
+    .role { font-weight: 700; font-size: 1.1rem; color: #fff; }
+    .company { color: var(--accent); }
+    .date { font-size: 0.9rem; color: var(--text-secondary); }
+    .description { font-size: 0.95rem; color: #cbd5e1; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      border: 1px solid #334155;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .project-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+    .project-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .project-content h3 { margin-bottom: 10px; color: #fff; }
+    .project-content p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px; flex: 1; }
+    .project-tags { font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; font-weight: 600; }
+
+    .pub-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pub-card {
+      display: flex;
+      background: var(--card-bg);
+      border: 1px solid #334155;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .pub-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .pub-thumb {
+      width: 140px;
+      min-width: 140px;
+      background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent);
+      position: relative;
+    }
+    
+    .pub-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0; left: 0;
+    }
+
+    .pub-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .pub-content h3 { font-size: 1.1rem; color: #fff; margin-bottom: 5px; }
+    .pub-meta { font-size: 0.85rem; color: var(--accent); margin-bottom: 8px; }
+    .pub-desc { font-size: 0.9rem; color: var(--text-secondary); }
 
     footer {
       text-align: center;
-      margin-top: 40px;
-      font-size: 0.85rem;
-      color: #99a3ad;
+      padding: 40px;
+      background: #020617;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2.5rem; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px; left: 0; width: 100%;
+        background: var(--card-bg);
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      }
+      .nav-links.active { display: flex; }
+      .menu-toggle { display: block; }
+      
+      .about-grid { grid-template-columns: 1fr; }
+      
+      .pub-card { flex-direction: column; }
+      .pub-thumb { width: 100%; height: 120px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-
-    <header>
-      <h1>Guilherme Felipetto</h1>
-      <p class="subtitle">Graduado em Ciência de Dados (2025) • Sócio-proprietário na YGG Tecnologia</p>
-    </header>
-
+  <header>
     <nav>
-      <button class="nav-btn active" data-target="sobre">Sobre</button>
-      <button class="nav-btn" data-target="formacao">Formação</button>
-      <button class="nav-btn" data-target="experiencia">Experiência Profissional</button>
-      <button class="nav-btn" data-target="projetos">Projetos & Produções</button>
-      <button class="nav-btn" data-target="complementar">Formação Complementar</button>
-      <button class="nav-btn" data-target="idiomas">Idiomas</button>
-      <button class="nav-btn" data-target="contato">Contato</button>
-    </nav>
-
-    <section id="sobre" class="active">
-      <h2>Sobre</h2>
-      <p>
-        Graduado em Ciência de Dados pela Associação de Ensino, Pesquisa e Extensão Biopark (2025), Guilherme é sócio-proprietário da empresa YGG Tecnologia,
-        atuando com foco em projetos de Aprendizado de Máquina e Visão Computacional. Possui experiência em desenvolvimento de soluções utilizando 
-        <strong>Java, C, C++, SQL e Python</strong>, com ênfase em modelagem de modelos de Machine Learning, redes neurais com TensorFlow e PyTorch, 
-        além de aplicações voltadas para Processamento de Áudio (modelos Text-To-Speech e Speech-To-Text). Também tem vivência em desenvolvimento web com 
-        <strong>Node.js</strong> e automação de processos utilizando <strong>Excel e VBA</strong>. Seus principais interesses incluem Visão Computacional, 
-        Modelagem de Modelos de Aprendizado de Máquina e Processamento de Áudio.
-      </p>
-    </section>
-
-    <section id="formacao">
-      <h2>Formação Acadêmica</h2>
-
-      <div class="item-list">
-        <h3>Graduação em Ciência de Dados</h3>
-        <div class="meta">
-          <span>Associação de Ensino, Pesquisa e Extensão Biopark</span> |
-          <span>Início: 2023 • Conclusão: 2025</span>
-        </div>
-        <p>
-          Trabalho de conclusão: N/A<br/>
-          Orientador: Leonardo G. Tampelini<br/>
-          Instituição financiadora: Certificação das Entidades Beneficentes de Assistência Social (CEBAS)
-        </p>
+      <a href="#" class="logo">GF.</a>
+      <div class="menu-toggle" id="mobile-menu">
+        <i class="fas fa-bars"></i>
       </div>
-
-    </section>
-
-    <section id="experiencia">
-      <h2>Experiência Profissional</h2>
-
-      <div class="item-list">
-        <h3>YGG Tecnologia</h3>
-        <div class="meta">
-          <span>Estagiário em Ciência de Dados e ML (Colaborador)</span> |
-          <span>2024 – Presente (Carga horária: 30h/semana)</span>
-        </div>
-        <p>
-          Área de atuação: Planejamento e organização de projetos para implementação de soluções baseadas em aprendizado de máquina;
-          Modelagem e treinamento de redes neurais para aprendizado supervisionado utilizando TensorFlow e PyTorch;
-          Desenvolvimento de modelos de Inteligência Artificial voltados para aplicações de visão computacional;
-          Desenvolvimento web utilizando Node.js, com foco em integração de sistemas e criação de APIs.
-        </p>
-      </div>
-
-      <div class="item-list">
-        <h3>CES Sistemas</h3>
-        <div class="meta">
-          <span>Estagiário em Desenvolvimento de Sistemas (Colaborador)</span> |
-          <span>Jan/2021 – Jan/2022 (Carga horária: 20h/semana)</span>
-        </div>
-        <p>
-          Construção de relatórios utilizando SSMS e XtraReport da DevExpress; 
-          Desenvolvimento de aplicativos mobile com Xamarin.
-        </p>
-      </div>
-
-      <div class="item-list">
-        <h3>Parque Científico e Tecnológico de Biociências</h3>
-        <div class="meta">
-          <span>Estagiário em Ciência de Dados (Colaborador)</span> |
-          <span>Jun/2023 – Mai/2024 (Carga horária: 30h/semana)</span>
-        </div>
-        <p>
-          Construção de relatórios gerenciais e operacionais em Excel; Criação de macros em VBA para automação de processos em Excel;
-          Coleta e organização de dados provenientes de bancos de dados públicos, garantindo integridade e consistência aos relatórios;
-          Planejamento de soluções para automação e melhoria de processos internos; 
-          Preparação de bases de dados e documentação técnica para suporte ao desenvolvimento.
-        </p>
-      </div>
-
-      <div class="item-list">
-        <h3>Associação de Ensino, Pesquisa e Extensão Biopark</h3>
-        <div class="meta">
-          <span>Monitor de Programação para Ciência de Dados e IA</span> |
-          <span>Jan/2025 – Presente (Carga horária: 2h/semana)</span>
-        </div>
-        <p>
-          Atendimento a alunos, esclarecimento de dúvidas e auxílio em práticas voltadas a programação para Ciência de Dados e Inteligência Artificial.
-        </p>
-      </div>
-
-      <div class="item-list">
-        <h3>Jovem Aprendiz</h3>
-        <div class="meta">
-          <span>Produtor Digital e Gestor de Plataformas (Colaborador)</span> |
-          <span>Jan/2020 – Jan/2021 (Carga horária: 30h/semana)</span>
-        </div>
-        <p>
-          Produção e gestão digital para pessoa pública: Operação de câmeras e gravações de conteúdo audiovisual; 
-          Edição de vídeos para redes sociais, YouTube e podcasts; Gestão de tráfego pago (Facebook Ads, Instagram Ads, Google Ads);
-          Administração de plataformas de monetização e distribuição de conteúdo (Hotmart, Spreaker etc.); 
-          Suporte em estratégia digital e organização da presença online.
-        </p>
-      </div>
-
-    </section>
-
-    <section id="projetos">
-      <h2>Projetos & Produções Técnicas</h2>
-
-      <div class="item-list">
-        <h3>Projeto Inteligência de Mercado Volvo Penta</h3>
-        <div class="meta">
-          <span>Biopark Educação</span> |
-          <span>2023 (Pesquisa)</span>
-        </div>
-        <p>
-          Atuação como Cientista de Dados em pesquisa de mercado inteligente utilizando dados da ABIMAQ e da Volvo Penta, 
-          com objetivo de trazer análises para tomada de decisão no mercado de geradores de energia, maquinário agrícola e aquático.
-        </p>
-        <p><strong>Equipe:</strong> Guilherme Felipetto, Gabriel Amaral, Crystian Kasuga, Marcel Augusto Colling, Hermes João Inácio (coordenador)</p>
-        <p><strong>Financiador:</strong> Associação de Ensino, Pesquisa e Extensão Biopark (Bolsa)</p>
-      </div>
-
-      <div class="item-list">
-        <h3>Controle de Qualidade Avançado na Indústria Farmacêutica</h3>
-        <div class="meta">
-          <span>Congresso Interdisciplinar de Pesquisa e Inovação do Biopark II</span> |
-          <span>2024 (Congresso)</span>
-        </div>
-        <p>
-          Título: “Controle de Qualidade Avançado na Indústria Farmacêutica: Automação na Detecção de Desvios em Carimbos de Cartonagens para Garantia da Integridade e Segurança do Produto.” 
-          Coautores: Guilherme Felipetto, Claudio Honorio, Leonardo Garcia Tampelini.
-        </p>
-      </div>
-
-      <div class="item-list">
-        <h3>Introdução ao uso de Microcontroladores com ESP32</h3>
-        <div class="meta">
-          <span>IFPR</span> |
-          <span>2024 (4h) – Curso de Extensão</span>
-        </div>
-        <p>
-          Ministrado no IFPR, Assis Chateaubriand. Coautores: Guilherme Felipetto, André Scalabrini, Wylliam Salviano Gongora.
-        </p>
-      </div>
-
-      <div class="item-list">
-        <h3>Clonagem de Voz Utilizando Modelo Text-To-Speech (TTS)</h3>
-        <div class="meta">
-          <span>Biopark Educação</span> |
-          <span>2025 (4h) – Curso de Extensão</span>
-        </div>
-        <p>
-          Curso com ênfase em técnicas de clonagem de voz usando TTS. Coautores: Guilherme Felipetto, Claudio Honorio. 
-          Palavras-chave: Inteligência Artificial, Processamento de Áudio.
-        </p>
-        <p><em>Premiação: 2º melhor minicurso ministrado</em></p>
-      </div>
-
-      <div class="item-list">
-        <h3>Demonstração Prática da Projeção de Relevo em uma Sandbox</h3>
-        <div class="meta">
-          <span>Biopark Educação</span> |
-          <span>2023 (Maquete)</span>
-        </div>
-        <p>
-          Demonstração prática de técnicas de visão computacional aplicadas a uma sandbox interativa (Kinect de Xbox 360, projetor e caixa de areia). 
-          Autores: Guilherme Felipetto, Claudio Honorio, Leonardo Garcia Tampelini.
-        </p>
-      </div>
-
-      <div class="item-list">
-        <h3>Biopark Orienta</h3>
-        <div class="meta">
-          <span>Evento de Tecnologia (Apresentação)</span> |
-          <span>2024</span>
-        </div>
-        <p>
-          Apresentação do curso de Ciência de Dados. Autores: Guilherme Felipetto, Claudio Honorio, Leonardo Garcia Tampelini.
-        </p>
-      </div>
-
-    </section>
-
-    <section id="complementar">
-      <h2>Formação Complementar & Eventos</h2>
-
-      <div class="item-list">
-        <h3>Ciência de Dados (Itaipu Binacional)</h3>
-        <div class="meta">
-          <span>10h – Concluído em 2024</span>
-        </div>
-      </div>
-
-      <div class="item-list">
-        <h3>Programação em Python do Básico ao Avançado (Udemy)</h3>
-        <div class="meta">
-          <span>64h – Concluído em 2020</span>
-        </div>
-      </div>
-
-      <div class="item-list">
-        <h3>Estatística para Machine Learning (Udemy)</h3>
-        <div class="meta">
-          <span>23h – Concluído em 2025</span>
-        </div>
-      </div>
-
-      <div class="item-list">
-        <h3>Introduction to Generative AI (Google Cloud Skills Boost)</h3>
-        <div class="meta">
-          <span>2h – Concluído em 2025</span>
-        </div>
-      </div>
-
-      <div class="item-list">
-        <h3>Aprendizado de Máquina (Google Inc.)</h3>
-        <div class="meta">
-          <span>Nível Curso de Curta Duração – Concluído em 2024</span>
-        </div>
-      </div>
-
-      <div class="item-list">
-        <h3>Psicologia no Ambiente de Trabalho</h3>
-        <div class="meta">
-          <span>Vittude Summit 2025 (Participação Oral)</span>
-        </div>
-      </div>
-
-      <div class="item-list">
-        <h3>Aplicativo para Gerenciamento de Aviários com Foco em Combater Amônia</h3>
-        <div class="meta">
-          <span>Show Rural – Hackathon 2025 (Participação Oral)</span>
-        </div>
-      </div>
-
-      <div class="item-list">
-        <h3>OBMEP (2º Lugar) – Olimpíada Brasileira de Matemática das Escolas Públicas</h3>
-        <div class="meta">
-          <span>2012</span>
-        </div>
-      </div>
-
-      <div class="item-list">
-        <h3>OBA (2º Lugar) – Olimpíada Brasileira de Astronomia e Astronáutica</h3>
-        <div class="meta">
-          <span>2012</span>
-        </div>
-      </div>
-
-      <div class="item-list">
-        <h3>Desenvolvimento de uma Plataforma de Aulas Online</h3>
-        <div class="meta">
-          <span>1º Hackathon Biopark 2024 (Apresentação Oral)</span>
-        </div>
-      </div>
-
-    </section>
-
-    <section id="idiomas">
-      <h2>Idiomas</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Idioma</th>
-            <th>Leitura</th>
-            <th>Fala</th>
-            <th>Escrita</th>
-            <th>Compreensão</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Inglês</td>
-            <td>Bem</td>
-            <td>Razoavelmente</td>
-            <td>Razoavelmente</td>
-            <td>Bem</td>
-          </tr>
-          <tr>
-            <td>Espanhol</td>
-            <td>Razoavelmente</td>
-            <td>Pouco</td>
-            <td>Pouco</td>
-            <td>Pouco</td>
-          </tr>
-          <tr>
-            <td>Francês</td>
-            <td>Pouco</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="contato">
-      <h2>Contato</h2>
-      <ul class="contact-list">
-        <li><span class="icon">✉️</span> guilherme.g.felipetto@gmail.com</li>
-        <li><span class="icon">📞</span> (46) 98810-6601</li>
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#experiencia">Experiência</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#publicacoes">Publicações</a></li>
+        <li><a href="#formacao">Formação</a></li>
+        <li><a href="#contato">Contato</a></li>
       </ul>
-    </section>
+    </nav>
+  </header>
 
-    <footer>
-      <p>© 2025 Guilherme Felipetto.</p>
-    </footer>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Guilherme Felipetto</h1>
+      <h2>Cientista de Dados | Mestrando IME-USP</h2>
+      <p style="color: #94a3b8; max-width: 600px; margin: 0 auto;">
+        Sócio-proprietário na YGG Tecnologia e Pesquisador no grupo BeeData (USP). Especialista em Visão Computacional, Python e C++.
+      </p>
+      
+      <div style="margin-top: 25px;">
+        <a href="https://github.com/guilhermefelipetto" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/felipetto/" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i></a>
+        <a href="http://lattes.cnpq.br/5022544975028340" target="_blank" class="social-btn"><i class="fas fa-graduation-cap"></i></a>
+      </div>
 
-  </div>
+      <a href="#projetos" class="btn-primary">Ver Portfólio</a>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <h2 class="section-title">Sobre Mim</h2>
+    <div class="about-grid">
+      <div>
+        <p style="margin-bottom: 15px;">
+          Atualmente sou aluno de mestrado em Ciência da Computação no <strong>IME-USP</strong> (Instituto de Matemática e Estatística da USP) e membro da equipe de gestão do grupo de pesquisa <strong>BeeData</strong>.
+        </p>
+        <p style="margin-bottom: 15px;">
+          Formado em Ciência de Dados pela Faculdade Donaduzzi, acumulo mais de 5 anos de experiência em tecnologia. Minha trajetória começou cedo, estudando ao lado do meu pai, engenheiro de computação, o que moldou minha base técnica sólida.
+        </p>
+        <p>
+          Hoje, atuo como sócio na <strong>YGG Tecnologia</strong>, desenvolvendo soluções avançadas de IA, com foco em Visão Computacional, Processamento de Áudio e Sistemas Web.
+        </p>
+      </div>
+      <div>
+        <h3 style="margin-bottom: 15px; color: #fff;">Competências</h3>
+        <div class="skills-tags">
+          <span>Python</span>
+          <span>C / C++</span>
+          <span>TensorFlow</span>
+          <span>Visão Computacional</span>
+          <span>MLflow</span>
+          <span>ETL & SQL</span>
+          <span>Node.js</span>
+          <span>Flutter</span>
+          <span>Inglês Fluente</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <h2 class="section-title">Experiência Profissional</h2>
+    
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="role">Membro da Equipe de Gestão (Pesquisador)</span>
+        <span class="company">BeeData (IME-USP)</span>
+      </div>
+      <span class="date">Jul 2025 - Presente</span>
+      <p class="description">
+        Participação em competições e projetos práticos de ciência de dados, aprimorando habilidades em coleta, limpeza, análise de dados e machine learning.
+      </p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="role">Cientista de Dados & Sócio</span>
+        <span class="company">YGG Tecnologia</span>
+      </div>
+      <span class="date">Jun 2024 - Presente</span>
+      <p class="description">
+        Desenvolvimento de modelos de ML focados em visão computacional e NLP (TensorFlow). Atuação como Fullstack (Node.js), criação de pipelines e deploy de modelos (MLFlow) e integrações AWS.
+      </p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="role">Estágio em Ciência de Dados</span>
+        <span class="company">YGG Tecnologia / Autônomo</span>
+      </div>
+      <span class="date">Jul 2024 - Jun 2025</span>
+      <p class="description">
+        Início de projetos de aprendizado de máquina focados em visão computacional e processamento de linguagem natural com Python.
+      </p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="role">Analista de Dados</span>
+        <span class="company">Biopark</span>
+      </div>
+      <span class="date">Jun 2023 - Jun 2024</span>
+      <p class="description">
+        Análise de dados utilizando Python, VBA para Excel, Power BI e PostgreSQL. Desenvolvimento web com Django.
+      </p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="role">Desenvolvedor</span>
+        <span class="company">CES Sistemas</span>
+      </div>
+      <span class="date">Jan 2021 - Jan 2022</span>
+      <p class="description">
+        Desenvolvimento de relatórios (XtraReport/SQL) e aplicativos mobile utilizando Xamarin e C#.
+      </p>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <h2 class="section-title">Projetos Técnicos</h2>
+    <div class="projects-grid">
+      
+      <div class="project-card">
+        <div class="project-content">
+          <h3>Clonagem de Voz (TTS)</h3>
+          <div class="project-tags">Python • Deep Learning • Audio</div>
+          <p>
+            Desenvolvimento de modelos Text-To-Speech para clonagem de voz. Projeto premiado como 2º melhor minicurso ministrado no Biopark.
+          </p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>Controle de Qualidade Farmacêutico</h3>
+          <div class="project-tags">Computer Vision • C++ • Indústria 4.0</div>
+          <p>
+            Sistema de visão computacional para detecção automática de desvios em carimbos de cartonagens, garantindo integridade do produto.
+          </p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>App Gerenciamento de Aviários</h3>
+          <div class="project-tags">Hackathon Show Rural 2025</div>
+          <p>
+            Aplicativo desenvolvido para gerenciamento de aviários com foco no combate à amônia.
+          </p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>Projeção de Relevo (Sandbox)</h3>
+          <div class="project-tags">Kinect • Interatividade</div>
+          <p>
+            Demonstração prática de visão computacional aplicada a uma caixa de areia interativa para ensino de topografia.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="publicacoes">
+    <h2 class="section-title">Publicações Acadêmicas</h2>
+    <div class="pub-grid">
+
+      <!-- Artigo 1 -->
+      <!-- Para colocar uma imagem real, adicione <img src="caminho/da/imagem.jpg"> dentro da div .pub-thumb -->
+      <a href="#" class="pub-card" target="_blank">
+        <div class="pub-thumb">
+          <i class="far fa-file-alt"></i>
+          <!-- <img src="assets/print-artigo-1.jpg" alt="Preview do Artigo"> -->
+        </div>
+        <div class="pub-content">
+          <h3>Controle de Qualidade Avançado na Indústria Farmacêutica</h3>
+          <div class="pub-meta">Automação na Detecção de Desvios em Carimbos</div>
+          <p class="pub-desc">
+            Publicado em anais de congresso. Aborda o uso de visão computacional para garantir a integridade e segurança de produtos farmacêuticos.
+          </p>
+        </div>
+      </a>
+
+      <!-- Artigo 2 -->
+      <a href="#" class="pub-card" target="_blank">
+        <div class="pub-thumb">
+          <i class="far fa-file-alt"></i>
+        </div>
+        <div class="pub-content">
+          <h3>Tecnologia Assistiva Multimodal para Interfaces Gráficas</h3>
+          <div class="pub-meta">Anais de Congressos (2025)</div>
+          <p class="pub-desc">
+            Coautores: Felipetto, G.; Tampelini, L. G.; Honorio, C. Descrição de interfaces gráficas para pessoas cegas.
+          </p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section id="formacao">
+    <h2 class="section-title">Formação Acadêmica</h2>
+    
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="role">Mestrado Acadêmico (Computer Programming)</span>
+        <span class="company">Universidade de São Paulo (IME-USP)</span>
+      </div>
+      <span class="date">Jun 2025 - Jun 2028 (Previsão)</span>
+      <p class="description">Pós-graduação Stricto Sensu. Foco em Inteligência Artificial e Visão Computacional.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="role">Estudante Especial (Estatística e Probabilidade)</span>
+        <span class="company">Universidade de São Paulo (IME-USP)</span>
+      </div>
+      <span class="date">Jul 2025 - Dez 2025</span>
+      <p class="description">Disciplinas isoladas de aprofundamento estatístico.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="role">Graduação em Ciência de Dados</span>
+        <span class="company">Faculdade Donaduzzi</span>
+      </div>
+      <span class="date">2023 - Jul 2025</span>
+      <p class="description">Ensino Superior. Base sólida em programação e análise de dados.</p>
+    </div>
+  </section>
+
+  <section id="contato" style="text-align: center;">
+    <h2 class="section-title" style="border: none; padding: 0;">Contato</h2>
+    <p style="color: #94a3b8; margin-bottom: 30px;">
+      São Paulo, SP • (45) 98800-4664
+    </p>
+    <a href="mailto:guilherme.g.felipetto@gmail.com" class="btn-primary">
+      <i class="fas fa-envelope"></i> Enviar E-mail
+    </a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Guilherme Felipetto. Todos os direitos reservados.</p>
+    <p style="font-size: 0.8rem; margin-top: 10px;">Atualizado em Dez/2025</p>
+  </footer>
 
   <script>
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const sections = document.querySelectorAll('section');
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
 
-    function showSection(targetId) {
-      sections.forEach(sec => {
-        if (sec.id === targetId) {
-          sec.classList.add('active');
-        } else {
-          sec.classList.remove('active');
-        }
-      });
-      navButtons.forEach(btn => {
-        if (btn.dataset.target === targetId) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-    }
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
 
-    navButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const target = button.dataset.target;
-        showSection(target);
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
       });
     });
   </script>
-
 </body>
 </html>
