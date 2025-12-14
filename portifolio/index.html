@@ -6,18 +6,23 @@
   <meta name="description" content="Portfólio de Guilherme Felipetto - Cientista de Dados e Desenvolvedor">
   <title>Guilherme Felipetto | Data Scientist</title>
   
+  <!-- Adicionei Merriweather para os títulos (estilo sério/acadêmico) e mantive Open Sans para leitura -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <style>
     :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --accent: #38bdf8;
-      --accent-hover: #0ea5e9;
+      /* Paleta Wikipedia / Acadêmica */
+      --bg-color: #ffffff;
+      --content-bg: #ffffff;
+      --text-primary: #202122;     /* Cor padrão de texto Wiki */
+      --text-secondary: #54595d;
+      --link-color: #0645ad;       /* Azul clássico de hiperlink */
+      --link-visited: #0b0080;
+      --border-color: #a2a9b1;     /* Cinza das bordas de tabelas/h2 */
+      --accent: #eaecf0;           /* Fundo cinza claro para boxes */
+      --accent-hover: #f8f9fa;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,238 +30,348 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Open Sans', sans-serif; /* Corpo do texto sem serifa para leitura */
       background-color: var(--bg-color);
       color: var(--text-primary);
       line-height: 1.6;
+      font-size: 16px;
     }
 
+    /* --- HEADER (Estilo barra de navegação simples) --- */
     header {
-      position: fixed;
-      top: 0; width: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #334155;
-      z-index: 1000;
-      padding: 15px 0;
+      position: relative; /* Removemos o fixed para parecer documento corrido */
+      background: #f8f9fa;
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 0;
     }
 
     nav {
-      max-width: 1100px;
+      max-width: 960px; /* Largura padrão de leitura */
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 20px;
+      padding: 0 15px;
     }
 
-    .logo { font-size: 1.5rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .logo { 
+      font-family: 'Merriweather', serif;
+      font-size: 1.2rem; 
+      font-weight: 700; 
+      color: #000; 
+      text-decoration: none; 
+    }
     
-    .nav-links { list-style: none; display: flex; gap: 25px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; }
     .nav-links a {
-      color: var(--text-primary);
+      color: var(--link-color);
       text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: color 0.3s;
+      font-size: 0.9rem;
+      font-weight: 400;
     }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover { text-decoration: underline; }
 
-    .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
+    .menu-toggle { display: none; font-size: 1.2rem; cursor: pointer; color: var(--text-primary); }
 
+    /* --- HERO (Estilo Resumo/Abstract) --- */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 100px 20px 40px;
-      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 70%);
+      min-height: auto;
+      padding: 60px 15px 40px;
+      background: transparent;
+      text-align: left; /* Acadêmico é alinhado à esquerda */
+      max-width: 960px;
+      margin: 0 auto;
+      display: block; /* Removemos flex center */
+      border-bottom: 1px solid var(--border-color);
     }
 
     .hero-content h1 {
-      font-size: 3.5rem;
-      margin-bottom: 10px;
-      background: linear-gradient(to right, #fff, var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-family: 'Merriweather', serif;
+      font-size: 2.4rem;
+      color: #000;
+      margin-bottom: 5px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      background: none;
+      -webkit-text-fill-color: initial;
     }
 
     .hero-content h2 {
-      font-size: 1.5rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.1rem;
       color: var(--text-secondary);
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-weight: 400;
+      font-style: italic;
     }
 
+    .hero-content p {
+      color: var(--text-primary);
+      max-width: 100%;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    /* Ajuste dos ícones sociais para parecerem referências */
     .social-btn {
       display: inline-block;
-      margin: 0 10px;
-      font-size: 1.5rem;
+      margin-right: 15px;
+      font-size: 1.2rem;
       color: var(--text-secondary);
-      transition: transform 0.2s, color 0.2s;
+      text-decoration: none;
     }
-    .social-btn:hover { color: var(--accent); transform: translateY(-3px); }
+    .social-btn:hover { color: var(--link-color); transform: none; }
 
+    /* Botão estilo Wikipedia (link simples ou botão cinza padrão) */
     .btn-primary {
       display: inline-block;
-      margin-top: 30px;
-      padding: 12px 30px;
-      background-color: var(--accent);
-      color: #0f172a;
-      font-weight: 700;
+      margin-top: 20px;
+      padding: 6px 12px;
+      background-color: #f8f9fa;
+      color: var(--link-color);
+      font-weight: 600;
       text-decoration: none;
-      border-radius: 5px;
-      transition: background 0.3s;
+      border: 1px solid var(--border-color);
+      border-radius: 2px;
+      font-size: 0.9rem;
     }
-    .btn-primary:hover { background-color: var(--accent-hover); }
+    .btn-primary:hover { 
+      background-color: #e2e2e2; 
+      text-decoration: none;
+    }
 
-    section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
+    /* --- SEÇÕES GERAIS --- */
+    section { 
+      padding: 40px 15px; 
+      max-width: 960px; 
+      margin: 0 auto; 
+    }
     
     .section-title {
-      font-size: 2rem;
-      margin-bottom: 40px;
-      border-left: 5px solid var(--accent);
-      padding-left: 15px;
-      color: #fff;
+      font-family: 'Merriweather', serif;
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      border-left: none;
+      border-bottom: 1px solid var(--border-color);
+      padding-left: 0;
+      padding-bottom: 5px;
+      color: #000;
     }
 
+    /* --- SOBRE (Tabela de InfoBox simulada) --- */
     .about-grid {
-      display: grid;
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column-reverse; /* Conteúdo primeiro, box depois em mobile */
       gap: 30px;
     }
-    @media(min-width: 768px) { .about-grid { grid-template-columns: 2fr 1fr; } }
+    @media(min-width: 768px) { 
+      .about-grid { 
+        display: grid; 
+        grid-template-columns: 2fr 1fr; 
+        align-items: start;
+      } 
+      
+      /* Simula a "InfoBox" da Wikipedia na direita */
+      .about-grid > div:last-child {
+        border: 1px solid var(--border-color);
+        background: #f8f9fa;
+        padding: 15px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .about-grid h3 {
+      font-family: 'Merriweather', serif;
+      font-size: 1rem;
+      color: #000;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #c8ccd1;
+      text-align: center;
+      background: #eaecf0;
+      padding: 5px;
+      margin-top: -15px;
+      margin-left: -15px;
+      margin-right: -15px;
+    }
 
     .skills-tags span {
       display: inline-block;
-      background: #334155;
-      color: var(--accent);
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      margin: 0 5px 10px 0;
+      color: var(--link-color); /* Parecer links de categorias */
+      padding: 0;
+      margin: 0 5px 5px 0;
+      font-size: 0.9rem;
+      background: none;
     }
+    .skills-tags span::after {
+      content: " •";
+      color: #000;
+    }
+    .skills-tags span:last-child::after { content: ""; }
 
+    /* --- TIMELINE (Estilo Lista de Definições) --- */
     .timeline-item {
-      background: var(--card-bg);
-      padding: 25px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      border-left: 4px solid var(--accent);
-      transition: transform 0.2s;
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      margin-bottom: 25px;
+      border-left: none;
+      border-bottom: 1px dotted #ccc;
+      padding-bottom: 15px;
+      transition: none;
     }
-    .timeline-item:hover { transform: translateX(5px); }
+    .timeline-item:hover { transform: none; }
+    .timeline-item:last-child { border-bottom: none; }
     
-    .timeline-header { display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 10px; }
-    .role { font-weight: 700; font-size: 1.1rem; color: #fff; }
-    .company { color: var(--accent); }
-    .date { font-size: 0.9rem; color: var(--text-secondary); }
-    .description { font-size: 0.95rem; color: #cbd5e1; }
+    .timeline-header { display: flex; flex-direction: column; margin-bottom: 5px; }
+    .role { 
+      font-weight: 700; 
+      font-size: 1.1rem; 
+      color: var(--text-primary); 
+    }
+    .company { 
+      font-style: italic; 
+      color: var(--text-secondary); 
+    }
+    .company::before { content: " — "; }
+    
+    .date { 
+      font-size: 0.85rem; 
+      color: var(--text-secondary); 
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    .description { 
+      font-size: 0.95rem; 
+      color: var(--text-primary); 
+      text-align: justify;
+    }
 
+    /* --- PROJETOS (Estilo Galeria/Grid simples) --- */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
 
     .project-card {
-      background: var(--card-bg);
-      border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.3s;
-      border: 1px solid #334155;
+      background: #fff;
+      border-radius: 0;
+      border: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
       height: 100%;
+      box-shadow: none;
+      transition: none;
     }
-    .project-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .project-card:hover { transform: none; border-color: #777; }
 
-    .project-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-    .project-content h3 { margin-bottom: 10px; color: #fff; }
-    .project-content p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px; flex: 1; }
-    .project-tags { font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; font-weight: 600; }
+    .project-content { padding: 15px; }
+    .project-content h3 { 
+      margin-bottom: 5px; 
+      color: var(--text-primary); 
+      font-family: 'Merriweather', serif;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #eaecf0;
+      padding-bottom: 5px;
+    }
+    
+    .project-tags { 
+      font-size: 0.8rem; 
+      color: var(--text-secondary); 
+      margin-bottom: 10px; 
+      font-weight: 400; 
+      background: #f8f9fa;
+      padding: 5px;
+      border: 1px solid #eaecf0;
+    }
+    
+    .project-content p { 
+      font-size: 0.9rem; 
+      color: var(--text-primary); 
+    }
 
+    /* --- PUBLICAÇÕES (Estilo Referência Bibliográfica) --- */
     .pub-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      gap: 15px;
     }
 
     .pub-card {
       display: flex;
-      background: var(--card-bg);
-      border: 1px solid #334155;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      text-decoration: none;
+      background: transparent;
+      border: none;
+      border-left: 4px solid #eaecf0;
+      padding-left: 15px;
+      border-radius: 0;
       color: inherit;
+      align-items: flex-start;
     }
     .pub-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      border-color: var(--link-color);
+      transform: none;
+      box-shadow: none;
+      background: #f8f9fa;
     }
 
     .pub-thumb {
-      width: 140px;
-      min-width: 140px;
-      background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+      width: 40px;
+      min-width: 40px;
+      height: auto;
+      background: transparent;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      color: var(--accent);
-      position: relative;
+      align-items: flex-start;
+      padding-top: 5px;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
     }
     
-    .pub-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0; left: 0;
-    }
-
     .pub-content {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      padding: 5px 0 5px 15px;
     }
-    .pub-content h3 { font-size: 1.1rem; color: #fff; margin-bottom: 5px; }
-    .pub-meta { font-size: 0.85rem; color: var(--accent); margin-bottom: 8px; }
-    .pub-desc { font-size: 0.9rem; color: var(--text-secondary); }
+    .pub-content h3 { 
+      font-size: 1rem; 
+      color: var(--link-color); 
+      margin-bottom: 2px; 
+      text-decoration: none;
+    }
+    .pub-card:hover h3 { text-decoration: underline; }
 
+    .pub-meta { font-size: 0.85rem; color: #000; font-style: italic; margin-bottom: 4px; }
+    .pub-desc { font-size: 0.9rem; color: var(--text-primary); }
+
+    /* --- FOOTER --- */
     footer {
       text-align: center;
-      padding: 40px;
-      background: #020617;
+      padding: 30px;
+      background: #f8f9fa;
+      border-top: 1px solid var(--border-color);
       color: var(--text-secondary);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       margin-top: 50px;
     }
 
+    /* --- RESPONSIVO --- */
     @media (max-width: 768px) {
-      .hero-content h1 { font-size: 2.5rem; }
+      .hero-content h1 { font-size: 2rem; }
+      
+      header { position: sticky; top: 0; z-index: 1000; }
+      
       .nav-links {
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 60px; left: 0; width: 100%;
-        background: var(--card-bg);
-        padding: 20px;
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        top: 100%; left: 0; width: 100%;
+        background: #fff;
+        border-bottom: 1px solid var(--border-color);
+        padding: 15px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       }
       .nav-links.active { display: flex; }
       .menu-toggle { display: block; }
       
       .about-grid { grid-template-columns: 1fr; }
       
-      .pub-card { flex-direction: column; }
-      .pub-thumb { width: 100%; height: 120px; }
+      .pub-card { flex-direction: row; }
     }
   </style>
 </head>
@@ -264,7 +379,7 @@
 
   <header>
     <nav>
-      <a href="#" class="logo">GF.</a>
+      <a href="#" class="logo">Guilherme Felipetto</a>
       <div class="menu-toggle" id="mobile-menu">
         <i class="fas fa-bars"></i>
       </div>
@@ -283,46 +398,48 @@
     <div class="hero-content">
       <h1>Guilherme Felipetto</h1>
       <h2>Cientista de Dados | Mestrando IME-USP</h2>
-      <p style="color: #94a3b8; max-width: 600px; margin: 0 auto;">
-        Sócio-proprietário na YGG Tecnologia e Pesquisador no grupo BeeData (USP). Especialista em Visão Computacional, Python e C++.
+      <p>
+        <strong>Guilherme Felipetto</strong> é Sócio-proprietário na YGG Tecnologia e Pesquisador no grupo BeeData (USP). É especialista em Visão Computacional, Python e C++.
       </p>
       
-      <div style="margin-top: 25px;">
-        <a href="https://github.com/guilhermefelipetto" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/felipetto/" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i></a>
-        <a href="http://lattes.cnpq.br/5022544975028340" target="_blank" class="social-btn"><i class="fas fa-graduation-cap"></i></a>
+      <div style="margin-top: 15px;">
+        <a href="https://github.com/guilhermefelipetto" target="_blank" class="social-btn"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://www.linkedin.com/in/felipetto/" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="http://lattes.cnpq.br/5022544975028340" target="_blank" class="social-btn"><i class="fas fa-graduation-cap"></i> Lattes</a>
       </div>
 
+      <!-- Mantido classe, mas visual mudado no CSS -->
       <a href="#projetos" class="btn-primary">Ver Portfólio</a>
     </div>
   </section>
 
   <section id="sobre">
-    <h2 class="section-title">Sobre Mim</h2>
+    <h2 class="section-title">Sobre</h2>
     <div class="about-grid">
       <div>
         <p style="margin-bottom: 15px;">
-          Atualmente sou aluno de mestrado em Ciência da Computação no <strong>IME-USP</strong> (Instituto de Matemática e Estatística da USP) e membro da equipe de gestão do grupo de pesquisa <strong>BeeData</strong>.
+          Atualmente aluno de mestrado em Ciência da Computação no <strong>Instituto de Matemática e Estatística da USP</strong> e membro da equipe de gestão do grupo de pesquisa <strong>BeeData</strong> (IME-USP).
         </p>
         <p style="margin-bottom: 15px;">
-          Formado em Ciência de Dados pela Faculdade Donaduzzi, acumulo mais de 5 anos de experiência em tecnologia. Minha trajetória começou cedo, estudando ao lado do meu pai, engenheiro de computação, o que moldou minha base técnica sólida.
+        Formado em Ciência de Dados pela Faculdade Donaduzzi, acumula mais de 5 anos de experiência em tecnologia. Sua trajetória começou cedo, estudando ao lado de seu pai, engenheiro de computação, que moldou uma base técnica sólida.
         </p>
         <p>
-          Hoje, atuo como sócio na <strong>YGG Tecnologia</strong>, desenvolvendo soluções avançadas de IA, com foco em Visão Computacional, Processamento de Áudio e Sistemas Web.
+          Atua como sócio na <strong>YGG Tecnologia</strong>, desenvolvendo soluções avançadas de IA, com foco em Visão Computacional, Processamento de Áudio e Sistemas Web.
         </p>
       </div>
       <div>
-        <h3 style="margin-bottom: 15px; color: #fff;">Competências</h3>
+        <!-- Visual de InfoBox da Wikipedia -->
+        <h3>Competências</h3>
         <div class="skills-tags">
           <span>Python</span>
           <span>C / C++</span>
+          <span>Java</span>
+          <span>MLflow</span>
           <span>TensorFlow</span>
           <span>Visão Computacional</span>
-          <span>MLflow</span>
-          <span>ETL & SQL</span>
-          <span>Node.js</span>
-          <span>Flutter</span>
+          <span>ETL & PSQL / MySQL</span>
           <span>Inglês Fluente</span>
+          <span>Node.js</span>
         </div>
       </div>
     </div>
@@ -336,7 +453,7 @@
         <span class="role">Membro da Equipe de Gestão (Pesquisador)</span>
         <span class="company">BeeData (IME-USP)</span>
       </div>
-      <span class="date">Jul 2025 - Presente</span>
+      <span class="date">Jul 2025 - <strong>Presente</strong></span>
       <p class="description">
         Participação em competições e projetos práticos de ciência de dados, aprimorando habilidades em coleta, limpeza, análise de dados e machine learning.
       </p>
@@ -347,7 +464,7 @@
         <span class="role">Cientista de Dados & Sócio</span>
         <span class="company">YGG Tecnologia</span>
       </div>
-      <span class="date">Jun 2024 - Presente</span>
+      <span class="date">Jun 2024 - <strong>Presente</strong></span>
       <p class="description">
         Desenvolvimento de modelos de ML focados em visão computacional e NLP (TensorFlow). Atuação como Fullstack (Node.js), criação de pipelines e deploy de modelos (MLFlow) e integrações AWS.
       </p>
@@ -356,7 +473,7 @@
     <div class="timeline-item">
       <div class="timeline-header">
         <span class="role">Estágio em Ciência de Dados</span>
-        <span class="company">YGG Tecnologia / Autônomo</span>
+        <span class="company">YGG Tecnologia</span>
       </div>
       <span class="date">Jul 2024 - Jun 2025</span>
       <p class="description">
@@ -439,11 +556,9 @@
     <div class="pub-grid">
 
       <!-- Artigo 1 -->
-      <!-- Para colocar uma imagem real, adicione <img src="caminho/da/imagem.jpg"> dentro da div .pub-thumb -->
       <a href="#" class="pub-card" target="_blank">
         <div class="pub-thumb">
           <i class="far fa-file-alt"></i>
-          <!-- <img src="assets/print-artigo-1.jpg" alt="Preview do Artigo"> -->
         </div>
         <div class="pub-content">
           <h3>Controle de Qualidade Avançado na Indústria Farmacêutica</h3>
@@ -502,9 +617,9 @@
     </div>
   </section>
 
-  <section id="contato" style="text-align: center;">
-    <h2 class="section-title" style="border: none; padding: 0;">Contato</h2>
-    <p style="color: #94a3b8; margin-bottom: 30px;">
+  <section id="contato" style="text-align: left; padding-bottom: 60px;">
+    <h2 class="section-title">Contato</h2>
+    <p style="margin-bottom: 20px;">
       São Paulo, SP • (45) 98800-4664
     </p>
     <a href="mailto:guilherme.g.felipetto@gmail.com" class="btn-primary">
@@ -513,8 +628,8 @@
   </section>
 
   <footer>
-    <p>&copy; 2025 Guilherme Felipetto. Todos os direitos reservados.</p>
-    <p style="font-size: 0.8rem; margin-top: 10px;">Atualizado em Dez/2025</p>
+    <p>Esta página foi editada pela última vez em Dezembro de 2025.</p>
+    <p>&copy; 2025 Guilherme Felipetto.</p>
   </footer>
 
   <script>

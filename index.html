@@ -3,110 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guilherme Felipetto | Data Scientist</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>Guilherme Felipetto | Cientista de Dados</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg-color: #0f172a;
-      --text-color: #e2e8f0;
-      --accent-color: #38bdf8;
-      --secondary-text: #94a3b8;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-primary: #202122;
+      --text-secondary: #54595d;
+      --link-color: #0645ad;
+      --border-color: #a2a9b1;
+      --btn-bg: #f8f9fa;
+      --btn-hover: #e2e2e2;
     }
 
     body {
       margin: 0;
       padding: 0;
       background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      font-family: 'Open Sans', sans-serif;
       height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      overflow: hidden;
+      text-align: left;
     }
 
     .container {
-      padding: 20px;
-      animation: fadeIn 1.5s ease-out;
+      background: var(--card-bg);
+      padding: 40px;
+      border: 1px solid var(--border-color);
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
 
     h1 {
-      font-size: 3.5rem;
-      margin: 0;
-      font-weight: 700;
-      background: linear-gradient(to right, #38bdf8, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-family: 'Merriweather', serif;
+      font-size: 1.8rem;
+      margin: 0 0 15px 0;
+      font-weight: 400;
+      color: #000;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      background: none;
+      -webkit-text-fill-color: initial;
     }
 
     p.subtitle {
-      font-size: 1.2rem;
-      color: var(--secondary-text);
-      margin-top: 10px;
-      margin-bottom: 40px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-top: 0;
+      margin-bottom: 30px;
+      line-height: 1.5;
     }
 
     .btn {
       display: inline-block;
-      padding: 15px 30px;
-      background-color: transparent;
-      border: 2px solid var(--accent-color);
-      color: var(--accent-color);
+      padding: 8px 16px;
+      background-color: var(--btn-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
       text-decoration: none;
       font-weight: 600;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      font-size: 1rem;
+      border-radius: 2px;
+      transition: background-color 0.2s;
+      font-size: 0.9rem;
+      text-align: center;
     }
 
     .btn:hover {
-      background-color: var(--accent-color);
-      color: var(--bg-color);
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-      transform: translateY(-3px);
+      background-color: var(--btn-hover);
+      color: var(--text-primary);
+      text-decoration: none;
+      box-shadow: none;
+      transform: none;
+      cursor: pointer;
     }
 
     .social-links {
       margin-top: 30px;
+      padding-top: 15px;
+      border-top: 1px solid #eaecf0;
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      gap: 15px;
+      justify-content: flex-start;
+      font-size: 0.85rem;
     }
 
     .social-links a {
-      color: var(--secondary-text);
+      color: var(--link-color);
       text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.3s;
+      transition: none;
     }
 
     .social-links a:hover {
-      color: var(--accent-color);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      color: #0b0080;
+      text-decoration: underline;
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2.5rem; }
+      h1 { font-size: 1.5rem; }
+      .container { padding: 25px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Guilherme Felipetto</h1>
-    <p class="subtitle">Cientista de Dados • Pesquisador • Desenvolvedor</p>
+    <p class="subtitle">
+      Cientista de Dados, Pesquisador e Desenvolvedor. 
+      <br><span style="font-size: 0.85rem; color: #54595d;">Página de acesso principal.</span>
+    </p>
     
     <a href="portifolio/" class="btn">Acessar Portfólio & CV</a>
 
     <div class="social-links">
       <a href="https://github.com/guilhermefelipetto" target="_blank">GitHub</a>
+      <span>•</span>
       <a href="https://www.linkedin.com/in/felipetto/" target="_blank">LinkedIn</a>
+      <span>•</span>
       <a href="http://lattes.cnpq.br/5022544975028340" target="_blank">Lattes</a>
     </div>
   </div>
