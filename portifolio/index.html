@@ -6,22 +6,20 @@
   <meta name="description" content="Portfólio de Guilherme Felipetto - Cientista de Dados e Desenvolvedor">
   <title>Guilherme Felipetto | Data Scientist</title>
   
-  <!-- Adicionei Merriweather para os títulos (estilo sério/acadêmico) e mantive Open Sans para leitura -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <style>
     :root {
-      /* Paleta Wikipedia / Acadêmica */
       --bg-color: #ffffff;
       --content-bg: #ffffff;
-      --text-primary: #202122;     /* Cor padrão de texto Wiki */
+      --text-primary: #202122;
       --text-secondary: #54595d;
-      --link-color: #0645ad;       /* Azul clássico de hiperlink */
+      --link-color: #0645ad;
       --link-visited: #0b0080;
-      --border-color: #a2a9b1;     /* Cinza das bordas de tabelas/h2 */
-      --accent: #eaecf0;           /* Fundo cinza claro para boxes */
+      --border-color: #a2a9b1;
+      --accent: #eaecf0;
       --accent-hover: #f8f9fa;
     }
 
@@ -30,23 +28,22 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Open Sans', sans-serif; /* Corpo do texto sem serifa para leitura */
+      font-family: 'Open Sans', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-primary);
       line-height: 1.6;
       font-size: 16px;
     }
 
-    /* --- HEADER (Estilo barra de navegação simples) --- */
     header {
-      position: relative; /* Removemos o fixed para parecer documento corrido */
+      position: relative;
       background: #f8f9fa;
       border-bottom: 1px solid var(--border-color);
       padding: 10px 0;
     }
 
     nav {
-      max-width: 960px; /* Largura padrão de leitura */
+      max-width: 960px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -73,15 +70,14 @@
 
     .menu-toggle { display: none; font-size: 1.2rem; cursor: pointer; color: var(--text-primary); }
 
-    /* --- HERO (Estilo Resumo/Abstract) --- */
     .hero {
       min-height: auto;
       padding: 60px 15px 40px;
       background: transparent;
-      text-align: left; /* Acadêmico é alinhado à esquerda */
+      text-align: left;
       max-width: 960px;
       margin: 0 auto;
-      display: block; /* Removemos flex center */
+      display: block;
       border-bottom: 1px solid var(--border-color);
     }
 
@@ -112,7 +108,6 @@
       text-align: justify;
     }
 
-    /* Ajuste dos ícones sociais para parecerem referências */
     .social-btn {
       display: inline-block;
       margin-right: 15px;
@@ -122,7 +117,6 @@
     }
     .social-btn:hover { color: var(--link-color); transform: none; }
 
-    /* Botão estilo Wikipedia (link simples ou botão cinza padrão) */
     .btn-primary {
       display: inline-block;
       margin-top: 20px;
@@ -140,7 +134,6 @@
       text-decoration: none;
     }
 
-    /* --- SEÇÕES GERAIS --- */
     section { 
       padding: 40px 15px; 
       max-width: 960px; 
@@ -158,10 +151,9 @@
       color: #000;
     }
 
-    /* --- SOBRE (Tabela de InfoBox simulada) --- */
     .about-grid {
       display: flex;
-      flex-direction: column-reverse; /* Conteúdo primeiro, box depois em mobile */
+      flex-direction: column-reverse;
       gap: 30px;
     }
     @media(min-width: 768px) { 
@@ -171,7 +163,6 @@
         align-items: start;
       } 
       
-      /* Simula a "InfoBox" da Wikipedia na direita */
       .about-grid > div:last-child {
         border: 1px solid var(--border-color);
         background: #f8f9fa;
@@ -196,7 +187,7 @@
 
     .skills-tags span {
       display: inline-block;
-      color: var(--link-color); /* Parecer links de categorias */
+      color: var(--link-color);
       padding: 0;
       margin: 0 5px 5px 0;
       font-size: 0.9rem;
@@ -208,7 +199,6 @@
     }
     .skills-tags span:last-child::after { content: ""; }
 
-    /* --- TIMELINE (Estilo Lista de Definições) --- */
     .timeline-item {
       background: transparent;
       padding: 0;
@@ -247,7 +237,6 @@
       text-align: justify;
     }
 
-    /* --- PROJETOS (Estilo Galeria/Grid simples) --- */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -291,7 +280,6 @@
       color: var(--text-primary); 
     }
 
-    /* --- PUBLICAÇÕES (Estilo Referência Bibliográfica) --- */
     .pub-grid {
       gap: 15px;
     }
@@ -339,7 +327,6 @@
     .pub-meta { font-size: 0.85rem; color: #000; font-style: italic; margin-bottom: 4px; }
     .pub-desc { font-size: 0.9rem; color: var(--text-primary); }
 
-    /* --- FOOTER --- */
     footer {
       text-align: center;
       padding: 30px;
@@ -350,7 +337,6 @@
       margin-top: 50px;
     }
 
-    /* --- RESPONSIVO --- */
     @media (max-width: 768px) {
       .hero-content h1 { font-size: 2rem; }
       
@@ -408,7 +394,6 @@
         <a href="http://lattes.cnpq.br/5022544975028340" target="_blank" class="social-btn"><i class="fas fa-graduation-cap"></i> Lattes</a>
       </div>
 
-      <!-- Mantido classe, mas visual mudado no CSS -->
       <a href="#projetos" class="btn-primary">Ver Portfólio</a>
     </div>
   </section>
@@ -428,7 +413,6 @@
         </p>
       </div>
       <div>
-        <!-- Visual de InfoBox da Wikipedia -->
         <h3>Competências</h3>
         <div class="skills-tags">
           <span>Python</span>
@@ -558,7 +542,7 @@
       <!-- Artigo 1 -->
       <a href="#" class="pub-card" target="_blank">
         <div class="pub-thumb">
-          <i class="far fa-file-alt"></i>
+          <img src="assets/controle-de-qualidade-avancado-na-industria-farmaceutica.png" alt="Miniatura do Artigo">
         </div>
         <div class="pub-content">
           <h3>Controle de Qualidade Avançado na Indústria Farmacêutica</h3>
