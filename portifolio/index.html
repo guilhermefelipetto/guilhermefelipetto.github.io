@@ -36,10 +36,13 @@
     }
 
     header {
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
       background: #f8f9fa;
       border-bottom: 1px solid var(--border-color);
       padding: 10px 0;
+      width: 100%;
     }
 
     nav {
@@ -339,9 +342,7 @@
 
     @media (max-width: 768px) {
       .hero-content h1 { font-size: 2rem; }
-      
-      header { position: sticky; top: 0; z-index: 1000; }
-      
+            
       .nav-links {
         display: none;
         flex-direction: column;
