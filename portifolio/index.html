@@ -27,6 +27,9 @@
     
     html { scroll-behavior: smooth; }
 
+    body.lang-pt .en { display: none !important; }
+    body.lang-en .pt { display: none !important; }
+
     body {
       font-family: 'Open Sans', sans-serif;
       background-color: var(--bg-color);
@@ -62,7 +65,13 @@
       text-decoration: none; 
     }
     
-    .nav-links { list-style: none; display: flex; gap: 20px; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
     .nav-links a {
       color: var(--link-color);
       text-decoration: none;
@@ -70,6 +79,22 @@
       font-weight: 400;
     }
     .nav-links a:hover { text-decoration: underline; }
+
+    .lang-btn {
+      background: var(--accent);
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: background 0.2s;
+    }
+    .lang-btn:hover {
+      background: #dcdfe3;
+    }
 
     .menu-toggle { display: none; font-size: 1.2rem; cursor: pointer; color: var(--text-primary); }
 
@@ -362,31 +387,39 @@
     }
   </style>
 </head>
-<body>
+<body class="lang-pt">
 
   <header>
     <nav>
       <a href="#" class="logo">Guilherme Felipetto</a>
-      <div class="menu-toggle" id="mobile-menu">
-        <i class="fas fa-bars"></i>
+      
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#sobre"><span class="pt">Sobre</span><span class="en">About</span></a></li>
+          <li><a href="#experiencia"><span class="pt">Experiência</span><span class="en">Experience</span></a></li>
+          <li><a href="#projetos"><span class="pt">Projetos</span><span class="en">Projects</span></a></li>
+          <li><a href="#publicacoes"><span class="pt">Publicações</span><span class="en">Publications</span></a></li>
+          <li><a href="#formacao"><span class="pt">Formação</span><span class="en">Education</span></a></li>
+          <li><a href="#contato"><span class="pt">Contato</span><span class="en">Contact</span></a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-btn">EN</button>
+        <div class="menu-toggle" id="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </div>
       </div>
-      <ul class="nav-links">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#experiencia">Experiência</a></li>
-        <li><a href="#projetos">Projetos</a></li>
-        <li><a href="#publicacoes">Publicações</a></li>
-        <li><a href="#formacao">Formação</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
     </nav>
   </header>
 
   <section class="hero">
     <div class="hero-content">
       <h1>Guilherme Felipetto</h1>
-      <h2>Cientista de Dados | Mestrando IME-USP</h2>
+      <h2>
+        <span class="pt">Cientista de Dados | Mestrando IME-USP</span>
+        <span class="en">Data Scientist | Master's Student at IME-USP</span>
+      </h2>
       <p>
-        <strong>Guilherme Felipetto</strong> é Sócio-proprietário na YGG Tecnologia e Pesquisador no grupo BeeData (IME-USP) e aluno do Programa de Pós-Graduação em Ciência da Computação na USP. É especialista em Visão Computacional, Python e C++.
+        <span class="pt"><strong>Guilherme Felipetto</strong> é Sócio-proprietário na YGG Tecnologia e Pesquisador no grupo BeeData (IME-USP) e aluno do Programa de Pós-Graduação em Ciência da Computação na USP. É especialista em Visão Computacional, Python e C++.</span>
+        <span class="en"><strong>Guilherme Felipetto</strong> is a Co-owner at YGG Tecnologia, a Researcher at the BeeData group (IME-USP), and a student in the Computer Science Graduate Program at USP. He specializes in Computer Vision, Python, and C++.</span>
       </p>
       
       <div style="margin-top: 15px;">
@@ -395,26 +428,38 @@
         <a href="http://lattes.cnpq.br/5022544975028340" target="_blank" class="social-btn"><i class="fas fa-graduation-cap"></i> Lattes</a>
       </div>
 
-      <a href="#projetos" class="btn-primary">Ver Portfólio</a>
+      <a href="#projetos" class="btn-primary">
+        <span class="pt">Ver Portfólio</span>
+        <span class="en">View Portfolio</span>
+      </a>
     </div>
   </section>
 
   <section id="sobre">
-    <h2 class="section-title">Sobre</h2>
+    <h2 class="section-title">
+      <span class="pt">Sobre</span>
+      <span class="en">About</span>
+    </h2>
     <div class="about-grid">
       <div>
         <p style="margin-bottom: 15px;">
-          Atualmente aluno de mestrado em Ciência da Computação no <strong>Instituto de Matemática e Estatística da USP</strong> e membro da equipe de gestão do grupo de pesquisa <strong>BeeData</strong> (IME-USP).
+          <span class="pt">Atualmente aluno de mestrado em Ciência da Computação no <strong>Instituto de Matemática e Estatística da USP</strong> e membro da equipe de gestão do grupo de pesquisa <strong>BeeData</strong> (IME-USP).</span>
+          <span class="en">Currently a Master's student in Computer Science at the <strong>Institute of Mathematics and Statistics at USP</strong> and a management team member of the <strong>BeeData</strong> research group (IME-USP).</span>
         </p>
         <p style="margin-bottom: 15px;">
-        Formado em Ciência de Dados pela Faculdade Donaduzzi, acumula mais de 5 anos de experiência em tecnologia. Sua trajetória começou cedo, estudando ao lado de seu pai, engenheiro de computação, que moldou uma base técnica sólida.
+          <span class="pt">Formado em Ciência de Dados pela Faculdade Donaduzzi, acumula mais de 5 anos de experiência em tecnologia. Sua trajetória começou cedo, estudando ao lado de seu pai, engenheiro de computação, que moldou uma base técnica sólida.</span>
+          <span class="en">Graduated in Data Science from Faculdade Donaduzzi, he has over 5 years of experience in technology. His journey started early, studying alongside his father, a computer engineer, who shaped a solid technical foundation.</span>
         </p>
         <p>
-          Atua como sócio na <strong>YGG Tecnologia</strong>, desenvolvendo soluções avançadas de IA, com foco em Visão Computacional, Processamento de Áudio e Sistemas Web.
+          <span class="pt">Atua como sócio na <strong>YGG Tecnologia</strong>, desenvolvendo soluções avançadas de IA, com foco em Visão Computacional, Processamento de Áudio e Sistemas Web.</span>
+          <span class="en">He acts as a partner at <strong>YGG Tecnologia</strong>, developing advanced AI solutions, focusing on Computer Vision, Audio Processing, and Web Systems.</span>
         </p>
       </div>
       <div>
-        <h3>Competências</h3>
+        <h3>
+          <span class="pt">Competências</span>
+          <span class="en">Skills</span>
+        </h3>
         <div class="skills-tags">
           <span>Python</span>
           <span>C / C++</span>
@@ -424,111 +469,162 @@
           <span>TensorFlow</span>
           <span>ETL & PSQL / MySQL</span>
           <span>Visão Computacional</span>
-          <span>Inglês Fluente</span>
+          <span>
+            <span class="pt">Inglês Fluente</span>
+            <span class="en">Fluent English</span>
+          </span>
         </div>
       </div>
     </div>
   </section>
 
   <section id="experiencia">
-    <h2 class="section-title">Experiência Profissional</h2>
+    <h2 class="section-title">
+      <span class="pt">Experiência Profissional</span>
+      <span class="en">Professional Experience</span>
+    </h2>
     
     <div class="timeline-item">
       <div class="timeline-header">
-        <span class="role">Membro da Equipe de Gestão (Pesquisador)</span>
+        <span class="role">
+          <span class="pt">Membro da Equipe de Gestão (Pesquisador)</span>
+          <span class="en">Management Team Member (Researcher)</span>
+        </span>
         <span class="company">BeeData (IME-USP)</span>
       </div>
-      <span class="date">Jul 2025 - <strong>Presente</strong></span>
+      <span class="date">
+        <span class="pt">Jul 2025 - <strong>Presente</strong></span>
+        <span class="en">Jul 2025 - <strong>Present</strong></span>
+      </span>
       <p class="description">
-        Participação em competições e projetos práticos de ciência de dados, aprimorando habilidades em coleta, limpeza, análise de dados e machine learning.
+        <span class="pt">Participação em competições e projetos práticos de ciência de dados, aprimorando habilidades em coleta, limpeza, análise de dados e machine learning.</span>
+        <span class="en">Participation in data science competitions and practical projects, improving skills in data collection, cleaning, analysis, and machine learning.</span>
       </p>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-header">
-        <span class="role">Cientista de Dados & Sócio</span>
+        <span class="role">
+          <span class="pt">Cientista de Dados & Sócio</span>
+          <span class="en">Data Scientist & Partner</span>
+        </span>
         <span class="company">YGG Tecnologia</span>
       </div>
-      <span class="date">Jun 2024 - <strong>Presente</strong></span>
+      <span class="date">
+        <span class="pt">Jun 2024 - <strong>Presente</strong></span>
+        <span class="en">Jun 2024 - <strong>Present</strong></span>
+      </span>
       <p class="description">
-        Desenvolvimento de modelos de ML focados em visão computacional e NLP (TensorFlow). Atuação como Fullstack (Node.js), criação de pipelines e deploy de modelos (MLFlow) e integrações AWS.
+        <span class="pt">Desenvolvimento de modelos de ML focados em visão computacional e NLP (TensorFlow). Atuação como Fullstack (Node.js), criação de pipelines e deploy de modelos (MLFlow) e integrações AWS.</span>
+        <span class="en">Development of ML models focused on computer vision and NLP (TensorFlow). Worked as a Fullstack developer (Node.js), creating pipelines, deploying models (MLFlow), and AWS integrations.</span>
       </p>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-header">
-        <span class="role">Estágio em Ciência de Dados</span>
+        <span class="role">
+          <span class="pt">Estágio em Ciência de Dados</span>
+          <span class="en">Data Science Internship</span>
+        </span>
         <span class="company">YGG Tecnologia</span>
       </div>
       <span class="date">Jul 2024 - Jun 2025</span>
       <p class="description">
-        Início de projetos de aprendizado de máquina focados em visão computacional e processamento de linguagem natural com Python.
+        <span class="pt">Início de projetos de aprendizado de máquina focados em visão computacional e processamento de linguagem natural com Python.</span>
+        <span class="en">Initiation of machine learning projects focused on computer vision and natural language processing with Python.</span>
       </p>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-header">
-        <span class="role">Analista de Dados</span>
+        <span class="role">
+          <span class="pt">Analista de Dados</span>
+          <span class="en">Data Analyst</span>
+        </span>
         <span class="company">Biopark</span>
       </div>
       <span class="date">Jun 2023 - Jun 2024</span>
       <p class="description">
-        Análise de dados utilizando Python, VBA para Excel, Power BI e PostgreSQL. Desenvolvimento web com Django.
+        <span class="pt">Análise de dados utilizando Python, VBA para Excel, Power BI e PostgreSQL. Desenvolvimento web com Django.</span>
+        <span class="en">Data analysis using Python, VBA for Excel, Power BI, and PostgreSQL. Web development with Django.</span>
       </p>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-header">
-        <span class="role">Desenvolvedor</span>
+        <span class="role">
+          <span class="pt">Desenvolvedor</span>
+          <span class="en">Developer</span>
+        </span>
         <span class="company">CES Sistemas</span>
       </div>
       <span class="date">Jan 2021 - Jan 2022</span>
       <p class="description">
-        Desenvolvimento de relatórios (XtraReport/SQL) e aplicativos mobile utilizando Xamarin e C#.
+        <span class="pt">Desenvolvimento de relatórios (XtraReport/SQL) e aplicativos mobile utilizando Xamarin e C#.</span>
+        <span class="en">Development of reports (XtraReport/SQL) and mobile applications using Xamarin and C#.</span>
       </p>
     </div>
   </section>
 
   <section id="projetos">
-    <h2 class="section-title">Projetos Técnicos</h2>
+    <h2 class="section-title">
+      <span class="pt">Projetos Técnicos</span>
+      <span class="en">Technical Projects</span>
+    </h2>
     <div class="projects-grid">
       
       <div class="project-card">
         <div class="project-content">
-          <h3>Clonagem de Voz (TTS)</h3>
+          <h3>
+            <span class="pt">Clonagem de Voz (TTS)</span>
+            <span class="en">Voice Cloning (TTS)</span>
+          </h3>
           <div class="project-tags">Python • Deep Learning • Audio</div>
           <p>
-            Desenvolvimento de modelos Text-To-Speech para clonagem de voz. Projeto premiado como 2º melhor minicurso ministrado no Biopark.
+            <span class="pt">Desenvolvimento de modelos Text-To-Speech para clonagem de voz. Projeto premiado como 2º melhor minicurso ministrado no Biopark.</span>
+            <span class="en">Development of Text-To-Speech models for voice cloning. Project awarded as the 2nd best short course taught at Biopark.</span>
           </p>
         </div>
       </div>
 
       <div class="project-card">
         <div class="project-content">
-          <h3>Controle de Qualidade Farmacêutico</h3>
+          <h3>
+            <span class="pt">Controle de Qualidade Farmacêutico</span>
+            <span class="en">Pharmaceutical Quality Control</span>
+          </h3>
           <div class="project-tags">Computer Vision • C++ • Indústria 4.0</div>
           <p>
-            Sistema de visão computacional para detecção automática de desvios em carimbos de cartonagens, garantindo integridade do produto.
+            <span class="pt">Sistema de visão computacional para detecção automática de desvios em carimbos de cartonagens, garantindo integridade do produto.</span>
+            <span class="en">Computer vision system for automatic detection of deviations in carton stamps, ensuring product integrity.</span>
           </p>
         </div>
       </div>
 
       <div class="project-card">
         <div class="project-content">
-          <h3>App Gerenciamento de Aviários</h3>
+          <h3>
+            <span class="pt">App Gerenciamento de Aviários</span>
+            <span class="en">Poultry Farm Management App</span>
+          </h3>
           <div class="project-tags">Hackathon Show Rural 2025</div>
           <p>
-            Aplicativo desenvolvido para gerenciamento de aviários com foco no combate à amônia.
+            <span class="pt">Aplicativo desenvolvido para gerenciamento de aviários com foco no combate à amônia.</span>
+            <span class="en">Application developed for poultry farm management with a focus on combating ammonia.</span>
           </p>
         </div>
       </div>
 
       <div class="project-card">
         <div class="project-content">
-          <h3>Projeção de Relevo (Sandbox)</h3>
+          <h3>
+            <span class="pt">Projeção de Relevo (Sandbox)</span>
+            <span class="en">Relief Projection (Sandbox)</span>
+          </h3>
           <div class="project-tags">Kinect • Interatividade</div>
           <p>
-            Demonstração prática de visão computacional aplicada a uma caixa de areia interativa para ensino de topografia.
+            <span class="pt">Demonstração prática de visão computacional aplicada a uma caixa de areia interativa para ensino de topografia.</span>
+            <span class="en">Practical demonstration of computer vision applied to an interactive sandbox for teaching topography.</span>
           </p>
         </div>
       </div>
@@ -537,7 +633,10 @@
   </section>
 
   <section id="publicacoes">
-    <h2 class="section-title">Publicações Acadêmicas</h2>
+    <h2 class="section-title">
+      <span class="pt">Publicações Acadêmicas</span>
+      <span class="en">Academic Publications</span>
+    </h2>
     <div class="pub-grid">
 
       <!-- Artigo 1 -->
@@ -546,10 +645,17 @@
           <i class="far fa-file-alt"></i>
         </div>
         <div class="pub-content">
-          <h3>Controle de Qualidade Avançado na Indústria Farmacêutica - Automação na Detecção de Desvios em Carimbos</h3>
-          <div class="pub-meta">Congresso Interdisciplinar de Pesquisa e Inovação do Biopark II</div>
+          <h3>
+            <span class="pt">Controle de Qualidade Avançado na Indústria Farmacêutica - Automação na Detecção de Desvios em Carimbos</span>
+            <span class="en">Advanced Quality Control in the Pharmaceutical Industry - Automation in Stamp Deviation Detection</span>
+          </h3>
+          <div class="pub-meta">
+            <span class="pt">Congresso Interdisciplinar de Pesquisa e Inovação do Biopark II</span>
+            <span class="en">II Interdisciplinary Congress of Research and Innovation at Biopark</span>
+          </div>
           <p class="pub-desc">
-            Publicado no congresso. Aborda o uso de visão computacional para garantir a integridade e segurança de produtos farmacêuticos.
+            <span class="pt">Publicado no congresso. Aborda o uso de visão computacional para garantir a integridade e segurança de produtos farmacêuticos.</span>
+            <span class="en">Published in the congress. Discusses the use of computer vision to ensure the integrity and safety of pharmaceutical products.</span>
           </p>
         </div>
       </a>
@@ -560,10 +666,17 @@
           <i class="far fa-file-alt"></i>
         </div>
         <div class="pub-content">
-          <h3>Tecnologia Assistiva Multimodal para Interfaces Gráficas</h3>
-          <div class="pub-meta">Latinoware - Anais (2025) - Full Paper</div>
+          <h3>
+            <span class="pt">Tecnologia Assistiva Multimodal para Interfaces Gráficas</span>
+            <span class="en">Multimodal Assistive Technology for Graphical Interfaces</span>
+          </h3>
+          <div class="pub-meta">
+            <span class="pt">Latinoware - Anais (2025) - Full Paper</span>
+            <span class="en">Latinoware - Proceedings (2025) - Full Paper</span>
+          </div>
           <p class="pub-desc">
-            Coautores: Felipetto, G.; Tampelini, L. G.; Honorio, C. Descrição de interfaces gráficas para pessoas cegas com visão computacional.
+            <span class="pt">Coautores: Felipetto, G.; Tampelini, L. G.; Honorio, C. Descrição de interfaces gráficas para pessoas cegas com visão computacional.</span>
+            <span class="en">Co-authors: Felipetto, G.; Tampelini, L. G.; Honorio, C. Description of graphical interfaces for blind people using computer vision.</span>
           </p>
         </div>
       </a>
@@ -572,48 +685,80 @@
   </section>
 
   <section id="formacao">
-    <h2 class="section-title">Formação Acadêmica</h2>
+    <h2 class="section-title">
+      <span class="pt">Formação Acadêmica</span>
+      <span class="en">Academic Education</span>
+    </h2>
     
     <div class="timeline-item">
       <div class="timeline-header">
-        <span class="role">Mestrado Acadêmico (Ciência da Computação)</span>
+        <span class="role">
+          <span class="pt">Mestrado Acadêmico (Ciência da Computação)</span>
+          <span class="en">Master's Degree (Computer Science)</span>
+        </span>
         <span class="company">Universidade de São Paulo (IME-USP)</span>
       </div>
-      <span class="date">Jun 2025 - Jun 2028 (Previsão)</span>
-      <p class="description">Pós-graduação Stricto Sensu. Foco em Visão Computacional.</p>
+      <span class="date">
+        <span class="pt">Jun 2025 - Jun 2028 (Previsão)</span>
+        <span class="en">Jun 2025 - Jun 2028 (Expected)</span>
+      </span>
+      <p class="description">
+        <span class="pt">Pós-graduação Stricto Sensu. Foco em Visão Computacional.</span>
+        <span class="en">Stricto Sensu Graduate Program. Focus on Computer Vision.</span>
+      </p>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-header">
-        <span class="role">Estudante Especial (Estatística e Probabilidade)</span>
+        <span class="role">
+          <span class="pt">Estudante Especial (Estatística e Probabilidade)</span>
+          <span class="en">Special Student (Statistics and Probability)</span>
+        </span>
         <span class="company">Universidade de São Paulo (IME-USP)</span>
       </div>
       <span class="date">Jul 2025 - Dez 2025</span>
-      <p class="description">Disciplinas isoladas de aprofundamento estatístico.</p>
+      <p class="description">
+        <span class="pt">Disciplinas isoladas de aprofundamento estatístico.</span>
+        <span class="en">Isolated courses for statistical deepening.</span>
+      </p>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-header">
-        <span class="role">Graduação em Ciência de Dados</span>
+        <span class="role">
+          <span class="pt">Graduação em Ciência de Dados</span>
+          <span class="en">Bachelor's Degree in Data Science</span>
+        </span>
         <span class="company">Faculdade Donaduzzi</span>
       </div>
       <span class="date">2023 - Jul 2025</span>
-      <p class="description">Ensino Superior. Base sólida em programação (R, Python) e análise de dados.</p>
+      <p class="description">
+        <span class="pt">Ensino Superior. Base sólida em programação (R, Python) e análise de dados.</span>
+        <span class="en">Higher Education. Solid foundation in programming (R, Python) and data analysis.</span>
+      </p>
     </div>
   </section>
 
   <section id="contato" style="text-align: left; padding-bottom: 60px;">
-    <h2 class="section-title">Contato</h2>
+    <h2 class="section-title">
+      <span class="pt">Contato</span>
+      <span class="en">Contact</span>
+    </h2>
     <p style="margin-bottom: 20px;">
       São Paulo, SP • (45) 98800-4664
     </p>
     <a href="mailto:guilherme.g.felipetto@gmail.com" class="btn-primary">
-      <i class="fas fa-envelope"></i> Enviar E-mail
+      <i class="fas fa-envelope"></i> 
+      <span class="pt">Enviar E-mail</span>
+      <span class="en">Send Email</span>
     </a>
   </section>
 
   <footer>
-    <p>Esta página foi editada pela última vez em Dezembro de 2025.</p>
+    <p>
+      <span class="pt">Esta página foi editada pela última vez em Dezembro de 2025.</span>
+      <span class="en">This page was last edited in December 2025.</span>
+    </p>
     <p>&copy; 2025 Guilherme Felipetto.</p>
   </footer>
 
@@ -629,6 +774,26 @@
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
       });
+    });
+
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const body = document.body;
+    const metaDesc = document.querySelector('meta[name="description"]');
+
+    langToggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('lang-pt')) {
+        body.classList.remove('lang-pt');
+        body.classList.add('lang-en');
+        langToggleBtn.textContent = 'PT-BR';
+        metaDesc.setAttribute('content', "Guilherme Felipetto's Portfolio - Data Scientist and Developer");
+        document.documentElement.lang = "en";
+      } else {
+        body.classList.remove('lang-en');
+        body.classList.add('lang-pt');
+        langToggleBtn.textContent = 'EN';
+        metaDesc.setAttribute('content', "Portfólio de Guilherme Felipetto - Cientista de Dados e Desenvolvedor");
+        document.documentElement.lang = "pt-BR";
+      }
     });
   </script>
 </body>
