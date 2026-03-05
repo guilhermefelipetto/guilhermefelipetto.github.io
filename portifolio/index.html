@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -247,10 +247,20 @@
       color: var(--text-primary); 
     }
     .company { 
+      display: inline-flex;
+      align-items: center;
       font-style: italic; 
       color: var(--text-secondary); 
     }
-    .company::before { content: " — "; }
+    .company-logo {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      vertical-align: middle;
+    }
+    .company-sep {
+      margin: 0 6px 0 4px;
+    }
     
     .date { 
       font-size: 0.85rem; 
@@ -418,8 +428,8 @@
         <span class="en">Data Scientist | Master's Student at IME-USP</span>
       </h2>
       <p>
-        <span class="pt"><strong>Guilherme Felipetto</strong> é Sócio-proprietário na YGG Tecnologia e Pesquisador no grupo BeeData (IME-USP) e aluno do Programa de Pós-Graduação em Ciência da Computação na USP. É especialista em Visão Computacional, Python e C++.</span>
-        <span class="en"><strong>Guilherme Felipetto</strong> is a Co-owner at YGG Tecnologia, a Researcher at the BeeData group (IME-USP), and a student in the Computer Science Graduate Program at USP. He specializes in Computer Vision, Python, and C++.</span>
+        <span class="pt"><strong>Guilherme Felipetto</strong> é Sócio-proprietário na YGG Tecnologia, Pesquisador, Membro da Gestão no grupo BeeData (IME-USP) e aluno do <strong>Programa de Pós-Graduação em Ciência da Computação na USP</strong>. É especialista em Visão Computacional, Python e C++.</span>
+        <span class="en"><strong>Guilherme Felipetto</strong> is a Co-owner at YGG Tecnologia, Researcher, Management Member at the BeeData group (IME-USP), and a student in the <strong>Computer Science Postgraduate Program at USP</strong>. He specializes in Computer Vision, Python, and C++.</span>
       </p>
       
       <div style="margin-top: 15px;">
@@ -443,16 +453,16 @@
     <div class="about-grid">
       <div>
         <p style="margin-bottom: 15px;">
-          <span class="pt">Atualmente aluno de mestrado em Ciência da Computação no <strong>Instituto de Matemática e Estatística da USP</strong> e membro da equipe de gestão do grupo de pesquisa <strong>BeeData</strong> (IME-USP).</span>
-          <span class="en">Currently a Master's student in Computer Science at the <strong>Institute of Mathematics and Statistics at USP</strong> and a management team member of the <strong>BeeData</strong> research group (IME-USP).</span>
+          <span class="pt">Atualmente aluno de mestrado em Ciência da Computação no <strong>Instituto de Matemática, Estatística e Ciência da Computação da USP</strong> e membro da equipe de gestão do grupo <strong>BeeData</strong> (IME-USP).</span>
+          <span class="en">Currently a Master's student in Computer Science at the <strong>Institute of Mathematics, Statistics and Computer Science at USP</strong> and a management team member of the <strong>BeeData</strong> group (IME-USP).</span>
         </p>
         <p style="margin-bottom: 15px;">
-          <span class="pt">Formado em Ciência de Dados pela Faculdade Donaduzzi, acumula mais de 5 anos de experiência em tecnologia. Sua trajetória começou cedo, estudando ao lado de seu pai, engenheiro de computação, que moldou uma base técnica sólida.</span>
-          <span class="en">Graduated in Data Science from Faculdade Donaduzzi, he has over 5 years of experience in technology. His journey started early, studying alongside his father, a computer engineer, who shaped a solid technical foundation.</span>
+          <span class="pt">Formado em Ciência de Dados pela Faculdade Donaduzzi (PR), acumula mais de 5 anos de experiência em tecnologia. Sua trajetória começou cedo, estudando ao lado de seu pai, engenheiro de computação, que moldou uma base técnica sólida.</span>
+          <span class="en">Graduated in Data Science from Faculdade Donaduzzi (PR), he has over 5 years of experience in technology. His journey started early, studying alongside his father, a computer engineer, who shaped a solid technical foundation.</span>
         </p>
         <p>
-          <span class="pt">Atua como sócio na <strong>YGG Tecnologia</strong>, desenvolvendo soluções avançadas de IA, com foco em Visão Computacional, Processamento de Áudio e Sistemas Web.</span>
-          <span class="en">He acts as a partner at <strong>YGG Tecnologia</strong>, developing advanced AI solutions, focusing on Computer Vision, Audio Processing, and Web Systems.</span>
+          <span class="pt">Atua como sócio na <strong>YGG Tecnologia</strong>, desenvolvendo soluções com aprendizado de máquina, com foco em Visão Computacional e Sistemas Web.</span>
+          <span class="en">He acts as a partner at <strong>YGG Tecnologia</strong>, developing solutions with machine learning, focusing on Computer Vision and Web Systems.</span>
         </p>
       </div>
       <div>
@@ -487,8 +497,8 @@
     <div class="timeline-item">
       <div class="timeline-header">
         <span class="role">
-          <span class="pt">Membro da Equipe de Gestão (Pesquisador)</span>
-          <span class="en">Management Team Member (Researcher)</span>
+          <span class="pt">Membro da Equipe de Gestão</span>
+          <span class="en">Management Team Member</span>
         </span>
         <span class="company">BeeData (IME-USP)</span>
       </div>
@@ -497,8 +507,8 @@
         <span class="en">Jul 2025 - <strong>Present</strong></span>
       </span>
       <p class="description">
-        <span class="pt">Participação em competições e projetos práticos de ciência de dados, aprimorando habilidades em coleta, limpeza, análise de dados e machine learning.</span>
-        <span class="en">Participation in data science competitions and practical projects, improving skills in data collection, cleaning, analysis, and machine learning.</span>
+        <span class="pt">Como membro do BeeData, participa de competições de ciência de dados e aprendizado de máquina, além de projetos práticos. Também ministra aulas técnicas online pelo grupo.</span>
+        <span class="en">As a member of BeeData, participates in data science and machine learning competitions as well as practical projects. Also delivers remote lectures and instructional sessions through the group.</span>
       </p>
     </div>
 
@@ -515,8 +525,8 @@
         <span class="en">Jun 2024 - <strong>Present</strong></span>
       </span>
       <p class="description">
-        <span class="pt">Desenvolvimento de modelos de ML focados em visão computacional e NLP (TensorFlow). Atuação como Fullstack (Node.js), criação de pipelines e deploy de modelos (MLFlow) e integrações AWS.</span>
-        <span class="en">Development of ML models focused on computer vision and NLP (TensorFlow). Worked as a Fullstack developer (Node.js), creating pipelines, deploying models (MLFlow), and AWS integrations.</span>
+        <span class="pt">Deu continuidade de projetos de machine learning focados em visão computacional e processamento de linguagem natural, gerenciando-os enquanto utilizava Python e TensorFlow. Também trabalhou no desenvolvimento de sistemas web como desenvolvedor fullstack (C# e Node.js), desenvolvendo extensões de navegador, integração com AWS e modelos de machine learning, além de construir pipelines e realizar o deploy de modelos de IA (MLflow) e Docker.</span>
+        <span class="en">Continued machine learning projects focused on computer vision and natural language processing, managing them while using Python and TensorFlow. Also worked in web system development as a fullstack developer (C# and Node.js), developing browser extensions, AWS integration and machine learning models, as well as building pipelines and deploying AI models (MLflow) and Docker.</span>
       </p>
     </div>
 
@@ -530,8 +540,8 @@
       </div>
       <span class="date">Jul 2024 - Jun 2025</span>
       <p class="description">
-        <span class="pt">Início de projetos de aprendizado de máquina focados em visão computacional e processamento de linguagem natural com Python.</span>
-        <span class="en">Initiation of machine learning projects focused on computer vision and natural language processing with Python.</span>
+        <span class="pt">Trabalhou desenvolvendo os estágios iniciais de projetos de machine leaning focados em visão computacional, processamento de linguagem natural usando python e Tensorflow, também desenvolveu sistemas Web.</span>
+        <span class="en">Worked on the initial stages of machine learning projects focused on computer vision and natural language processing using Python and TensorFlow, algo developed Web systems.</span>
       </p>
     </div>
 
@@ -545,8 +555,8 @@
       </div>
       <span class="date">Jun 2023 - Jun 2024</span>
       <p class="description">
-        <span class="pt">Análise de dados utilizando Python, VBA para Excel, Power BI e PostgreSQL. Desenvolvimento web com Django.</span>
-        <span class="en">Data analysis using Python, VBA for Excel, Power BI, and PostgreSQL. Web development with Django.</span>
+        <span class="pt">Atuou como analista de dados usando Python, Visual Basic para Excel, Power BI, PostgreSQL, e o Framework Django para desenvolvimento web.</span>
+        <span class="en">Acted as a data analyst using Python, Visual Basic for Excel, Power BI, PostgreSQL, and the Python Django framework for web development.</span>
       </p>
     </div>
 
@@ -560,8 +570,8 @@
       </div>
       <span class="date">Jan 2021 - Jan 2022</span>
       <p class="description">
-        <span class="pt">Desenvolvimento de relatórios (XtraReport/SQL) e aplicativos mobile utilizando Xamarin e C#.</span>
-        <span class="en">Development of reports (XtraReport/SQL) and mobile applications using Xamarin and C#.</span>
+        <span class="pt">Trabalhou com desenvolvimento em XtraReport usando MySQL, Visual Basic. Também contribuiu para o desenvolvimento de aplicação mobile usando Xamarin (C#)</span>
+        <span class="en">Worked in XtraReport development using MySQL and Visual Basic. Also contributed to the development of applications using Xaramin (C#).</span>
       </p>
     </div>
   </section>
@@ -696,7 +706,7 @@
           <span class="pt">Mestrado Acadêmico (Ciência da Computação)</span>
           <span class="en">Master's Degree (Computer Science)</span>
         </span>
-        <span class="company">Universidade de São Paulo (IME-USP)</span>
+        <span class="company"><img src="assets/uspoficial_logo.jpg" alt="Logo USP" class="company-logo"><span class="company-sep">—</span>Universidade de São Paulo (IME-USP)</span>
       </div>
       <span class="date">
         <span class="pt">Jun 2025 - Jun 2028 (Previsão)</span>
@@ -711,10 +721,10 @@
     <div class="timeline-item">
       <div class="timeline-header">
         <span class="role">
-          <span class="pt">Aluno Especial (Processamento de Imagens Digitais e Aprendizado de Máquina)</span>
-          <span class="en">Special Student (Digital Image Processing and Machine Learning)</span>
+          <span class="pt">Aluno Especial (Visão e Processamento de Imagens Digitais e Aprendizado de Máquina)</span>
+          <span class="en">Special Student (Vision and Digital Image Processing and Machine Learning)</span>
         </span>
-        <span class="company">Universidade de São Paulo (IME-USP)</span>
+        <span class="company"><img src="assets/uspoficial_logo.jpg" alt="Logo USP" class="company-logo"><span class="company-sep">—</span>Universidade de São Paulo (IME-USP)</span>
       </div>
       <span class="date">
         <span class="pt">Jan 2026 - Jun 2026 (Previsão)</span>
@@ -722,7 +732,7 @@
       </span>
       <p class="description">
         <span class="pt">Disciplinas isoladas de aprofundamento em processamento de imagem e aprendizado de máquina.</span>
-        <span class="en">Isolated courses for image processing and ML.</span>
+        <span class="en">Isolated courses for digital image processing and vision and Machine Learning.</span>
       </p>
     </div>
 
@@ -732,7 +742,7 @@
           <span class="pt">Estudante Especial (Estatística e Probabilidade)</span>
           <span class="en">Special Student (Statistics and Probability)</span>
         </span>
-        <span class="company">Universidade de São Paulo (IME-USP)</span>
+        <span class="company"><img src="assets/uspoficial_logo.jpg" alt="Logo USP" class="company-logo"><span class="company-sep">—</span>Universidade de São Paulo (IME-USP)</span>
       </div>
       <span class="date">Jul 2025 - Dez 2025</span>
       <p class="description">
@@ -747,7 +757,7 @@
           <span class="pt">Graduação em Ciência de Dados</span>
           <span class="en">Bachelor's Degree in Data Science</span>
         </span>
-        <span class="company">Faculdade Donaduzzi</span>
+        <span class="company"><img src="assets/faculdade_donaduzzi_logo.jpg" alt="Logo Faculdade Donaduzzi" class="company-logo"><span class="company-sep">—</span>Faculdade Donaduzzi</span>
       </div>
       <span class="date">2023 - Jul 2025</span>
       <p class="description">
