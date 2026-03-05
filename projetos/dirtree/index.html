@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DirTree | Guilherme Felipetto</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #ffffff; --text-primary: #202122; --text-secondary: #54595d;
+      --link-color: #0645ad; --border-color: #a2a9b1; --accent: #eaecf0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body.lang-pt .en { display: none !important; }
+    body.lang-en .pt { display: none !important; }
+
+    body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
+
+    header { position: sticky; top: 0; z-index: 1000; background: #f8f9fa; border-bottom: 1px solid var(--border-color); padding: 10px 0; width: 100%; }
+    nav { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+    .logo { font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700; color: #000; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--link-color); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { text-decoration: underline; }
+    .lang-btn { background: var(--accent); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+    article { padding: 40px 15px; max-width: 800px; margin: 0 auto; min-height: 70vh; }
+    
+    .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: var(--text-secondary); }
+    .breadcrumb a { color: var(--link-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-family: 'Merriweather', serif; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    h2 { font-family: 'Merriweather', serif; font-size: 1.4rem; margin: 30px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px; }
+    p { margin-bottom: 15px; text-align: justify; }
+    
+    .tags { margin-bottom: 25px; }
+    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); }
+
+    pre {
+      background: #f8f9fa; border: 1px solid var(--border-color);
+      padding: 15px; overflow-x: auto; font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem; margin-bottom: 20px; border-left: 4px solid var(--border-color);
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace; background: #eaecf0;
+      padding: 2px 5px; border-radius: 3px; font-size: 0.9em;
+    }
+
+    .github-btn {
+      display: inline-block; margin-top: 10px; padding: 8px 15px;
+      background: #24292e; color: #fff; text-decoration: none;
+      border-radius: 4px; font-weight: 600; font-size: 0.9rem;
+    }
+    .github-btn:hover { background: #000; }
+
+    footer { text-align: center; padding: 30px; background: #f8f9fa; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.85rem; margin-top: 50px; }
+  </style>
+</head>
+<body class="lang-pt">
+
+  <header>
+    <nav>
+      <a href="../../" class="logo">Guilherme Felipetto</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../../projetos/"><span class="pt">Voltar para Projetos</span><span class="en">Back to Projects</span></a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-btn">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <article>
+    <div class="breadcrumb">
+      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo; 
+      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo; 
+      DirTree
+    </div>
+
+    <h1>DirTree</h1>
+    
+    <div class="tags">
+      <span>Python</span>
+      <span>PyQt5</span>
+      <span>GUI Desktop</span>
+      <span>Open Source</span>
+    </div>
+
+    <p>
+      <span class="pt">O <strong>DirTree</strong> é uma ferramenta com interface gráfica (GUI) construída em Python utilizando a biblioteca <strong>PyQt5</strong> para gerar representações visuais de árvores de diretórios. É extremamente útil para documentar a estrutura de projetos em arquivos <code>README.md</code> ou para análises rápidas de sistemas de arquivos, tudo através de uma interface amigável.</span>
+      <span class="en"><strong>DirTree</strong> is a graphical user interface (GUI) tool built in Python using the <strong>PyQt5</strong> library to generate visual representations of directory trees. It is extremely useful for documenting project structures in <code>README.md</code> files or for quick file system analysis, all through a user-friendly interface.</span>
+    </p>
+
+    <a href="https://github.com/guilhermefelipetto/dirtree" target="_blank" class="github-btn">
+      <i class="fab fa-github"></i> <span class="pt">Ver no GitHub</span><span class="en">View on GitHub</span>
+    </a>
+
+    <h2><span class="pt">Como funciona</span><span class="en">How it works</span></h2>
+    <p>
+      <span class="pt">Através de uma interface intuitiva, o usuário pode selecionar o diretório raiz que deseja mapear e configurar opções visuais, como quais pastas ou arquivos ignorar (por exemplo, <code>node_modules</code>, <code>.git</code> ou <code>__pycache__</code>). O aplicativo percorre os diretórios recursivamente e desenha a hierarquia utilizando caracteres ASCII/Unicode, permitindo copiar o resultado diretamente para a área de transferência.</span>
+      <span class="en">Through an intuitive interface, the user can select the root directory to map and configure visual options, such as which folders or files to ignore (e.g., <code>node_modules</code>, <code>.git</code>, or <code>__pycache__</code>). The application recursively traverses directories and draws the hierarchy using ASCII/Unicode characters, allowing the result to be copied directly to the clipboard.</span>
+    </p>
+
+    <h2><span class="pt">Exemplo de Uso</span><span class="en">Usage Example</span></h2>
+    <p>
+      <span class="pt">Para iniciar a interface gráfica, basta instalar as dependências e executar o script principal:</span>
+      <span class="en">To launch the graphical interface, simply install the dependencies and run the main script:</span>
+    </p>
+<pre>
+$ pip install -r requirements.txt
+$ python main_app.py
+</pre>
+    <p>
+      <span class="pt">A partir daí, a janela do PyQt5 será aberta, e toda a interação é feita através de botões e campos de seleção. A saída gerada será semelhante a esta:</span>
+      <span class="en">From there, the PyQt5 window will open, and all interaction is done through buttons and selection fields. The generated output will look similar to this:</span>
+    </p>
+<pre>
+meu-projeto/
+├── main.py
+├── interface/
+│   ├── window.ui
+│   └── styles.qss
+└── README.md
+</pre>
+
+    <h2><span class="pt">Motivação</span><span class="en">Motivation</span></h2>
+    <p>
+      <span class="pt">Desenvolvi este projeto para aprofundar meus conhecimentos no desenvolvimento de interfaces gráficas desktop em Python com PyQt5, além de praticar a manipulação de caminhos de arquivos com as bibliotecas nativas do Python. O resultado foi uma ferramenta que eu mesmo utilizo para documentar meus repositórios.</span>
+      <span class="en">I developed this project to deepen my knowledge in desktop graphical interface development in Python with PyQt5, as well as to practice file path manipulation with native Python libraries. The result was a tool that I use myself to document my repositories.</span>
+    </p>
+
+  </article>
+
+  <footer>
+    <p>&copy; 2025 Guilherme Felipetto.</p>
+  </footer>
+
+  <script>
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const body = document.body;
+    langToggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('lang-pt')) {
+        body.classList.remove('lang-pt'); body.classList.add('lang-en');
+        langToggleBtn.textContent = 'PT-BR'; document.documentElement.lang = "en";
+      } else {
+        body.classList.remove('lang-en'); body.classList.add('lang-pt');
+        langToggleBtn.textContent = 'EN'; document.documentElement.lang = "pt-BR";
+      }
+    });
+  </script>
+</body>
+</html>

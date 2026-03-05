@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Search Engine | Guilherme Felipetto</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #ffffff; --text-primary: #202122; --text-secondary: #54595d;
+      --link-color: #0645ad; --border-color: #a2a9b1; --accent: #eaecf0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body.lang-pt .en { display: none !important; }
+    body.lang-en .pt { display: none !important; }
+
+    body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
+
+    header { position: sticky; top: 0; z-index: 1000; background: #f8f9fa; border-bottom: 1px solid var(--border-color); padding: 10px 0; width: 100%; }
+    nav { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+    .logo { font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700; color: #000; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--link-color); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { text-decoration: underline; }
+    .lang-btn { background: var(--accent); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+    article { padding: 40px 15px; max-width: 800px; margin: 0 auto; min-height: 70vh; }
+    
+    .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: var(--text-secondary); }
+    .breadcrumb a { color: var(--link-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-family: 'Merriweather', serif; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    h2 { font-family: 'Merriweather', serif; font-size: 1.4rem; margin: 30px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px; }
+    p { margin-bottom: 15px; text-align: justify; }
+    
+    .tags { margin-bottom: 25px; }
+    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); }
+
+    pre {
+      background: #f8f9fa; border: 1px solid var(--border-color);
+      padding: 15px; overflow-x: auto; font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem; margin-bottom: 20px; border-left: 4px solid var(--border-color);
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace; background: #eaecf0;
+      padding: 2px 5px; border-radius: 3px; font-size: 0.9em;
+    }
+
+    .github-btn {
+      display: inline-block; margin-top: 10px; padding: 8px 15px;
+      background: #24292e; color: #fff; text-decoration: none;
+      border-radius: 4px; font-weight: 600; font-size: 0.9rem;
+    }
+    .github-btn:hover { background: #000; }
+
+    footer { text-align: center; padding: 30px; background: #f8f9fa; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.85rem; margin-top: 50px; }
+  </style>
+</head>
+<body class="lang-pt">
+
+  <header>
+    <nav>
+      <a href="../../" class="logo">Guilherme Felipetto</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../../projetos/"><span class="pt">Voltar para Projetos</span><span class="en">Back to Projects</span></a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-btn">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <article>
+    <div class="breadcrumb">
+      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo; 
+      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo; 
+      Python Search Engine
+    </div>
+
+    <h1>Python Search Engine</h1>
+    
+    <div class="tags">
+      <span>Python</span>
+      <span>CLI</span>
+      <span>Information Retrieval</span>
+      <span>BM25</span>
+      <span>NLP</span>
+    </div>
+
+    <p>
+      <span class="pt">O <strong>Python Search Engine</strong> é um motor de busca construído do zero em Python com armazenamento local via interface de linha de comando (CLI). Ele utiliza um índice invertido e o algoritmo de ranqueamento BM25 para buscar e recuperar documentos de texto (<code>.txt</code>) de forma eficiente.</span>
+      <span class="en">The <strong>Python Search Engine</strong> is a search engine built from scratch in Python with local CLI storage. It uses an inverted index and the BM25 ranking algorithm to efficiently search and retrieve text documents (<code>.txt</code>).</span>
+    </p>
+
+    <a href="https://github.com/guilhermefelipetto/python-search-engine" target="_blank" class="github-btn">
+      <i class="fab fa-github"></i> <span class="pt">Ver no GitHub</span><span class="en">View on GitHub</span>
+    </a>
+
+    <h2><span class="pt">Como funciona</span><span class="en">How it works</span></h2>
+    <p>
+      <span class="pt">A ferramenta opera inteiramente no terminal. Ao inicializar, ela cria uma estrutura de armazenamento persistente local (<code>.search_data/</code>). Você pode adicionar arquivos de texto, diretórios inteiros ou até mesmo texto bruto. O sistema processa o texto, remove <em>stopwords</em> e constrói um índice invertido binário (usando <code>pickle</code>). Durante a busca, o algoritmo BM25 calcula a relevância de cada documento em relação à consulta, retornando os resultados mais precisos.</span>
+      <span class="en">The tool operates entirely in the terminal. Upon initialization, it creates a local persistent storage structure (<code>.search_data/</code>). You can add text files, entire directories, or even raw text. The system processes the text, removes stopwords, and builds a binary inverted index (using <code>pickle</code>). During a search, the BM25 algorithm calculates the relevance of each document to the query, returning the most accurate results.</span>
+    </p>
+
+    <h2><span class="pt">Exemplo de Uso</span><span class="en">Usage Example</span></h2>
+    <p>
+      <span class="pt">A interação é feita através do script <code>search_cli.py</code>. Primeiro, você inicializa o armazenamento e adiciona seus documentos:</span>
+      <span class="en">Interaction is done through the <code>search_cli.py</code> script. First, you initialize the storage and add your documents:</span>
+    </p>
+<pre>
+$ python search_cli.py init
+$ python search_cli.py add --dir ./meus_documentos
+</pre>
+    <p>
+      <span class="pt">Depois, basta realizar uma busca especificando a consulta e a quantidade de resultados (Top-K) desejados:</span>
+      <span class="en">Then, simply perform a search by specifying the query and the number of desired results (Top-K):</span>
+    </p>
+<pre>
+$ python search_cli.py search --query "python inverted index" --top-k 5
+</pre>
+
+    <h2><span class="pt">Motivação</span><span class="en">Motivation</span></h2>
+    <p>
+      <span class="pt">Este projeto foi desenvolvido para estudar os fundamentos de Recuperação de Informação (<em>Information Retrieval</em>). Construir um motor de busca do zero foi a melhor forma de entender na prática como funcionam a tokenização, a criação de índices invertidos e a matemática por trás de algoritmos de ranqueamento clássicos como o BM25.</span>
+      <span class="en">This project was developed to study the fundamentals of Information Retrieval. Building a search engine from scratch was the best way to practically understand tokenization, the creation of inverted indexes, and the math behind classic ranking algorithms like BM25.</span>
+    </p>
+
+  </article>
+
+  <footer>
+    <p>&copy; 2025 Guilherme Felipetto.</p>
+  </footer>
+
+  <script>
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const body = document.body;
+    langToggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('lang-pt')) {
+        body.classList.remove('lang-pt'); body.classList.add('lang-en');
+        langToggleBtn.textContent = 'PT-BR'; document.documentElement.lang = "en";
+      } else {
+        body.classList.remove('lang-en'); body.classList.add('lang-pt');
+        langToggleBtn.textContent = 'EN'; document.documentElement.lang = "pt-BR";
+      }
+    });
+  </script>
+</body>
+</html>

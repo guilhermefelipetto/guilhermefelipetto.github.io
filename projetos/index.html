@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Projetos e Repositórios de Guilherme Felipetto">
+  <title>Projetos | Guilherme Felipetto</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-primary: #202122;
+      --text-secondary: #54595d;
+      --link-color: #0645ad;
+      --border-color: #a2a9b1;
+      --accent: #eaecf0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body.lang-pt .en { display: none !important; }
+    body.lang-en .pt { display: none !important; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      background: #f8f9fa; border-bottom: 1px solid var(--border-color);
+      padding: 10px 0; width: 100%;
+    }
+
+    nav {
+      max-width: 960px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 15px;
+    }
+
+    .logo { font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700; color: #000; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--link-color); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { text-decoration: underline; }
+
+    .lang-btn {
+      background: var(--accent); border: 1px solid var(--border-color);
+      padding: 4px 10px; border-radius: 4px; cursor: pointer;
+      font-weight: 600; font-size: 0.85rem;
+    }
+
+    section { padding: 40px 15px; max-width: 960px; margin: 0 auto; min-height: 70vh; }
+    
+    .section-title {
+      font-family: 'Merriweather', serif; font-size: 2rem;
+      margin-bottom: 10px; border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px; color: #000;
+    }
+    
+    .section-subtitle {
+      color: var(--text-secondary); margin-bottom: 30px; font-style: italic;
+    }
+
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;
+    }
+
+    .project-card {
+      border: 1px solid var(--border-color); padding: 20px;
+      display: flex; flex-direction: column; background: #fff;
+    }
+
+    .project-card h3 {
+      font-family: 'Merriweather', serif; font-size: 1.2rem; margin-bottom: 10px;
+    }
+    .project-card h3 a { color: var(--link-color); text-decoration: none; }
+    .project-card h3 a:hover { text-decoration: underline; }
+
+    .project-tags {
+      font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 15px;
+      background: #f8f9fa; padding: 5px; border: 1px solid #eaecf0;
+    }
+
+    .project-desc { font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+
+    .project-links {
+      display: flex; gap: 10px; border-top: 1px solid #eaecf0; padding-top: 15px;
+    }
+    
+    .btn-outline {
+      padding: 4px 10px; border: 1px solid var(--border-color);
+      background: #f8f9fa; color: var(--text-primary); text-decoration: none;
+      font-size: 0.85rem; font-weight: 600; border-radius: 2px;
+    }
+    .btn-outline:hover { background: #e2e2e2; }
+
+    footer {
+      text-align: center; padding: 30px; background: #f8f9fa;
+      border-top: 1px solid var(--border-color); color: var(--text-secondary);
+      font-size: 0.85rem; margin-top: 50px;
+    }
+  </style>
+</head>
+<body class="lang-pt">
+
+  <header>
+    <nav>
+      <a href="../" class="logo">Guilherme Felipetto</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../"><span class="pt">Início</span><span class="en">Home</span></a></li>
+          <li><a href="../portifolio/"><span class="pt">Portfólio & CV</span><span class="en">Portfolio & CV</span></a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-btn">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <section>
+    <h1 class="section-title">
+      <span class="pt">Projetos</span>
+      <span class="en">Projects</span>
+    </h1>
+    <p class="section-subtitle">
+      <span class="pt">Uma coleção de repositórios, ferramentas de linha de comando, algoritmos e experimentos.</span>
+      <span class="en">A collection of repositories, command-line tools, algorithms, and experiments.</span>
+    </p>
+
+    <div class="projects-grid">
+      
+      <div class="project-card">
+        <h3><a href="dirtree/">DirTree</a></h3>
+        <div class="project-tags">Python • PyQt5 • GUI • File System</div>
+        <p class="project-desc">
+          <span class="pt">Uma ferramenta com interface gráfica (GUI) desenvolvida em Python e PyQt5 para visualizar e exportar a estrutura de diretórios de forma limpa e interativa.</span>
+          <span class="en">A graphical user interface (GUI) tool developed in Python and PyQt5 to visualize and export directory structures in a clean and interactive way.</span>
+        </p>
+        <div class="project-links">
+          <a href="dirtree/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
+          <a href="https://github.com/guilhermefelipetto/dirtree" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3><a href="search-engine/">Python Search Engine</a></h3>
+        <div class="project-tags">Python • NLP • Algoritmos • CLI</div>
+        <p class="project-desc">
+          <span class="pt">Um motor de busca simples construído do zero em Python, utilizando técnicas de processamento de linguagem natural e ranqueamento de relevância.</span>
+          <span class="en">A simple search engine built from scratch in Python, using natural language processing techniques and relevance ranking.</span>
+        </p>
+        <div class="project-links">
+          <a href="search-engine/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
+          <a href="https://github.com/guilhermefelipetto/python-search-engine" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Guilherme Felipetto.</p>
+  </footer>
+
+  <script>
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const body = document.body;
+    langToggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('lang-pt')) {
+        body.classList.remove('lang-pt'); body.classList.add('lang-en');
+        langToggleBtn.textContent = 'PT-BR'; document.documentElement.lang = "en";
+      } else {
+        body.classList.remove('lang-en'); body.classList.add('lang-pt');
+        langToggleBtn.textContent = 'EN'; document.documentElement.lang = "pt-BR";
+      }
+    });
+  </script>
+</body>
+</html>
