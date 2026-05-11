@@ -4,7 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Python Search Engine | Guilherme Felipetto</title>
-  
+  <meta name="description" content="Python Search Engine — motor de busca em Python construído do zero, com índice invertido binário, ranqueamento BM25 e CLI para gerenciar documentos.">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Guilherme Felipetto">
+  <meta property="og:title" content="Python Search Engine | Guilherme Felipetto">
+  <meta property="og:description" content="Motor de busca em Python com índice invertido binário, BM25 e CLI de gerenciamento de documentos.">
+  <meta property="og:url" content="https://guilhermefelipetto.github.io/projetos/python_search_engine/">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Python Search Engine | Guilherme Felipetto">
+  <meta name="twitter:description" content="Motor de busca em Python com índice invertido e BM25.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -30,17 +43,20 @@
     .lang-btn { background: var(--accent); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
 
     article { padding: 40px 15px; max-width: 800px; margin: 0 auto; min-height: 70vh; }
-    
+
     .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: var(--text-secondary); }
     .breadcrumb a { color: var(--link-color); text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
 
     h1 { font-family: 'Merriweather', serif; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
     h2 { font-family: 'Merriweather', serif; font-size: 1.4rem; margin: 30px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px; }
+    h3 { font-family: 'Merriweather', serif; font-size: 1.1rem; margin: 20px 0 10px; color: var(--text-primary); }
     p { margin-bottom: 15px; text-align: justify; }
-    
+    ul, ol { margin: 0 0 15px 25px; }
+    li { margin-bottom: 5px; }
+
     .tags { margin-bottom: 25px; }
-    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); }
+    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); display: inline-block; margin-bottom: 4px; }
 
     pre {
       background: #f8f9fa; border: 1px solid var(--border-color);
@@ -51,6 +67,26 @@
       font-family: 'Courier New', Courier, monospace; background: #eaecf0;
       padding: 2px 5px; border-radius: 3px; font-size: 0.9em;
     }
+
+    blockquote {
+      border-left: 4px solid var(--border-color);
+      background: #f8f9fa;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    table {
+      width: 100%; border-collapse: collapse; margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid var(--border-color); padding: 6px 10px;
+      text-align: left; vertical-align: top;
+    }
+    th { background: #eaecf0; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8f9fa; }
 
     .github-btn {
       display: inline-block; margin-top: 10px; padding: 8px 15px;
@@ -78,63 +114,152 @@
 
   <article>
     <div class="breadcrumb">
-      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo; 
-      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo; 
+      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo;
+      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo;
       Python Search Engine
     </div>
 
     <h1>Python Search Engine</h1>
-    
+
     <div class="tags">
       <span>Python</span>
       <span>CLI</span>
       <span>Information Retrieval</span>
       <span>BM25</span>
+      <span>Inverted Index</span>
+      <span>pickle</span>
       <span>NLP</span>
     </div>
 
     <p>
-      <span class="pt">O <strong>Python Search Engine</strong> é um motor de busca construído do zero em Python com armazenamento local via interface de linha de comando (CLI). Ele utiliza um índice invertido e o algoritmo de ranqueamento BM25 para buscar e recuperar documentos de texto (<code>.txt</code>) de forma eficiente.</span>
-      <span class="en">The <strong>Python Search Engine</strong> is a search engine built from scratch in Python with local CLI storage. It uses an inverted index and the BM25 ranking algorithm to efficiently search and retrieve text documents (<code>.txt</code>).</span>
+      <span class="pt">O <strong>Python Search Engine</strong> é um motor de busca <em>handmade</em> em Python, construído do zero com armazenamento local e interface de linha de comando. Implementa um <strong>índice invertido binário</strong> serializado com <code>pickle</code> e o algoritmo de ranqueamento <strong>BM25</strong> para indexar e recuperar documentos de texto (<code>.txt</code>) — sem dependências de motores externos (Lucene, Elasticsearch, etc).</span>
+      <span class="en">The <strong>Python Search Engine</strong> is a handmade search engine in Python, built from scratch with local storage and a command-line interface. It implements a <strong>binary inverted index</strong> serialized with <code>pickle</code> and the <strong>BM25</strong> ranking algorithm to index and retrieve text documents (<code>.txt</code>) — with no external engine dependencies (Lucene, Elasticsearch, etc).</span>
     </p>
 
     <a href="https://github.com/guilhermefelipetto/python-search-engine" target="_blank" class="github-btn">
       <i class="fab fa-github"></i> <span class="pt">Ver no GitHub</span><span class="en">View on GitHub</span>
     </a>
 
-    <h2><span class="pt">Como funciona</span><span class="en">How it works</span></h2>
+    <h2><span class="pt">Escopo da Fase 1</span><span class="en">Phase 1 scope</span></h2>
+    <ul>
+      <li><span class="pt">CLI apenas (<code>search_cli.py</code>).</span><span class="en">CLI only (<code>search_cli.py</code>).</span></li>
+      <li><span class="pt">Documentos <code>.txt</code> apenas.</span><span class="en">Plain <code>.txt</code> documents only.</span></li>
+      <li><span class="pt">Armazenamento local persistente em <code>.search_data/</code>.</span><span class="en">Local persistent storage in <code>.search_data/</code>.</span></li>
+      <li><span class="pt">Índice invertido binário (<code>pickle</code>) + <em>document store</em>.</span><span class="en">Binary inverted index (<code>pickle</code>) + document store.</span></li>
+      <li><span class="pt">Ranqueamento via BM25.</span><span class="en">BM25 ranking.</span></li>
+    </ul>
+
+    <h2><span class="pt">Layout do armazenamento</span><span class="en">Storage layout</span></h2>
+<pre>
+.search_data/
+  docs/
+    &lt;doc_id&gt;.txt
+  index/
+    inverted_index.pkl
+    meta.json
+</pre>
     <p>
-      <span class="pt">A ferramenta opera inteiramente no terminal. Ao inicializar, ela cria uma estrutura de armazenamento persistente local (<code>.search_data/</code>). Você pode adicionar arquivos de texto, diretórios inteiros ou até mesmo texto bruto. O sistema processa o texto, remove <em>stopwords</em> e constrói um índice invertido binário (usando <code>pickle</code>). Durante a busca, o algoritmo BM25 calcula a relevância de cada documento em relação à consulta, retornando os resultados mais precisos.</span>
-      <span class="en">The tool operates entirely in the terminal. Upon initialization, it creates a local persistent storage structure (<code>.search_data/</code>). You can add text files, entire directories, or even raw text. The system processes the text, removes stopwords, and builds a binary inverted index (using <code>pickle</code>). During a search, the BM25 algorithm calculates the relevance of each document to the query, returning the most accurate results.</span>
+      <span class="pt">Cada documento adicionado recebe um <code>doc_id</code> sequencial e é copiado para <code>docs/</code>. O índice invertido (<code>inverted_index.pkl</code>) mapeia termos → postings e fica serializado em binário; metadados (estatísticas de coleção, comprimento médio de documento, etc) ficam em <code>meta.json</code>.</span>
+      <span class="en">Each document gets a sequential <code>doc_id</code> and is copied into <code>docs/</code>. The inverted index (<code>inverted_index.pkl</code>) maps terms → postings and is serialized in binary; collection metadata (statistics, average document length, etc) lives in <code>meta.json</code>.</span>
     </p>
 
-    <h2><span class="pt">Exemplo de Uso</span><span class="en">Usage Example</span></h2>
-    <p>
-      <span class="pt">A interação é feita através do script <code>search_cli.py</code>. Primeiro, você inicializa o armazenamento e adiciona seus documentos:</span>
-      <span class="en">Interaction is done through the <code>search_cli.py</code> script. First, you initialize the storage and add your documents:</span>
-    </p>
+    <h2><span class="pt">Comandos da CLI</span><span class="en">CLI commands</span></h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th><span class="pt">Comando</span><span class="en">Command</span></th>
+          <th><span class="pt">Função</span><span class="en">Function</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>init</code></td><td><span class="pt">Inicializa o armazenamento (<code>.search_data/</code>).</span><span class="en">Initializes the storage (<code>.search_data/</code>).</span></td></tr>
+        <tr><td><code>add --file &lt;path&gt;</code></td><td><span class="pt">Adiciona um documento a partir de um arquivo.</span><span class="en">Adds a document from a file.</span></td></tr>
+        <tr><td><code>add --text "..."</code></td><td><span class="pt">Adiciona texto bruto diretamente.</span><span class="en">Adds raw text directly.</span></td></tr>
+        <tr><td><code>add --dir &lt;path&gt;</code></td><td><span class="pt">Adiciona, recursivamente, todos os <code>.txt</code> de um diretório.</span><span class="en">Recursively adds all <code>.txt</code> files in a directory.</span></td></tr>
+        <tr><td><code>search --query "..." --top-k N</code></td><td><span class="pt">Busca a query e retorna os N documentos mais relevantes (BM25).</span><span class="en">Searches the query and returns the top-N most relevant documents (BM25).</span></td></tr>
+        <tr><td><code>list</code></td><td><span class="pt">Lista todos os documentos indexados.</span><span class="en">Lists all indexed documents.</span></td></tr>
+        <tr><td><code>stats</code></td><td><span class="pt">Mostra estatísticas da coleção.</span><span class="en">Shows collection statistics.</span></td></tr>
+        <tr><td><code>remove --doc-id N</code></td><td><span class="pt">Remove um documento pelo <code>doc_id</code>.</span><span class="en">Removes a document by <code>doc_id</code>.</span></td></tr>
+        <tr><td><code>--data-dir &lt;path&gt;</code></td><td><span class="pt">Opcional. Usa um diretório de dados customizado em qualquer subcomando.</span><span class="en">Optional. Uses a custom data directory on any subcommand.</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2><span class="pt">Instalação e uso</span><span class="en">Install and usage</span></h2>
+
+    <h3><span class="pt">1. Clonar o repositório</span><span class="en">1. Clone the repository</span></h3>
+<pre>
+$ git clone https://github.com/guilhermefelipetto/python-search-engine.git
+$ cd python-search-engine
+</pre>
+
+    <h3><span class="pt">2. Inicializar o armazenamento</span><span class="en">2. Initialize the storage</span></h3>
 <pre>
 $ python search_cli.py init
-$ python search_cli.py add --dir ./meus_documentos
+</pre>
+
+    <h3><span class="pt">3. Criar uma pasta de testes local</span><span class="en">3. Create a local test folder</span></h3>
+<pre>
+$ mkdir local_docs
+</pre>
+    <blockquote>
+      <span class="pt"><code>local_docs/</code> está no <code>.gitignore</code>, então pode jogar qualquer documento de teste ali sem risco de comitar.</span>
+      <span class="en"><code>local_docs/</code> is in <code>.gitignore</code>, so you can drop any test document there without risk of committing it.</span>
+    </blockquote>
+
+    <h3><span class="pt">4. Adicionar documentos</span><span class="en">4. Add documents</span></h3>
+<pre>
+# <span class="pt">A partir de um arquivo</span><span class="en">From a file</span>
+$ python search_cli.py add --file ./local_docs/my_doc.txt
+
+# <span class="pt">Texto bruto direto na CLI</span><span class="en">Raw text inline</span>
+$ python search_cli.py add --text "python bm25 inverted index"
+
+# <span class="pt">Diretório inteiro (recursivo)</span><span class="en">Entire directory (recursive)</span>
+$ python search_cli.py add --dir ./local_docs
+</pre>
+
+    <h3><span class="pt">5. Buscar</span><span class="en">5. Search</span></h3>
+<pre>
+$ python search_cli.py search --query "python search" --top-k 5
 </pre>
     <p>
-      <span class="pt">Depois, basta realizar uma busca especificando a consulta e a quantidade de resultados (Top-K) desejados:</span>
-      <span class="en">Then, simply perform a search by specifying the query and the number of desired results (Top-K):</span>
+      <span class="pt">Se nenhum documento estiver indexado, a CLI emite um aviso e encerra.</span>
+      <span class="en">If no document is indexed, the CLI prints a warning and exits.</span>
     </p>
+
+    <h3><span class="pt">6. Outras operações</span><span class="en">6. Other operations</span></h3>
 <pre>
-$ python search_cli.py search --query "python inverted index" --top-k 5
+$ python search_cli.py list                 # <span class="pt">lista documentos</span><span class="en">list documents</span>
+$ python search_cli.py stats                # <span class="pt">estatísticas da coleção</span><span class="en">collection stats</span>
+$ python search_cli.py remove --doc-id 3    # <span class="pt">remove um documento</span><span class="en">remove a document</span>
 </pre>
+
+    <h3><span class="pt">Diretório de dados customizado (opcional)</span><span class="en">Custom data directory (optional)</span></h3>
+<pre>
+$ python search_cli.py --data-dir ./my_local_engine init
+</pre>
+
+    <h2><span class="pt">Como funciona internamente</span><span class="en">How it works internally</span></h2>
+    <p>
+      <span class="pt">Quando um documento é adicionado, o texto é tokenizado, <em>stopwords</em> são removidas e cada termo é registrado no <strong>índice invertido</strong> (estrutura que mapeia <code>termo → lista de (doc_id, frequência, ...)</code>). A estrutura é serializada em binário com <code>pickle</code>, o que torna a leitura e escrita extremamente rápidas em comparação a formatos textuais como JSON.</span>
+      <span class="en">When a document is added, the text is tokenized, <em>stopwords</em> are removed, and each term is registered in the <strong>inverted index</strong> (a structure that maps <code>term → list of (doc_id, frequency, ...)</code>). The structure is serialized in binary with <code>pickle</code>, which makes reads and writes far faster than text-based formats like JSON.</span>
+    </p>
+    <p>
+      <span class="pt">Durante a busca, o algoritmo <strong>BM25</strong> calcula um score de relevância para cada documento que contém termos da query, ponderando: (i) a frequência do termo no documento (TF saturada), (ii) a raridade do termo na coleção (IDF) e (iii) o comprimento do documento relativo à média (normalização). Os <code>top-k</code> documentos com maior score são retornados.</span>
+      <span class="en">During search, the <strong>BM25</strong> algorithm computes a relevance score for each document containing query terms, weighting: (i) term frequency in the document (saturated TF), (ii) term rarity across the collection (IDF), and (iii) document length relative to the collection average (length normalization). The <code>top-k</code> documents with highest scores are returned.</span>
+    </p>
 
     <h2><span class="pt">Motivação</span><span class="en">Motivation</span></h2>
     <p>
-      <span class="pt">Este projeto foi desenvolvido para estudar os fundamentos de Recuperação de Informação (<em>Information Retrieval</em>). Construir um motor de busca do zero foi a melhor forma de entender na prática como funcionam a tokenização, a criação de índices invertidos e a matemática por trás de algoritmos de ranqueamento clássicos como o BM25.</span>
-      <span class="en">This project was developed to study the fundamentals of Information Retrieval. Building a search engine from scratch was the best way to practically understand tokenization, the creation of inverted indexes, and the math behind classic ranking algorithms like BM25.</span>
+      <span class="pt">Este projeto foi desenvolvido para estudar, na prática, os fundamentos de <strong>Recuperação de Informação</strong>. Construir um motor de busca do zero é a forma mais direta de internalizar como funcionam a tokenização, a construção do índice invertido e a matemática por trás de algoritmos clássicos de ranqueamento como o BM25 — coisas que normalmente ficam escondidas atrás da API de motores prontos. A escolha por <code>pickle</code> ao invés de JSON foi deliberada: o objetivo era também experimentar serialização binária e o trade-off de velocidade × portabilidade.</span>
+      <span class="en">This project was built to study the fundamentals of <strong>Information Retrieval</strong> hands-on. Building a search engine from scratch is the most direct way to internalize how tokenization, inverted index construction, and the math behind classic ranking algorithms like BM25 actually work — things normally hidden behind a high-level search engine API. The choice of <code>pickle</code> over JSON was deliberate: part of the goal was experimenting with binary serialization and its speed × portability trade-off.</span>
     </p>
 
   </article>
 
   <footer>
-    <p>&copy; 2025 Guilherme Felipetto.</p>
+    <p>&copy; 2026 Guilherme Felipetto.</p>
   </footer>
 
   <script>

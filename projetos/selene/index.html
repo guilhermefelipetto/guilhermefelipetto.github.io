@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selene | Guilherme Felipetto</title>
+  <meta name="description" content="Selene — assistente para Discord com personalidade própria, memória vetorial, execução de comandos em sandbox Docker, visão (Gemini) e troca dinâmica de LLMs.">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Guilherme Felipetto">
+  <meta property="og:title" content="Selene | Guilherme Felipetto">
+  <meta property="og:description" content="Assistente Discord com memória vetorial (ChromaDB), sandbox Docker, visão (Gemini) e troca dinâmica entre DeepSeek e OpenAI.">
+  <meta property="og:url" content="https://guilhermefelipetto.github.io/projetos/selene/">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Selene | Guilherme Felipetto">
+  <meta name="twitter:description" content="Assistente Discord com memória vetorial, sandbox Docker e visão.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #ffffff; --text-primary: #202122; --text-secondary: #54595d;
+      --link-color: #0645ad; --border-color: #a2a9b1; --accent: #eaecf0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body.lang-pt .en { display: none !important; }
+    body.lang-en .pt { display: none !important; }
+
+    body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
+
+    header { position: sticky; top: 0; z-index: 1000; background: #f8f9fa; border-bottom: 1px solid var(--border-color); padding: 10px 0; width: 100%; }
+    nav { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+    .logo { font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700; color: #000; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--link-color); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { text-decoration: underline; }
+    .lang-btn { background: var(--accent); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+    article { padding: 40px 15px; max-width: 800px; margin: 0 auto; min-height: 70vh; }
+
+    .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: var(--text-secondary); }
+    .breadcrumb a { color: var(--link-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-family: 'Merriweather', serif; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    h2 { font-family: 'Merriweather', serif; font-size: 1.4rem; margin: 30px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px; }
+    h3 { font-family: 'Merriweather', serif; font-size: 1.1rem; margin: 20px 0 10px; color: var(--text-primary); }
+    p { margin-bottom: 15px; text-align: justify; }
+    ul, ol { margin: 0 0 15px 25px; }
+    li { margin-bottom: 5px; }
+
+    .tags { margin-bottom: 25px; }
+    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); display: inline-block; margin-bottom: 4px; }
+
+    pre {
+      background: #f8f9fa; border: 1px solid var(--border-color);
+      padding: 15px; overflow-x: auto; font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem; margin-bottom: 20px; border-left: 4px solid var(--border-color);
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace; background: #eaecf0;
+      padding: 2px 5px; border-radius: 3px; font-size: 0.9em;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--border-color);
+      background: #f8f9fa;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    table {
+      width: 100%; border-collapse: collapse; margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid var(--border-color); padding: 6px 10px;
+      text-align: left; vertical-align: top;
+    }
+    th { background: #eaecf0; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+
+    .github-btn {
+      display: inline-block; margin-top: 10px; padding: 8px 15px;
+      background: #24292e; color: #fff; text-decoration: none;
+      border-radius: 4px; font-weight: 600; font-size: 0.9rem;
+    }
+    .github-btn:hover { background: #000; }
+
+    footer { text-align: center; padding: 30px; background: #f8f9fa; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.85rem; margin-top: 50px; }
+  </style>
+</head>
+<body class="lang-pt">
+
+  <header>
+    <nav>
+      <a href="../../" class="logo">Guilherme Felipetto</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../../projetos/"><span class="pt">Voltar para Projetos</span><span class="en">Back to Projects</span></a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-btn">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <article>
+    <div class="breadcrumb">
+      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo;
+      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo;
+      Selene
+    </div>
+
+    <h1>Selene</h1>
+
+    <div class="tags">
+      <span>Python 3.10+</span>
+      <span>discord.py</span>
+      <span>OpenAI</span>
+      <span>DeepSeek</span>
+      <span>Gemini</span>
+      <span>ChromaDB</span>
+      <span>Docker</span>
+      <span>LLM Agent</span>
+    </div>
+
+    <p>
+      <span class="pt">A <strong>Selene</strong> é um assistente para Discord com personalidade própria, memória vetorial, execução de comandos em <em>sandbox</em> Docker, suporte a visão (Gemini) e troca dinâmica de modelos LLM em tempo real. O <code>selene_server</code> conecta um bot Discord a um "cérebro" de IA capaz de conversar em contexto de canal, lembrar informações relevantes via ChromaDB, usar ferramentas (ler/escrever arquivos, terminal, web, análise de imagem), executar tarefas recorrentes agendadas e alternar entre DeepSeek e modelos OpenAI sob demanda.</span>
+      <span class="en"><strong>Selene</strong> is a Discord assistant with its own personality, vector memory, command execution in a Docker <em>sandbox</em>, vision support (Gemini), and real-time LLM model switching. The <code>selene_server</code> connects a Discord bot to an AI "brain" capable of channel-aware conversation, memory recall via ChromaDB, tool use (read/write files, terminal, web, image analysis), scheduled recurring tasks, and on-demand switching between DeepSeek and OpenAI models.</span>
+    </p>
+
+    <a href="https://github.com/guilhermefelipetto/selene" target="_blank" class="github-btn">
+      <i class="fab fa-github"></i> <span class="pt">Ver no GitHub</span><span class="en">View on GitHub</span>
+    </a>
+
+    <h2><span class="pt">Principais recursos</span><span class="en">Main features</span></h2>
+    <ul>
+      <li><span class="pt">Bot Discord com comandos administrativos e de conversa.</span><span class="en">Discord bot with admin and conversation commands.</span></li>
+      <li><span class="pt">Histórico passivo por canal para contexto recente.</span><span class="en">Passive per-channel history for recent context.</span></li>
+      <li><span class="pt">Memória vetorial local em <code>quarto_da_selene/vetor_db</code>.</span><span class="en">Local vector memory at <code>quarto_da_selene/vetor_db</code>.</span></li>
+      <li><span class="pt">Sandbox Docker para execução isolada de comandos.</span><span class="en">Docker sandbox for isolated command execution.</span></li>
+      <li><span class="pt">Ferramentas de busca web e leitura de links.</span><span class="en">Web search and link-reading tools.</span></li>
+      <li><span class="pt">Análise de imagens via Gemini.</span><span class="en">Image analysis via Gemini.</span></li>
+      <li><span class="pt">Scheduler simples para notificações automáticas no canal.</span><span class="en">Simple scheduler for automatic channel notifications.</span></li>
+    </ul>
+
+    <h2><span class="pt">Stack</span><span class="en">Stack</span></h2>
+    <ul>
+      <li>Python 3.10+</li>
+      <li><code>discord.py</code></li>
+      <li><code>openai</code> (AsyncOpenAI)</li>
+      <li><code>chromadb</code> + <code>sentence-transformers</code></li>
+      <li>Docker</li>
+      <li><code>google-genai</code></li>
+    </ul>
+
+    <h2><span class="pt">Estrutura do projeto</span><span class="en">Project structure</span></h2>
+<pre>
+.
+├── main.py                  # Entrada do bot Discord
+├── selene_brain.py          # Orquestração de LLM + tool calls
+├── ferramentas.py           # Implementação das ferramentas
+├── requirements.txt
+├── quarto_da_selene/        # Estado local (plano, tarefas, vetor_db, uploads)
+└── README.md
+</pre>
+
+    <h2><span class="pt">Pré-requisitos</span><span class="en">Prerequisites</span></h2>
+    <ul>
+      <li><span class="pt">Python 3.10 ou superior.</span><span class="en">Python 3.10 or higher.</span></li>
+      <li><span class="pt">Docker instalado e rodando.</span><span class="en">Docker installed and running.</span></li>
+      <li><span class="pt">Token de bot no Discord.</span><span class="en">Discord bot token.</span></li>
+      <li><span class="pt">Chaves de API (OpenAI, DeepSeek, Gemini opcional).</span><span class="en">API keys (OpenAI, DeepSeek, Gemini optional).</span></li>
+    </ul>
+
+    <h2><span class="pt">Instalação</span><span class="en">Install</span></h2>
+<pre>
+$ python -m venv .venv
+$ source .venv/bin/activate
+$ pip install -r requirements.txt
+</pre>
+
+    <h2><span class="pt">Configuração (.env)</span><span class="en">Configuration (.env)</span></h2>
+    <p>
+      <span class="pt">Crie um arquivo <code>.env</code> na raiz com:</span>
+      <span class="en">Create a <code>.env</code> file in the project root:</span>
+    </p>
+<pre>
+DISCORD_TOKEN=seu_token_do_discord
+OWNER_ID=123456789012345678
+
+# LLMs
+DEEPSEEK_API_KEY=sua_chave_deepseek
+OPENAI_API_KEY=sua_chave_openai
+
+# <span class="pt">Visão (opcional)</span><span class="en">Vision (optional)</span>
+GEMINI_API_KEY=sua_chave_gemini
+</pre>
+    <blockquote>
+      <ul style="margin: 0 0 0 20px;">
+        <li><span class="pt"><code>DISCORD_TOKEN</code> é obrigatório para o bot iniciar.</span><span class="en"><code>DISCORD_TOKEN</code> is required for the bot to start.</span></li>
+        <li><span class="pt"><code>OWNER_ID</code> controla quem pode usar comandos administrativos como <code>!setllm</code>.</span><span class="en"><code>OWNER_ID</code> controls who can run admin commands like <code>!setllm</code>.</span></li>
+        <li><span class="pt">Sem <code>GEMINI_API_KEY</code>, a ferramenta de análise de imagem fica indisponível.</span><span class="en">Without <code>GEMINI_API_KEY</code>, the image analysis tool is unavailable.</span></li>
+      </ul>
+    </blockquote>
+
+    <h2><span class="pt">Executando</span><span class="en">Running</span></h2>
+<pre>
+$ python main.py
+</pre>
+    <p>
+      <span class="pt">Ao subir, o sistema inicializa automaticamente o container Docker de sandbox e o loop de tarefas agendadas.</span>
+      <span class="en">On startup, the system automatically initializes the sandbox Docker container and the scheduled task loop.</span>
+    </p>
+
+    <h2><span class="pt">Comandos do bot</span><span class="en">Bot commands</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span class="pt">Comando</span><span class="en">Command</span></th>
+          <th><span class="pt">Função</span><span class="en">Function</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>!s &lt;mensagem&gt;</code></td><td><span class="pt">Envia uma solicitação para a Selene.</span><span class="en">Sends a request to Selene.</span></td></tr>
+        <tr><td><code>!setllm [modelo]</code></td><td><span class="pt">Troca o modelo ativo (somente <code>OWNER_ID</code>).</span><span class="en">Switches the active model (only <code>OWNER_ID</code>).</span></td></tr>
+        <tr><td><code>!csm</code></td><td><span class="pt">Limpa memória de curto prazo da conversa.</span><span class="en">Clears the conversation's short-term memory.</span></td></tr>
+        <tr><td><code>!docker_reset</code></td><td><span class="pt">Recria o container de sandbox.</span><span class="en">Recreates the sandbox container.</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="pt">Modelos suportados em <code>!setllm</code></span><span class="en">Models supported in <code>!setllm</code></span></h3>
+    <ul>
+      <li><code>deepseek</code></li>
+      <li><code>gpt-5.4</code></li>
+      <li><code>gpt-5.4-mini</code></li>
+      <li><code>gpt-5.4-nano</code></li>
+      <li><code>gpt-5.3-codex</code></li>
+      <li><code>gpt-5.3-chat-latest</code></li>
+    </ul>
+
+    <h2><span class="pt">Persistência local</span><span class="en">Local persistence</span></h2>
+    <p>
+      <span class="pt">Os dados gerados em runtime ficam em <code>quarto_da_selene/</code>:</span>
+      <span class="en">Runtime-generated data lives in <code>quarto_da_selene/</code>:</span>
+    </p>
+    <ul>
+      <li><code>plano_de_acao.md</code></li>
+      <li><code>tarefas.json</code></li>
+      <li><code>vetor_db/</code></li>
+      <li><span class="pt">uploads e artefatos temporários.</span><span class="en">uploads and temporary artifacts.</span></li>
+    </ul>
+    <p>
+      <span class="pt">Esse diretório está no <code>.gitignore</code>.</span>
+      <span class="en">This directory is in <code>.gitignore</code>.</span>
+    </p>
+
+    <h2><span class="pt">Segurança e operação</span><span class="en">Security and operation</span></h2>
+    <ul>
+      <li><span class="pt">A execução de comandos ocorre em container Docker dedicado.</span><span class="en">Command execution happens in a dedicated Docker container.</span></li>
+      <li><span class="pt">O bot usa permissões de <code>message_content</code> no Discord — configure no painel de aplicações.</span><span class="en">The bot uses Discord's <code>message_content</code> intent — configure it in the application panel.</span></li>
+      <li><span class="pt">Revise o prompt de sistema e as ferramentas antes de qualquer uso em produção pública.</span><span class="en">Review the system prompt and tools before any public production use.</span></li>
+    </ul>
+
+    <h2><span class="pt">Motivação</span><span class="en">Motivation</span></h2>
+    <p>
+      <span class="pt">A Selene nasceu como um experimento de <em>agente persistente</em>: um bot conversacional que não esquece o que aprendeu, pode executar trabalho real (código, leitura de arquivos, buscas) de forma isolada, e cuja "personalidade" emerge da combinação entre prompt de sistema, memória vetorial e o histórico do canal. A possibilidade de trocar o LLM em tempo de execução é uma ferramenta de comparação prática entre modelos sob a mesma interface, contexto e conjunto de ferramentas.</span>
+      <span class="en">Selene was born as an experiment in <em>persistent agency</em>: a conversational bot that doesn't forget what it has learned, can perform real work (code, file reading, searches) in isolation, and whose "personality" emerges from the combination of system prompt, vector memory, and channel history. Runtime LLM switching is a practical comparison tool — same interface, same context, same tools, different model.</span>
+    </p>
+
+  </article>
+
+  <footer>
+    <p>&copy; 2026 Guilherme Felipetto.</p>
+  </footer>
+
+  <script>
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const body = document.body;
+    langToggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('lang-pt')) {
+        body.classList.remove('lang-pt'); body.classList.add('lang-en');
+        langToggleBtn.textContent = 'PT-BR'; document.documentElement.lang = "en";
+      } else {
+        body.classList.remove('lang-en'); body.classList.add('lang-pt');
+        langToggleBtn.textContent = 'EN'; document.documentElement.lang = "pt-BR";
+      }
+    });
+  </script>
+</body>
+</html>

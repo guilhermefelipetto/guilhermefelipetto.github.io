@@ -4,7 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DirTree | Guilherme Felipetto</title>
-  
+  <meta name="description" content="DirTree — aplicação desktop em Python/PyQt5 para gerar representações de estruturas de diretórios com filtros, ordenação flexível e tema claro/escuro.">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Guilherme Felipetto">
+  <meta property="og:title" content="DirTree | Guilherme Felipetto">
+  <meta property="og:description" content="Aplicação desktop em Python/PyQt5 para gerar árvores de diretórios com filtros, ordenação e tema claro/escuro.">
+  <meta property="og:url" content="https://guilhermefelipetto.github.io/projetos/dirtree/">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DirTree | Guilherme Felipetto">
+  <meta name="twitter:description" content="Aplicação desktop em Python/PyQt5 para gerar árvores de diretórios.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -30,17 +43,20 @@
     .lang-btn { background: var(--accent); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
 
     article { padding: 40px 15px; max-width: 800px; margin: 0 auto; min-height: 70vh; }
-    
+
     .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: var(--text-secondary); }
     .breadcrumb a { color: var(--link-color); text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
 
     h1 { font-family: 'Merriweather', serif; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
     h2 { font-family: 'Merriweather', serif; font-size: 1.4rem; margin: 30px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px; }
+    h3 { font-family: 'Merriweather', serif; font-size: 1.1rem; margin: 20px 0 10px; color: var(--text-primary); }
     p { margin-bottom: 15px; text-align: justify; }
-    
+    ul, ol { margin: 0 0 15px 25px; }
+    li { margin-bottom: 5px; }
+
     .tags { margin-bottom: 25px; }
-    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); }
+    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); display: inline-block; margin-bottom: 4px; }
 
     pre {
       background: #f8f9fa; border: 1px solid var(--border-color);
@@ -51,6 +67,26 @@
       font-family: 'Courier New', Courier, monospace; background: #eaecf0;
       padding: 2px 5px; border-radius: 3px; font-size: 0.9em;
     }
+
+    blockquote {
+      border-left: 4px solid var(--border-color);
+      background: #f8f9fa;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    table {
+      width: 100%; border-collapse: collapse; margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid var(--border-color); padding: 6px 10px;
+      text-align: left; vertical-align: top;
+    }
+    th { background: #eaecf0; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8f9fa; }
 
     .github-btn {
       display: inline-block; margin-top: 10px; padding: 8px 15px;
@@ -78,47 +114,114 @@
 
   <article>
     <div class="breadcrumb">
-      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo; 
-      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo; 
+      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo;
+      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo;
       DirTree
     </div>
 
     <h1>DirTree</h1>
-    
+
     <div class="tags">
-      <span>Python</span>
+      <span>Python 3.12+</span>
       <span>PyQt5</span>
       <span>GUI Desktop</span>
+      <span>Tema Claro/Escuro</span>
+      <span>MIT License</span>
       <span>Open Source</span>
     </div>
 
     <p>
-      <span class="pt">O <strong>DirTree</strong> é uma ferramenta com interface gráfica (GUI) construída em Python utilizando a biblioteca <strong>PyQt5</strong> para gerar representações visuais de árvores de diretórios. É extremamente útil para documentar a estrutura de projetos em arquivos <code>README.md</code> ou para análises rápidas de sistemas de arquivos, tudo através de uma interface amigável.</span>
-      <span class="en"><strong>DirTree</strong> is a graphical user interface (GUI) tool built in Python using the <strong>PyQt5</strong> library to generate visual representations of directory trees. It is extremely useful for documenting project structures in <code>README.md</code> files or for quick file system analysis, all through a user-friendly interface.</span>
+      <span class="pt">O <strong>DirTree</strong> é uma aplicação desktop construída em Python com <strong>PyQt5</strong> para gerar representações textuais de estruturas de diretórios de forma rápida, personalizável e com <em>preview</em> em tempo real. É útil para documentar projetos em <code>README.md</code>, artigos e apresentações sem depender de comandos de terminal cada vez mais complexos. A interface oferece filtros, ordenação independente para raiz e subdiretórios, tema claro/escuro e cópia direta para a área de transferência.</span>
+      <span class="en"><strong>DirTree</strong> is a desktop application built in Python with <strong>PyQt5</strong> to generate textual representations of directory structures quickly, with rich customization and real-time preview. It is useful for documenting projects in <code>README.md</code> files, articles, and presentations without resorting to ever-more-complex shell commands. The interface offers filters, independent sorting for root and subdirectories, light/dark themes, and one-click copy to the clipboard.</span>
     </p>
 
     <a href="https://github.com/guilhermefelipetto/dirtree" target="_blank" class="github-btn">
       <i class="fab fa-github"></i> <span class="pt">Ver no GitHub</span><span class="en">View on GitHub</span>
     </a>
 
-    <h2><span class="pt">Como funciona</span><span class="en">How it works</span></h2>
-    <p>
-      <span class="pt">Através de uma interface intuitiva, o usuário pode selecionar o diretório raiz que deseja mapear e configurar opções visuais, como quais pastas ou arquivos ignorar (por exemplo, <code>node_modules</code>, <code>.git</code> ou <code>__pycache__</code>). O aplicativo percorre os diretórios recursivamente e desenha a hierarquia utilizando caracteres ASCII/Unicode, permitindo copiar o resultado diretamente para a área de transferência.</span>
-      <span class="en">Through an intuitive interface, the user can select the root directory to map and configure visual options, such as which folders or files to ignore (e.g., <code>node_modules</code>, <code>.git</code>, or <code>__pycache__</code>). The application recursively traverses directories and draws the hierarchy using ASCII/Unicode characters, allowing the result to be copied directly to the clipboard.</span>
-    </p>
+    <h2><span class="pt">Recursos principais</span><span class="en">Main features</span></h2>
+    <ul>
+      <li><span class="pt"><strong>Interface gráfica intuitiva</strong> em PyQt5, com feedback visual imediato a cada mudança de parâmetro.</span><span class="en"><strong>Intuitive GUI</strong> built with PyQt5, with immediate visual feedback on every parameter change.</span></li>
+      <li><span class="pt"><strong>Tema claro e escuro</strong> alternáveis em tempo de execução.</span><span class="en"><strong>Light and dark themes</strong>, switchable at runtime.</span></li>
+      <li><span class="pt"><strong>Atualização em tempo real:</strong> a visualização da árvore é regenerada automaticamente sempre que um filtro ou regra de ordenação é alterado.</span><span class="en"><strong>Real-time refresh:</strong> the tree view is regenerated automatically whenever a filter or sort rule changes.</span></li>
+      <li><span class="pt"><strong>Cópia rápida:</strong> botão dedicado para enviar a saída direto para o clipboard, pronta para colar em qualquer editor de Markdown.</span><span class="en"><strong>Quick copy:</strong> dedicated button to send the output straight to the clipboard, ready to paste into any Markdown editor.</span></li>
+    </ul>
 
-    <h2><span class="pt">Exemplo de Uso</span><span class="en">Usage Example</span></h2>
-    <p>
-      <span class="pt">Para iniciar a interface gráfica, basta instalar as dependências e executar o script principal:</span>
-      <span class="en">To launch the graphical interface, simply install the dependencies and run the main script:</span>
-    </p>
+    <h2><span class="pt">Filtros e ordenação</span><span class="en">Filters and sorting</span></h2>
+
+    <h3><span class="pt">Filtros disponíveis</span><span class="en">Available filters</span></h3>
+    <table>
+      <thead>
+        <tr>
+          <th><span class="pt">Filtro</span><span class="en">Filter</span></th>
+          <th><span class="pt">Descrição</span><span class="en">Description</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pt">Ignorar pastas</span><span class="en">Ignore folders</span></td>
+          <td><span class="pt">Exclui diretórios da listagem (ex.: <code>__pycache__</code>, <code>.git</code>, <code>node_modules</code>).</span><span class="en">Excludes directories from the listing (e.g. <code>__pycache__</code>, <code>.git</code>, <code>node_modules</code>).</span></td>
+        </tr>
+        <tr>
+          <td><span class="pt">Ignorar arquivos</span><span class="en">Ignore files</span></td>
+          <td><span class="pt">Remove arquivos específicos da árvore (ex.: <code>.DS_Store</code>).</span><span class="en">Removes specific files from the tree (e.g. <code>.DS_Store</code>).</span></td>
+        </tr>
+        <tr>
+          <td><span class="pt">Ignorar extensões</span><span class="en">Ignore extensions</span></td>
+          <td><span class="pt">Oculta arquivos por extensão (<code>.log</code>, <code>.tmp</code>, <code>.pyc</code>).</span><span class="en">Hides files by extension (<code>.log</code>, <code>.tmp</code>, <code>.pyc</code>).</span></td>
+        </tr>
+        <tr>
+          <td><span class="pt">Sempre incluir</span><span class="en">Always include</span></td>
+          <td><span class="pt">Garante que certos arquivos ou pastas apareçam mesmo se baterem com algum filtro de exclusão (overrides).</span><span class="en">Ensures certain files or folders are shown even if they match an exclusion filter (overrides).</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3><span class="pt">Ordenação flexível</span><span class="en">Flexible sorting</span></h3>
+    <ul>
+      <li><span class="pt">Ordenação do diretório raiz e dos subdiretórios é configurada de forma <strong>independente</strong>.</span><span class="en">Sorting of the root directory and of subdirectories is configured <strong>independently</strong>.</span></li>
+      <li><span class="pt">Modo "Diretórios primeiro" ou "Arquivos primeiro".</span><span class="en">"Directories first" or "Files first" mode.</span></li>
+      <li><span class="pt">Ordem alfabética crescente (A–Z) ou decrescente (Z–A).</span><span class="en">Alphabetical ascending (A–Z) or descending (Z–A) order.</span></li>
+    </ul>
+
+    <h2><span class="pt">Tecnologias</span><span class="en">Tech stack</span></h2>
+    <ul>
+      <li>Python 3.12+</li>
+      <li>PyQt5 (<span class="pt">interface gráfica</span><span class="en">graphical interface</span>)</li>
+    </ul>
+
+    <h2><span class="pt">Instalação e execução</span><span class="en">Install and run</span></h2>
+
+    <h3><span class="pt">1. Clonar o repositório</span><span class="en">1. Clone the repository</span></h3>
+<pre>
+$ git clone https://github.com/guilhermefelipetto/dirtree.git
+$ cd dirtree
+</pre>
+
+    <h3><span class="pt">2. Criar e ativar um ambiente virtual (recomendado)</span><span class="en">2. Create and activate a virtual environment (recommended)</span></h3>
+<pre>
+# <span class="pt">Linux / macOS</span><span class="en">Linux / macOS</span>
+$ python3 -m venv venv
+$ source venv/bin/activate
+
+# Windows
+&gt; python -m venv venv
+&gt; .\venv\Scripts\activate
+</pre>
+
+    <h3><span class="pt">3. Instalar dependências</span><span class="en">3. Install dependencies</span></h3>
 <pre>
 $ pip install -r requirements.txt
+</pre>
+
+    <h3><span class="pt">4. Executar a aplicação</span><span class="en">4. Run the application</span></h3>
+<pre>
 $ python main_app.py
 </pre>
+
     <p>
-      <span class="pt">A partir daí, a janela do PyQt5 será aberta, e toda a interação é feita através de botões e campos de seleção. A saída gerada será semelhante a esta:</span>
-      <span class="en">From there, the PyQt5 window will open, and all interaction is done through buttons and selection fields. The generated output will look similar to this:</span>
+      <span class="pt">Ao subir, a janela do PyQt5 abre. Toda a interação é feita via botões e campos de seleção — sem comandos. A saída gerada tem este formato:</span>
+      <span class="en">On launch, the PyQt5 window opens. All interaction is done through buttons and selection fields — no commands needed. The generated output looks like this:</span>
     </p>
 <pre>
 meu-projeto/
@@ -129,16 +232,36 @@ meu-projeto/
 └── README.md
 </pre>
 
+    <h2><span class="pt">Estrutura do projeto</span><span class="en">Project structure</span></h2>
+<pre>
+dirtree/
+├── draw_structure_logic.py  # <span class="pt">Lógica para construir a árvore</span><span class="en">Tree-building logic</span>
+├── main_app.py              # <span class="pt">Aplicação e interface gráfica</span><span class="en">Application and GUI</span>
+├── styles.py                # <span class="pt">Folhas de estilo (QSS) — temas claro e escuro</span><span class="en">Stylesheets (QSS) — light and dark themes</span>
+├── README.md
+└── requirements.txt
+</pre>
+    <blockquote>
+      <span class="pt">A árvore acima foi gerada com o próprio DirTree.</span>
+      <span class="en">The tree above was generated using DirTree itself.</span>
+    </blockquote>
+
+    <h2><span class="pt">Licença</span><span class="en">License</span></h2>
+    <p>
+      <span class="pt">Distribuído sob a licença <strong>MIT</strong>. Consulte o arquivo <code>LICENSE</code> no repositório para detalhes.</span>
+      <span class="en">Distributed under the <strong>MIT</strong> license. See the <code>LICENSE</code> file in the repository for details.</span>
+    </p>
+
     <h2><span class="pt">Motivação</span><span class="en">Motivation</span></h2>
     <p>
-      <span class="pt">Desenvolvi este projeto para aprofundar meus conhecimentos no desenvolvimento de interfaces gráficas desktop em Python com PyQt5, além de praticar a manipulação de caminhos de arquivos com as bibliotecas nativas do Python. O resultado foi uma ferramenta que eu mesmo utilizo para documentar meus repositórios.</span>
-      <span class="en">I developed this project to deepen my knowledge in desktop graphical interface development in Python with PyQt5, as well as to practice file path manipulation with native Python libraries. The result was a tool that I use myself to document my repositories.</span>
+      <span class="pt">Desenvolvi o DirTree para aprofundar meus conhecimentos em interfaces gráficas desktop com PyQt5 e em manipulação de caminhos de arquivos com a stdlib do Python. O objetivo prático era resolver um problema recorrente meu — gerar árvores de diretório para documentação — com mais controle e menos atrito do que uma sequência de comandos de terminal. O resultado é uma ferramenta que eu mesmo uso para documentar os meus repositórios (inclusive este).</span>
+      <span class="en">I built DirTree to deepen my knowledge of desktop GUI development with PyQt5 and file-path manipulation using Python's standard library. The practical goal was to solve a recurring problem of mine — generating directory trees for documentation — with more control and less friction than a chain of shell commands. The result is a tool I use myself to document my own repositories (including this one).</span>
     </p>
 
   </article>
 
   <footer>
-    <p>&copy; 2025 Guilherme Felipetto.</p>
+    <p>&copy; 2026 Guilherme Felipetto.</p>
   </footer>
 
   <script>

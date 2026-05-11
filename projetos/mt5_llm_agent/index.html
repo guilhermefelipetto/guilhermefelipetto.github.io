@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MT5 LLM Agent | Guilherme Felipetto</title>
+  <meta name="description" content="MT5 LLM Agent — agente de trading stateful que usa LLMs para decisões em tempo real no MetaTrader 5, com indicadores técnicos, GARCH/HAR-RV e guardrails de risco.">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Guilherme Felipetto">
+  <meta property="og:title" content="MT5 LLM Agent | Guilherme Felipetto">
+  <meta property="og:description" content="Agente de trading stateful com LLM no MetaTrader 5 — multi-timeframe, GARCH/HAR-RV, FastAPI dashboard.">
+  <meta property="og:url" content="https://guilhermefelipetto.github.io/projetos/mt5_llm_agent/">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MT5 LLM Agent | Guilherme Felipetto">
+  <meta name="twitter:description" content="Agente de trading stateful com LLM no MetaTrader 5.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #ffffff; --text-primary: #202122; --text-secondary: #54595d;
+      --link-color: #0645ad; --border-color: #a2a9b1; --accent: #eaecf0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body.lang-pt .en { display: none !important; }
+    body.lang-en .pt { display: none !important; }
+
+    body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
+
+    header { position: sticky; top: 0; z-index: 1000; background: #f8f9fa; border-bottom: 1px solid var(--border-color); padding: 10px 0; width: 100%; }
+    nav { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+    .logo { font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700; color: #000; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--link-color); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { text-decoration: underline; }
+    .lang-btn { background: var(--accent); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+    article { padding: 40px 15px; max-width: 800px; margin: 0 auto; min-height: 70vh; }
+
+    .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: var(--text-secondary); }
+    .breadcrumb a { color: var(--link-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-family: 'Merriweather', serif; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    h2 { font-family: 'Merriweather', serif; font-size: 1.4rem; margin: 30px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px; }
+    h3 { font-family: 'Merriweather', serif; font-size: 1.1rem; margin: 20px 0 10px; color: var(--text-primary); }
+    p { margin-bottom: 15px; text-align: justify; }
+    ul, ol { margin: 0 0 15px 25px; }
+    li { margin-bottom: 5px; }
+
+    .tags { margin-bottom: 25px; }
+    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); display: inline-block; margin-bottom: 4px; }
+
+    pre {
+      background: #f8f9fa; border: 1px solid var(--border-color);
+      padding: 15px; overflow-x: auto; font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem; margin-bottom: 20px; border-left: 4px solid var(--border-color);
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace; background: #eaecf0;
+      padding: 2px 5px; border-radius: 3px; font-size: 0.9em;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--border-color);
+      background: #f8f9fa;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    table {
+      width: 100%; border-collapse: collapse; margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid var(--border-color); padding: 6px 10px;
+      text-align: left; vertical-align: top;
+    }
+    th { background: #eaecf0; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+
+    .github-btn {
+      display: inline-block; margin-top: 10px; padding: 8px 15px;
+      background: #24292e; color: #fff; text-decoration: none;
+      border-radius: 4px; font-weight: 600; font-size: 0.9rem;
+    }
+    .github-btn:hover { background: #000; }
+
+    .warning {
+      border: 1px solid #c8a020; background: #fef6e7;
+      padding: 10px 15px; margin-bottom: 20px; font-size: 0.9rem;
+    }
+
+    footer { text-align: center; padding: 30px; background: #f8f9fa; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.85rem; margin-top: 50px; }
+  </style>
+</head>
+<body class="lang-pt">
+
+  <header>
+    <nav>
+      <a href="../../" class="logo">Guilherme Felipetto</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../../projetos/"><span class="pt">Voltar para Projetos</span><span class="en">Back to Projects</span></a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-btn">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <article>
+    <div class="breadcrumb">
+      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo;
+      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo;
+      MT5 LLM Agent
+    </div>
+
+    <h1>MT5 LLM Agent</h1>
+
+    <div class="tags">
+      <span>Python</span>
+      <span>FastAPI</span>
+      <span>OpenAI</span>
+      <span>MetaTrader 5</span>
+      <span>GARCH</span>
+      <span>HAR-RV</span>
+      <span>Quant Finance</span>
+      <span>LLM Agent</span>
+    </div>
+
+    <p>
+      <span class="pt">O <strong>MT5 LLM Agent</strong> é um agente de trading <em>stateful</em> que utiliza LLMs para tomar decisões em tempo real no <strong>MetaTrader 5</strong>. A cada <code>ANALYSIS_INTERVAL</code> segundos, o pipeline coleta dados multi-timeframe, computa indicadores técnicos, testes estatísticos e modelos de volatilidade (GARCH/HAR-RV), injeta o estado da posição aberta no prompt e consulta a OpenAI — que responde com uma ação: <code>OPEN_LONG</code>, <code>OPEN_SHORT</code>, <code>HOLD</code>, <code>CLOSE</code> (sair antes de SL/TP) ou <code>TIGHTEN_STOP</code> (apertar SL para travar lucro).</span>
+      <span class="en">The <strong>MT5 LLM Agent</strong> is a <em>stateful</em> trading agent that uses LLMs for real-time decisions on <strong>MetaTrader 5</strong>. Every <code>ANALYSIS_INTERVAL</code> seconds, the pipeline collects multi-timeframe data, computes technical indicators, statistical tests, and volatility models (GARCH/HAR-RV), injects the open position state into the prompt, and queries OpenAI — which responds with an action: <code>OPEN_LONG</code>, <code>OPEN_SHORT</code>, <code>HOLD</code>, <code>CLOSE</code> (exit before SL/TP), or <code>TIGHTEN_STOP</code> (tighten SL to lock profit).</span>
+    </p>
+
+    <a href="https://github.com/guilhermefelipetto/mt5_llm_agent" target="_blank" class="github-btn">
+      <i class="fab fa-github"></i> <span class="pt">Ver no GitHub</span><span class="en">View on GitHub</span>
+    </a>
+
+    <div class="warning" style="margin-top: 25px;">
+      <span class="pt"><strong>Aviso:</strong> use conta <strong>demo</strong> apenas. Projeto experimental, sem garantias de performance.</span>
+      <span class="en"><strong>Disclaimer:</strong> use <strong>demo</strong> accounts only. Experimental project, no performance guarantees.</span>
+    </div>
+
+    <h2><span class="pt">Como funciona</span><span class="en">How it works</span></h2>
+    <p>
+      <span class="pt">O agente combina três camadas: (i) <strong>extração de features</strong> a partir de múltiplos timeframes (RSI, MACD, ATR, Bollinger, EMA), além de testes estatísticos (ADF, Ljung-Box, Hurst, VRT) e estimadores de volatilidade plugáveis (GARCH(1,1), HAR-RV de Corsi ou ATR); (ii) <strong>decisão via LLM</strong> usando um <em>prompt builder</em> hierárquico que injeta o contexto técnico, o estado da posição aberta e o histórico recente; (iii) <strong>gestão de risco</strong> com sizing dinâmico (confiança × volatilidade inversa), guardrails state-aware, circuit breakers de drawdown diário e perdas consecutivas.</span>
+      <span class="en">The agent combines three layers: (i) <strong>feature extraction</strong> from multiple timeframes (RSI, MACD, ATR, Bollinger, EMA), plus statistical tests (ADF, Ljung-Box, Hurst, VRT) and pluggable volatility estimators (GARCH(1,1), Corsi's HAR-RV, or ATR); (ii) <strong>LLM decision</strong> via a hierarchical <em>prompt builder</em> that injects technical context, open position state, and recent history; (iii) <strong>risk management</strong> with dynamic sizing (confidence × inverse volatility), state-aware guardrails, daily drawdown circuit breakers and consecutive-loss limits.</span>
+    </p>
+    <p>
+      <span class="pt">Um <strong>Expert Advisor</strong> em MQL5 roda no MetaTrader 5 e consulta o servidor FastAPI local via <code>WebRequest</code> a cada tick. A fonte de dados é configurável: <code>yfinance</code> por padrão, ou o próprio broker via <code>mt5linux</code> (bridge Python no Wine).</span>
+      <span class="en">An MQL5 <strong>Expert Advisor</strong> runs on MetaTrader 5 and queries the local FastAPI server via <code>WebRequest</code> on every tick. The data source is configurable: <code>yfinance</code> by default, or the broker itself via <code>mt5linux</code> (Python bridge in Wine).</span>
+    </p>
+
+    <h2><span class="pt">Instalação rápida</span><span class="en">Quick install</span></h2>
+<pre>
+$ pip install -r requirements.txt
+$ cp .env.example .env
+$ uvicorn main:app --host 0.0.0.0 --port 8000
+</pre>
+    <p>
+      <span class="pt"><code>--host 0.0.0.0</code> é necessário se o MT5 roda no Wine — o EA não consegue acessar <code>127.0.0.1</code> sob Wine. Em Windows nativo, <code>127.0.0.1</code> funciona normalmente. Após subir, abra <code>http://localhost:8000/</code> no navegador para o <strong>dashboard de runtime</strong> (equity curve, distribuição de ações, win rate por regime, latência do LLM, última decisão ao vivo — atualiza a cada 10 s).</span>
+      <span class="en"><code>--host 0.0.0.0</code> is required if MT5 runs under Wine — the EA cannot reach <code>127.0.0.1</code> under Wine. On native Windows, <code>127.0.0.1</code> works normally. Once up, open <code>http://localhost:8000/</code> in the browser for the <strong>runtime dashboard</strong> (equity curve, action distribution, win rate per regime, LLM latency, live last decision — refreshes every 10 s).</span>
+    </p>
+
+    <h2><span class="pt">Configuração MT5 no Linux (opcional)</span><span class="en">MT5 setup on Linux (optional)</span></h2>
+    <p>
+      <span class="pt">Para usar dados diretos do broker em vez do yfinance, o pacote <code>mt5linux</code> cria uma ponte entre o Python Linux e o MT5 rodando no Wine/Bottles. É necessário instalar Python <strong>dentro</strong> do ambiente Wine e executar um servidor bridge.</span>
+      <span class="en">To use broker data directly instead of yfinance, the <code>mt5linux</code> package bridges Python on Linux and MT5 running under Wine/Bottles. You need Python <strong>inside</strong> the Wine environment plus a bridge server.</span>
+    </p>
+
+    <h3><span class="pt">Passo 1 — Python no Wine/Bottles</span><span class="en">Step 1 — Python inside Wine/Bottles</span></h3>
+    <p>
+      <span class="pt">Baixe o instalador <code>python-3.11.9-amd64.exe</code> e instale-o no bottle do MT5 (marque "Add to PATH"). Recomendado: <code>drive_c\Python311</code>.</span>
+      <span class="en">Download the <code>python-3.11.9-amd64.exe</code> installer and install it inside the MT5 bottle (check "Add to PATH"). Recommended path: <code>drive_c\Python311</code>.</span>
+    </p>
+
+    <h3><span class="pt">Passo 2 — Dependências dentro do Wine</span><span class="en">Step 2 — Dependencies inside Wine</span></h3>
+<pre>
+drive_c\users\steamuser\AppData\Local\Programs\Python\Python311\python.exe -m pip install MetaTrader5 mt5linux "numpy&lt;2"
+</pre>
+    <div class="warning">
+      <span class="pt"><strong>Importante:</strong> o <code>"numpy&lt;2"</code> é necessário. NumPy 2.x usa funções C99 do Universal CRT (<code>crealf</code>, <code>cimagf</code>, etc) que o <code>ucrtbase.dll</code> do Wine ainda não implementa — o bridge crasha com <code>ucrtbase.dll.crealf, aborting</code>. Alternativa: instalar <code>vcredist2019/2022</code> via Bottles → Dependencies (substitui o ucrtbase do Wine pelo da Microsoft).</span>
+      <span class="en"><strong>Important:</strong> <code>"numpy&lt;2"</code> is required. NumPy 2.x uses C99 functions from the Universal CRT (<code>crealf</code>, <code>cimagf</code>, etc) that Wine's <code>ucrtbase.dll</code> doesn't implement yet — the bridge crashes with <code>ucrtbase.dll.crealf, aborting</code>. Alternative: install <code>vcredist2019/2022</code> via Bottles → Dependencies (replaces Wine's ucrtbase with Microsoft's).</span>
+    </div>
+
+    <h3><span class="pt">Passo 3 — mt5linux no Python Linux</span><span class="en">Step 3 — mt5linux on Linux Python</span></h3>
+<pre>
+$ pip install mt5linux
+</pre>
+
+    <h3><span class="pt">Passo 4 — Iniciar o bridge</span><span class="en">Step 4 — Start the bridge</span></h3>
+    <p>
+      <span class="pt">No terminal cmd do Bottles, com o MT5 aberto e conectado ao broker:</span>
+      <span class="en">In the Bottles cmd terminal, with MT5 open and connected to the broker:</span>
+    </p>
+<pre>
+drive_c\users\steamuser\AppData\Local\Programs\Python\Python311\python.exe -m mt5linux --host 127.0.0.1 -p 18812
+</pre>
+    <p>
+      <span class="pt">Deve aparecer: <code>INFO SLAVE/18812[MainThread]: server started on [127.0.0.1]:18812</code>.</span>
+      <span class="en">You should see: <code>INFO SLAVE/18812[MainThread]: server started on [127.0.0.1]:18812</code>.</span>
+    </p>
+
+    <h3><span class="pt">Passo 5 — Ativar no .env</span><span class="en">Step 5 — Enable in .env</span></h3>
+<pre>
+DATA_SOURCE=mt5
+MT5_HOST=localhost
+MT5_PORT=18812
+</pre>
+    <p>
+      <span class="pt">O agente tenta MT5 primeiro. Se o bridge não estiver rodando, <strong>cai automaticamente para yfinance</strong> sem quebrar.</span>
+      <span class="en">The agent tries MT5 first. If the bridge isn't running, it <strong>automatically falls back to yfinance</strong> without breaking.</span>
+    </p>
+
+    <h2><span class="pt">Deploy do Expert Advisor</span><span class="en">Expert Advisor deployment</span></h2>
+<pre>
+$ bash deploy_mql5.sh
+</pre>
+    <p>
+      <span class="pt">O script copia <code>mql5/LLM_Trader.mq5</code> para o diretório <code>Experts</code> do MT5. Em seguida:</span>
+      <span class="en">The script copies <code>mql5/LLM_Trader.mq5</code> to MT5's <code>Experts</code> directory. Then:</span>
+    </p>
+    <ol>
+      <li><span class="pt">Abra o <strong>MetaEditor</strong> e compile o arquivo.</span><span class="en">Open <strong>MetaEditor</strong> and compile the file.</span></li>
+      <li><span class="pt">Em <strong>Tools → Options → Expert Advisors</strong>, adicione a URL do servidor em <em>Allow WebRequest</em> (<code>http://127.0.0.1:8000</code> no Windows nativo, ou <code>http://&lt;IP-LAN&gt;:8000</code> sob Linux/Wine — loopback falha sob Wine).</span><span class="en">In <strong>Tools → Options → Expert Advisors</strong>, add the server URL under <em>Allow WebRequest</em> (<code>http://127.0.0.1:8000</code> on native Windows, or <code>http://&lt;IP-LAN&gt;:8000</code> under Linux/Wine — loopback fails under Wine).</span></li>
+      <li><span class="pt">Ajuste <code>InpServerURL</code> nos parâmetros do EA para a mesma URL liberada.</span><span class="en">Set <code>InpServerURL</code> in the EA parameters to the same allowed URL.</span></li>
+      <li><span class="pt">Arraste o EA <code>LLM_Trader</code> para o gráfico do símbolo configurado. O <strong>timeframe do gráfico não importa</strong> — <code>OnTick()</code> dispara em todo tick.</span><span class="en">Drag the <code>LLM_Trader</code> EA onto the configured symbol's chart. The <strong>chart timeframe doesn't matter</strong> — <code>OnTick()</code> fires on every tick.</span></li>
+    </ol>
+
+    <h2><span class="pt">Variáveis de ambiente</span><span class="en">Environment variables</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span class="pt">Variável</span><span class="en">Variable</span></th>
+          <th><span class="pt">Padrão</span><span class="en">Default</span></th>
+          <th><span class="pt">Descrição</span><span class="en">Description</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>MODEL_VERSION</code></td><td><code>v1.8.0</code></td><td><span class="pt">Tag de versão nos logs.</span><span class="en">Version tag in logs.</span></td></tr>
+        <tr><td><code>OPENAI_API_KEY</code></td><td>—</td><td><span class="pt">Chave da OpenAI.</span><span class="en">OpenAI API key.</span></td></tr>
+        <tr><td><code>OPENAI_MODEL</code></td><td><code>gpt-4o</code></td><td><span class="pt">Modelo OpenAI (suporta <code>json_schema</code> strict).</span><span class="en">OpenAI model (supports strict <code>json_schema</code>).</span></td></tr>
+        <tr><td><code>SYMBOL</code></td><td><code>EURUSD</code></td><td><span class="pt">Símbolo no broker (MT5).</span><span class="en">Broker symbol (MT5).</span></td></tr>
+        <tr><td><code>YF_SYMBOL</code></td><td><code>EURUSD=X</code></td><td><span class="pt">Símbolo no yfinance.</span><span class="en">yfinance symbol.</span></td></tr>
+        <tr><td><code>DATA_SOURCE</code></td><td><code>yfinance</code></td><td><code>mt5</code> | <code>yfinance</code></td></tr>
+        <tr><td><code>MT5_HOST</code> / <code>MT5_PORT</code></td><td><code>localhost</code> / <code>18812</code></td><td><span class="pt">Bridge mt5linux.</span><span class="en">mt5linux bridge.</span></td></tr>
+        <tr><td><code>VOL_ESTIMATOR</code></td><td><code>garch</code></td><td><code>garch</code> | <code>har_rv</code> | <code>atr</code></td></tr>
+        <tr><td><code>PIP_SIZE</code></td><td><code>0.0001</code></td><td><span class="pt">Tamanho do pip (EURUSD).</span><span class="en">Pip size (EURUSD).</span></td></tr>
+        <tr><td><code>ANALYSIS_INTERVAL</code></td><td><code>300</code></td><td><span class="pt">Segundos entre análises (flat). Com posição, cadência vira <code>min(cadence_s)</code> entre horizontes ativos.</span><span class="en">Seconds between analyses (flat). With an open position, cadence becomes <code>min(cadence_s)</code> across active horizons.</span></td></tr>
+        <tr><td><code>MAX_POSITIONS</code></td><td><code>3</code></td><td><span class="pt">Teto de posições simultâneas (uma por horizonte/lado).</span><span class="en">Concurrent positions cap (one per horizon/side).</span></td></tr>
+        <tr><td><code>MIN_CONFIDENCE</code></td><td><code>0.6</code></td><td><span class="pt">Confiança mínima para agir.</span><span class="en">Minimum confidence to act.</span></td></tr>
+        <tr><td><code>RISK_PER_TRADE_PCT</code></td><td><code>1.0</code></td><td><span class="pt">Risco-alvo por trade (% do equity).</span><span class="en">Target risk per trade (% of equity).</span></td></tr>
+        <tr><td><code>PIP_VALUE_PER_LOT</code></td><td><code>10.0</code></td><td><span class="pt">USD por pip por 1 lote (EURUSD/USD).</span><span class="en">USD per pip per 1 lot (EURUSD/USD).</span></td></tr>
+        <tr><td><code>MIN_LOT</code> / <code>MAX_LOT</code> / <code>LOT_STEP</code></td><td><code>0.01</code> / <code>1.0</code> / <code>0.01</code></td><td><span class="pt">Bounds e passo do broker.</span><span class="en">Broker bounds and step.</span></td></tr>
+        <tr><td><code>DAILY_DRAWDOWN_PCT</code></td><td><code>2.0</code></td><td><span class="pt">Circuit breaker — % do equity perdível por dia.</span><span class="en">Circuit breaker — % of equity loss-able per day.</span></td></tr>
+        <tr><td><code>MAX_CONSECUTIVE_LOSSES</code></td><td><code>3</code></td><td><span class="pt">Circuit breaker — perdas seguidas no dia.</span><span class="en">Circuit breaker — consecutive losses in a day.</span></td></tr>
+      </tbody>
+    </table>
+    <blockquote>
+      <span class="pt"><strong>Perfis de horizonte</strong> (SL/TP, time exit, cadência) ficam em <code>config.HORIZON_PROFILES</code> no código, com defaults para scalp/intraday/swing. Edite lá para tunar; não estão expostos no <code>.env</code>.</span>
+      <span class="en"><strong>Horizon profiles</strong> (SL/TP, time exit, cadence) live in <code>config.HORIZON_PROFILES</code>, with defaults for scalp/intraday/swing. Edit there to tune; not exposed via <code>.env</code>.</span>
+    </blockquote>
+
+    <h2><span class="pt">Zerar logs</span><span class="en">Reset logs</span></h2>
+    <p>
+      <span class="pt">Para começar uma nova janela de coleta (por ex. depois de resetar o equity da conta demo):</span>
+      <span class="en">To start a fresh collection window (e.g. after resetting demo account equity):</span>
+    </p>
+<pre>
+$ python reset_logs.py            # <span class="pt">interativo — exige digitar "SIM"</span><span class="en">interactive — requires typing "SIM"</span>
+$ python reset_logs.py --yes      # <span class="pt">pula confirmação</span><span class="en">skips confirmation</span>
+</pre>
+    <p>
+      <span class="pt">Apaga <code>signals.jsonl</code>, <code>trades.jsonl</code> e <code>trades_state.json</code>. Não toca em código, <code>.env</code>, paper ou posições do MT5. Reinicie o <code>uvicorn</code> em seguida para limpar o <code>current_signal</code> em memória.</span>
+      <span class="en">Wipes <code>signals.jsonl</code>, <code>trades.jsonl</code> and <code>trades_state.json</code>. Doesn't touch code, <code>.env</code>, paper, or MT5 positions. Restart <code>uvicorn</code> afterwards to clear the in-memory <code>current_signal</code>.</span>
+    </p>
+
+    <h2><span class="pt">Estrutura</span><span class="en">Structure</span></h2>
+<pre>
+mt5_llm_agent/
+├── main.py                    # entry point FastAPI
+├── config.py                  # settings via .env
+├── agent/
+│   ├── llm_manager.py         # OpenAI client (json_schema strict)
+│   └── prompt_builder.py      # prompt hierárquico + estado da posição
+├── api/
+│   ├── server.py              # endpoints /signal /health /analyze
+│   └── dashboard.py           # GET / (HTML) + /api/dashboard (JSON)
+├── data/
+│   ├── fetcher.py             # interface unificada MT5 + yfinance
+│   ├── mt5_source.py          # OHLCV via MT5 (mt5linux | MetaTrader5)
+│   ├── yf_source.py           # fonte yfinance (fallback)
+│   ├── positions.py           # posição aberta para o prompt stateful
+│   └── trades.py              # lifecycle real de trades fechados
+├── features/
+│   ├── context_builder.py     # contexto multi-TF
+│   ├── indicators.py          # RSI, MACD, ATR, Bollinger, EMA
+│   ├── statistics.py          # ADF, Ljung-Box, Hurst, VRT
+│   ├── garch.py               # GARCH(1,1) — σ_{t+1} em pips
+│   └── har_rv.py              # HAR-RV (Corsi) — σ_{t+1} em pips
+├── risk/
+│   ├── manager.py             # Signal + guardrails state-aware
+│   ├── volatility.py          # estimador plugável GARCH > HAR-RV > ATR
+│   ├── sizing.py              # sizing dinâmico (confiança × vol inversa)
+│   └── circuit_breaker.py     # DD diário / perdas seguidas
+├── analytics/
+│   ├── simulator.py           # simulação post-hoc de TP/SL hit
+│   └── metrics.py             # métricas por MODEL_VERSION
+├── mql5/
+│   └── LLM_Trader.mq5         # Expert Advisor MT5
+├── paper/
+│   └── paper.tex              # artigo acadêmico (WIP)
+└── logs/
+    ├── signals.jsonl
+    └── trades.jsonl
+</pre>
+
+    <h2><span class="pt">Motivação</span><span class="en">Motivation</span></h2>
+    <p>
+      <span class="pt">O projeto explora se um LLM, devidamente contextualizado com features quantitativas e estado de carteira, consegue tomar decisões úteis em mercados intradiários — tratando o modelo de linguagem como um <em>policy</em> de alta abstração sobre features estatísticas, ao invés de tentar prever preço diretamente. Toda a infraestrutura ao redor (sizing, circuit breakers, logging por <code>MODEL_VERSION</code>) existe para tornar a hipótese testável de forma honesta, com lifecycle real de trades e simulação post-hoc para isolar a contribuição do LLM.</span>
+      <span class="en">The project explores whether an LLM, properly contextualized with quantitative features and portfolio state, can make useful decisions in intraday markets — treating the language model as a high-level <em>policy</em> over statistical features, rather than trying to predict price directly. All the surrounding infrastructure (sizing, circuit breakers, <code>MODEL_VERSION</code>-stamped logging) exists to make the hypothesis honestly testable, with real trade lifecycle data and post-hoc simulation isolating the LLM's contribution.</span>
+    </p>
+
+  </article>
+
+  <footer>
+    <p>&copy; 2026 Guilherme Felipetto.</p>
+  </footer>
+
+  <script>
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const body = document.body;
+    langToggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('lang-pt')) {
+        body.classList.remove('lang-pt'); body.classList.add('lang-en');
+        langToggleBtn.textContent = 'PT-BR'; document.documentElement.lang = "en";
+      } else {
+        body.classList.remove('lang-en'); body.classList.add('lang-pt');
+        langToggleBtn.textContent = 'EN'; document.documentElement.lang = "pt-BR";
+      }
+    });
+  </script>
+</body>
+</html>

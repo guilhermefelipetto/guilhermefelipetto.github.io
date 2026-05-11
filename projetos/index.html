@@ -5,7 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="Projetos e Repositórios de Guilherme Felipetto">
   <title>Projetos | Guilherme Felipetto</title>
-  
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Guilherme Felipetto">
+  <meta property="og:title" content="Projetos | Guilherme Felipetto">
+  <meta property="og:description" content="Coleção de repositórios, ferramentas de linha de comando, algoritmos e experimentos.">
+  <meta property="og:url" content="https://guilhermefelipetto.github.io/projetos/">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Projetos | Guilherme Felipetto">
+  <meta name="twitter:description" content="Coleção de repositórios, ferramentas de linha de comando, algoritmos e experimentos.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -134,13 +146,39 @@
     </p>
 
     <div class="projects-grid">
-      
+
+      <div class="project-card">
+        <h3><a href="mt5_llm_agent/">MT5 LLM Agent</a></h3>
+        <div class="project-tags">Python • FastAPI • OpenAI • MetaTrader 5 • GARCH • Quant</div>
+        <p class="project-desc">
+          <span class="pt">Agente de trading stateful que usa LLMs para decisões em tempo real no MetaTrader 5. Pipeline multi-timeframe com indicadores técnicos, GARCH/HAR-RV, sizing dinâmico e circuit breakers de risco.</span>
+          <span class="en">Stateful trading agent that uses LLMs for real-time decisions on MetaTrader 5. Multi-timeframe pipeline with technical indicators, GARCH/HAR-RV, dynamic sizing and risk circuit breakers.</span>
+        </p>
+        <div class="project-links">
+          <a href="mt5_llm_agent/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
+          <a href="https://github.com/guilhermefelipetto/mt5_llm_agent" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3><a href="selene/">Selene</a></h3>
+        <div class="project-tags">Python • Discord • LLM • ChromaDB • Docker • Gemini</div>
+        <p class="project-desc">
+          <span class="pt">Assistente para Discord com personalidade própria, memória vetorial (ChromaDB), execução de comandos em sandbox Docker, visão (Gemini) e troca dinâmica entre DeepSeek e modelos OpenAI.</span>
+          <span class="en">Discord assistant with its own personality, vector memory (ChromaDB), command execution in a Docker sandbox, vision (Gemini), and runtime switching between DeepSeek and OpenAI models.</span>
+        </p>
+        <div class="project-links">
+          <a href="selene/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
+          <a href="https://github.com/guilhermefelipetto/selene" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+
       <div class="project-card">
         <h3><a href="dirtree/">DirTree</a></h3>
-        <div class="project-tags">Python • PyQt5 • GUI • File System</div>
+        <div class="project-tags">Python 3.12+ • PyQt5 • GUI Desktop • Tema Claro/Escuro • MIT</div>
         <p class="project-desc">
-          <span class="pt">Uma ferramenta com interface gráfica (GUI) desenvolvida em Python e PyQt5 para visualizar e exportar a estrutura de diretórios de forma limpa e interativa.</span>
-          <span class="en">A graphical user interface (GUI) tool developed in Python and PyQt5 to visualize and export directory structures in a clean and interactive way.</span>
+          <span class="pt">Aplicação desktop em Python/PyQt5 para gerar árvores de diretórios com filtros customizáveis, ordenação independente para raiz/subdiretórios, tema claro/escuro e atualização em tempo real.</span>
+          <span class="en">Desktop app in Python/PyQt5 for generating directory trees with customizable filters, independent sorting for root/subdirectories, light/dark theme, and real-time preview.</span>
         </p>
         <div class="project-links">
           <a href="dirtree/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
@@ -150,10 +188,10 @@
 
       <div class="project-card">
         <h3><a href="python_search_engine/">Python Search Engine</a></h3>
-        <div class="project-tags">Python • NLP • Algoritmos • CLI</div>
+        <div class="project-tags">Python • CLI • Information Retrieval • BM25 • Inverted Index</div>
         <p class="project-desc">
-          <span class="pt">Um motor de busca simples construído do zero em Python, utilizando técnicas de processamento de linguagem natural e ranqueamento de relevância.</span>
-          <span class="en">A simple search engine built from scratch in Python, using natural language processing techniques and relevance ranking.</span>
+          <span class="pt">Motor de busca construído do zero em Python, com índice invertido binário (pickle), ranqueamento BM25 e CLI completa para indexar, buscar, listar e remover documentos.</span>
+          <span class="en">Search engine built from scratch in Python, with a binary inverted index (pickle), BM25 ranking, and a full CLI to index, search, list, and remove documents.</span>
         </p>
         <div class="project-links">
           <a href="python_search_engine/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
@@ -165,7 +203,7 @@
   </section>
 
   <footer>
-    <p>&copy; 2025 Guilherme Felipetto.</p>
+    <p>&copy; 2026 Guilherme Felipetto.</p>
   </footer>
 
   <script>
