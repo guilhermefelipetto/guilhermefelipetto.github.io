@@ -228,19 +228,20 @@
       margin-right: -15px;
     }
 
-    .skills-tags span {
+    .skills-tags > span {
       display: inline-block;
+      white-space: nowrap;
       color: var(--link-color);
       padding: 0;
-      margin: 0 5px 5px 0;
+      margin: 0 4px 6px 0;
       font-size: 0.9rem;
       background: none;
     }
-    .skills-tags span::after {
+    .skills-tags > span::after {
       content: " •";
       color: #000;
     }
-    .skills-tags span:last-child::after { content: ""; }
+    .skills-tags > span:last-child::after { content: ""; }
 
     .timeline-item {
       background: transparent;
@@ -400,6 +401,14 @@
       padding-bottom: 4px;
     }
 
+    .edu-item { display: flex; gap: 18px; align-items: flex-start; }
+    .edu-logo { width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; }
+    .edu-body { flex: 1; min-width: 0; }
+    @media (max-width: 600px) {
+      .edu-item { gap: 12px; }
+      .edu-logo { width: 52px; height: 52px; }
+    }
+
     footer {
       text-align: center;
       padding: 30px;
@@ -513,14 +522,8 @@
           <span>C#</span>
           <span>PyTorch</span>
           <span>TensorFlow</span>
-          <span>
-            <span class="pt">OpenCV / Processamento de Imagens</span>
-            <span class="en">OpenCV / Image Processing</span>
-          </span>
-          <span>
-            <span class="pt">Visão Computacional</span>
-            <span class="en">Computer Vision</span>
-          </span>
+          <span><span class="pt">OpenCV / Processamento de Imagens</span><span class="en">OpenCV / Image Processing</span></span>
+          <span><span class="pt">Visão Computacional</span><span class="en">Computer Vision</span></span>
           <span>FastAPI</span>
           <span>Node.js</span>
           <span>Angular</span>
@@ -529,10 +532,7 @@
           <span>MLflow</span>
           <span>AWS (EC2)</span>
           <span>PostgreSQL</span>
-          <span>
-            <span class="pt">Inglês Fluente</span>
-            <span class="en">Fluent English</span>
-          </span>
+          <span><span class="pt">Inglês Fluente</span><span class="en">Fluent English</span></span>
         </div>
       </div>
     </div>
@@ -710,42 +710,22 @@
 
       <div class="project-card">
         <div class="project-content">
-          <h3>
-            <span class="pt">Clonagem de Voz (TTS)</span>
-            <span class="en">Voice Cloning (TTS)</span>
-          </h3>
-          <div class="project-tags">Python • Deep Learning • Audio • 2025</div>
+          <h3><a href="../projetos/doclaynet_augmentation_study/"><span class="pt">DocLayNet em 10%</span><span class="en">DocLayNet at 10%</span></a></h3>
+          <div class="project-tags">Python • Detectron2 • Mask R-CNN • MAC5768 (IME-USP) • 2026</div>
           <p>
-            <span class="pt">Desenvolvimento de modelos Text-To-Speech para clonagem de voz. Projeto premiado como 2º melhor minicurso ministrado no Biopark (Jan 2025).</span>
-            <span class="en">Development of Text-To-Speech models for voice cloning. Awarded 2nd best short course taught at Biopark (Jan 2025).</span>
+            <span class="pt">Ablação de data augmentation no DocLayNet com Mask R-CNN R50 em 10% do dataset, e reprodução do efeito de vazamento entre split por documento e por página. Nenhuma augmentation melhorou o baseline, e o split por página inflou o mAP em 18,4 pontos.</span>
+            <span class="en">Data augmentation ablation on DocLayNet with Mask R-CNN R50 on 10% of the dataset, plus a reproduction of the leakage effect between document-level and page-level splits. No augmentation beat the baseline, and the page-level split inflated mAP by 18.4 points.</span>
           </p>
         </div>
       </div>
 
       <div class="project-card">
         <div class="project-content">
-          <h3>
-            <span class="pt">Controle de Qualidade Farmacêutico</span>
-            <span class="en">Pharmaceutical Quality Control</span>
-          </h3>
-          <div class="project-tags">Computer Vision • C++ • <span class="pt">Indústria 4.0 • Jul 2024</span><span class="en">Industry 4.0 • Jul 2024</span></div>
+          <h3><a href="../projetos/python_search_engine/">Python Search Engine</a></h3>
+          <div class="project-tags">Python • CLI • Information Retrieval • BM25 • Inverted Index</div>
           <p>
-            <span class="pt">Sistema de visão computacional para detecção automática de desvios em carimbos de cartonagens, garantindo integridade do produto.</span>
-            <span class="en">Computer vision system for automatic detection of deviations in carton stamps, ensuring product integrity.</span>
-          </p>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-content">
-          <h3>
-            <span class="pt">App Gerenciamento de Aviários</span>
-            <span class="en">Poultry Farm Management App</span>
-          </h3>
-          <div class="project-tags">Hackathon Show Rural 2025</div>
-          <p>
-            <span class="pt">Aplicativo desenvolvido para gerenciamento de aviários com foco no combate à amônia.</span>
-            <span class="en">Application developed for poultry farm management with a focus on combating ammonia.</span>
+            <span class="pt">Motor de busca construído do zero em Python, com índice invertido binário, ranqueamento BM25 e CLI completa para indexar, buscar, listar e remover documentos.</span>
+            <span class="en">Search engine built from scratch in Python, with a binary inverted index, BM25 ranking, and a full CLI to index, search, list, and remove documents.</span>
           </p>
         </div>
       </div>
@@ -767,13 +747,29 @@
       <div class="project-card">
         <div class="project-content">
           <h3>
-            <span class="pt">Inteligência de Mercado Volvo Penta</span>
-            <span class="en">Volvo Penta Market Intelligence</span>
+            <span class="pt">Clonagem de Voz (TTS)</span>
+            <span class="en">Voice Cloning (TTS)</span>
           </h3>
-          <div class="project-tags"><span class="pt">Análise de Dados • Mar - Jul 2023</span><span class="en">Data Analysis • Mar - Jul 2023</span></div>
+          <div class="project-tags">Python • Deep Learning • Audio • 2025</div>
           <p>
-            <span class="pt">Projeto de inteligência de mercado com dados da ABIMAQ e da Volvo Penta.</span>
-            <span class="en">Market intelligence project using data from ABIMAQ and Volvo Penta.</span>
+            <span class="pt">Desenvolvimento de modelos Text-To-Speech para clonagem de voz. Projeto premiado como 2º melhor minicurso ministrado no Biopark (Jan 2025).</span>
+            <span class="en">Development of Text-To-Speech models for voice cloning. Awarded 2nd best short course taught at Biopark (Jan 2025).</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>
+            <a href="https://drive.google.com/file/d/1eKo0PecyzCCVQsrUKL_AMMACubwOFa8y/view?usp=sharing" target="_blank">
+              <span class="pt">Controle de Qualidade Farmacêutico</span>
+              <span class="en">Pharmaceutical Quality Control</span>
+            </a>
+          </h3>
+          <div class="project-tags">Computer Vision • C++ • <span class="pt">Indústria 4.0 • Jul 2024</span><span class="en">Industry 4.0 • Jul 2024</span></div>
+          <p>
+            <span class="pt">Sistema de visão computacional para detecção automática de desvios em carimbos de cartonagens, garantindo integridade do produto. Publicado no Congresso Interdisciplinar de Pesquisa e Inovação do Biopark II.</span>
+            <span class="en">Computer vision system for automatic detection of deviations in carton stamps, ensuring product integrity. Published at the II Interdisciplinary Congress of Research and Innovation at Biopark.</span>
           </p>
         </div>
       </div>
@@ -900,52 +896,61 @@
       <span class="en">Academic Education</span>
     </h2>
 
-    <div class="timeline-item">
-      <div class="timeline-header">
-        <span class="role">
-          <span class="pt">Mestrado Acadêmico em Ciência da Computação</span>
-          <span class="en">Master's Degree in Computer Science</span>
+    <div class="timeline-item edu-item">
+      <img src="assets/uspoficial_logo.jpg" alt="Logo USP" class="edu-logo">
+      <div class="edu-body">
+        <div class="timeline-header">
+          <span class="role">
+            <span class="pt">Mestrado Acadêmico em Ciência da Computação</span>
+            <span class="en">Master's Degree in Computer Science</span>
+          </span>
+          <span class="company">Universidade de São Paulo (IME-USP)</span>
+        </div>
+        <span class="date">
+          <span class="pt">Ago 2026 - Ago 2028 (Previsão)</span>
+          <span class="en">Aug 2026 - Aug 2028 (Expected)</span>
         </span>
-        <span class="company"><img src="assets/uspoficial_logo.jpg" alt="Logo USP" class="company-logo"><span class="company-sep">—</span>Universidade de São Paulo (IME-USP)</span>
+        <p class="description">
+          <span class="pt">Área: Visão e Processamento de Imagens. Orientador: Prof. Dr. Paulo André Vechiatto de Miranda.<br>Tema: segmentação de imagens baseada em grafos com restrições de forma, a partir da Transformada Imagem-Floresta Orientada (OIFT).</span>
+          <span class="en">Area: Image Processing and Computer Vision. Advisor: Prof. Dr. Paulo André Vechiatto de Miranda.<br>Topic: graph-based image segmentation with shape constraints, building on the Oriented Image Foresting Transform (OIFT).</span>
+        </p>
       </div>
-      <span class="date">
-        <span class="pt">Ago 2026 - Ago 2028 (Previsão)</span>
-        <span class="en">Aug 2026 - Aug 2028 (Expected)</span>
-      </span>
-      <p class="description">
-        <span class="pt">Área: Visão e Processamento de Imagens. Orientador: Prof. Dr. Paulo André Vechiatto de Miranda.<br>Tema: segmentação de imagens baseada em grafos com restrições de forma, a partir da Transformada Imagem-Floresta Orientada (OIFT).</span>
-        <span class="en">Area: Image Processing and Computer Vision. Advisor: Prof. Dr. Paulo André Vechiatto de Miranda.<br>Topic: graph-based image segmentation with shape constraints, building on the Oriented Image Foresting Transform (OIFT).</span>
-      </p>
     </div>
 
-    <div class="timeline-item">
-      <div class="timeline-header">
-        <span class="role">
-          <span class="pt">Aluno Especial</span>
-          <span class="en">Special Student</span>
-        </span>
-        <span class="company"><img src="assets/uspoficial_logo.jpg" alt="Logo USP" class="company-logo"><span class="company-sep">—</span>Universidade de São Paulo (IME-USP)</span>
+    <div class="timeline-item edu-item">
+      <img src="assets/ime_logo.png" alt="Logo IME-USP" class="edu-logo">
+      <div class="edu-body">
+        <div class="timeline-header">
+          <span class="role">
+            <span class="pt">Aluno Especial</span>
+            <span class="en">Special Student</span>
+          </span>
+          <span class="company">Instituto de Matemática, Estatística e Ciência da Computação (IME-USP)</span>
+        </div>
+        <span class="date">Jun 2025 - Jun 2026</span>
+        <p class="description">
+          <span class="pt">Disciplinas: Visão e Processamento de Imagem Digital; Aprendizado de Máquina; Probabilidade e Estatística.</span>
+          <span class="en">Courses: Digital Image Processing and Computer Vision; Machine Learning; Probability and Statistics.</span>
+        </p>
       </div>
-      <span class="date">Jun 2025 - Jun 2026</span>
-      <p class="description">
-        <span class="pt">Disciplinas: Visão e Processamento de Imagem Digital; Aprendizado de Máquina; Probabilidade e Estatística.</span>
-        <span class="en">Courses: Digital Image Processing and Computer Vision; Machine Learning; Probability and Statistics.</span>
-      </p>
     </div>
 
-    <div class="timeline-item">
-      <div class="timeline-header">
-        <span class="role">
-          <span class="pt">Graduação em Ciência de Dados</span>
-          <span class="en">Bachelor's Degree in Data Science</span>
-        </span>
-        <span class="company"><img src="assets/faculdade_donaduzzi_logo.jpg" alt="Logo Faculdade Donaduzzi" class="company-logo"><span class="company-sep">—</span>Faculdade Donaduzzi</span>
+    <div class="timeline-item edu-item">
+      <img src="assets/faculdade_donaduzzi_logo.jpg" alt="Logo Faculdade Donaduzzi" class="edu-logo">
+      <div class="edu-body">
+        <div class="timeline-header">
+          <span class="role">
+            <span class="pt">Graduação em Ciência de Dados</span>
+            <span class="en">Bachelor's Degree in Data Science</span>
+          </span>
+          <span class="company">Faculdade Donaduzzi</span>
+        </div>
+        <span class="date">2023 - Jul 2025</span>
+        <p class="description">
+          <span class="pt">Nota: 9.2<br><br>Atividades e grupos: Apresentações de artigos no Latinoware, no Congresso do Biopark, hackathons e projetos de iniciação científica. Participação na Liga Acadêmica.<br><br>Bacharelado em Ciência de Dados com foco em análise, modelagem e processamento de informações. Durante o curso, o estudante adquiriu experiência em programação para ciência de dados, análise exploratória de dados, aprendizado supervisionado e não supervisionado, engenharia de dados, processamento digital de imagens, MLOps, visualização da informação, matemática, estatística e probabilidade. Projetos integradores foram desenvolvidos aplicando técnicas de Data Warehouse, Power BI e extração de dados, incluindo imagens digitais, com o objetivo de apoiar a tomada de decisões e a automação de processos.</span>
+          <span class="en">GPA: 9.2<br><br>Activities and groups: Paper presentations at Latinoware, Biopark Congress, hackathons, and undergraduate research projects. Participation in the Academic League.<br><br>Bachelor's Degree in Data Science focused on information analysis, modeling, and processing. During the program, the student acquired experience in programming for data science, exploratory data analysis, supervised and unsupervised learning, data engineering, digital image processing, MLOps, information visualization, mathematics, statistics and probability. Integrative projects were developed applying Data Warehouse techniques, Power BI, and data extraction, including digital images, aimed at supporting decision-making and process automation.</span>
+        </p>
       </div>
-      <span class="date">2023 - Jul 2025</span>
-      <p class="description">
-        <span class="pt">Nota: 9.2<br><br>Atividades e grupos: Apresentações de artigos no Latinoware, no Congresso do Biopark, hackathons e projetos de iniciação científica. Participação na Liga Acadêmica.<br><br>Bacharelado em Ciência de Dados com foco em análise, modelagem e processamento de informações. Durante o curso, o estudante adquiriu experiência em programação para ciência de dados, análise exploratória de dados, aprendizado supervisionado e não supervisionado, engenharia de dados, processamento digital de imagens, MLOps, visualização da informação, matemática, estatística e probabilidade. Projetos integradores foram desenvolvidos aplicando técnicas de Data Warehouse, Power BI e extração de dados, incluindo imagens digitais, com o objetivo de apoiar a tomada de decisões e a automação de processos.</span>
-        <span class="en">GPA: 9.2<br><br>Activities and groups: Paper presentations at Latinoware, Biopark Congress, hackathons, and undergraduate research projects. Participation in the Academic League.<br><br>Bachelor's Degree in Data Science focused on information analysis, modeling, and processing. During the program, the student acquired experience in programming for data science, exploratory data analysis, supervised and unsupervised learning, data engineering, digital image processing, MLOps, information visualization, mathematics, statistics and probability. Integrative projects were developed applying Data Warehouse techniques, Power BI, and data extraction, including digital images, aimed at supporting decision-making and process automation.</span>
-      </p>
     </div>
   </section>
 
