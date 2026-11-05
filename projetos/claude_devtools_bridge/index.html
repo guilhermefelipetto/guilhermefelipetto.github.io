@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>claude-devtools-bridge | Guilherme Felipetto</title>
+  <meta name="description" content="claude-devtools-bridge — dá ao Claude Code acesso ao Chrome DevTools Protocol pelo Chrome do dia a dia, via servidor MCP, bridge WebSocket e extensão MV3.">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Guilherme Felipetto">
+  <meta property="og:title" content="claude-devtools-bridge | Guilherme Felipetto">
+  <meta property="og:description" content="Servidor MCP + bridge WebSocket + extensão Chrome MV3 que dão ao Claude Code acesso ao Chrome DevTools Protocol.">
+  <meta property="og:url" content="https://guilhermefelipetto.github.io/projetos/claude_devtools_bridge/">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="claude-devtools-bridge | Guilherme Felipetto">
+  <meta name="twitter:description" content="Claude Code falando com o Chrome DevTools Protocol via extensão.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #ffffff; --text-primary: #202122; --text-secondary: #54595d;
+      --link-color: #0645ad; --border-color: #a2a9b1; --accent: #eaecf0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body.lang-pt .en { display: none !important; }
+    body.lang-en .pt { display: none !important; }
+
+    body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
+
+    header { position: sticky; top: 0; z-index: 1000; background: #f8f9fa; border-bottom: 1px solid var(--border-color); padding: 10px 0; width: 100%; }
+    nav { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+    .logo { font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700; color: #000; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--link-color); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { text-decoration: underline; }
+    .lang-btn { background: var(--accent); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+    article { padding: 40px 15px; max-width: 800px; margin: 0 auto; min-height: 70vh; }
+
+    .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: var(--text-secondary); }
+    .breadcrumb a { color: var(--link-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-family: 'Merriweather', serif; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    h2 { font-family: 'Merriweather', serif; font-size: 1.4rem; margin: 30px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px; }
+    h3 { font-family: 'Merriweather', serif; font-size: 1.1rem; margin: 20px 0 10px; color: var(--text-primary); }
+    p { margin-bottom: 15px; text-align: justify; }
+    ul, ol { margin: 0 0 15px 25px; }
+    li { margin-bottom: 5px; }
+
+    .tags { margin-bottom: 25px; }
+    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); display: inline-block; margin-bottom: 4px; }
+
+    pre {
+      background: #f8f9fa; border: 1px solid var(--border-color);
+      padding: 15px; overflow-x: auto; font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem; margin-bottom: 20px; border-left: 4px solid var(--border-color);
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace; background: #eaecf0;
+      padding: 2px 5px; border-radius: 3px; font-size: 0.9em;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--border-color);
+      background: #f8f9fa;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    table {
+      width: 100%; border-collapse: collapse; margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid var(--border-color); padding: 6px 10px;
+      text-align: left; vertical-align: top;
+    }
+    th { background: #eaecf0; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+
+    .github-btn {
+      display: inline-block; margin-top: 10px; padding: 8px 15px;
+      background: #24292e; color: #fff; text-decoration: none;
+      border-radius: 4px; font-weight: 600; font-size: 0.9rem;
+    }
+    .github-btn:hover { background: #000; }
+
+    figure { margin: 20px 0 25px; }
+    figure img { max-width: 100%; height: auto; display: block; border: 1px solid var(--border-color); background: #fff; }
+    figcaption { font-size: 0.85rem; color: var(--text-secondary); margin-top: 6px; }
+    .secondary-btn { background: #f8f9fa; color: var(--link-color); border: 1px solid var(--border-color); margin-left: 6px; }
+    .secondary-btn:hover { background: #e2e2e2; }
+
+    footer { text-align: center; padding: 30px; background: #f8f9fa; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.85rem; margin-top: 50px; }
+  </style>
+</head>
+<body class="lang-pt">
+
+  <header>
+    <nav>
+      <a href="../../" class="logo">Guilherme Felipetto</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../../projetos/"><span class="pt">Voltar para Projetos</span><span class="en">Back to Projects</span></a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-btn">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <article>
+    <div class="breadcrumb">
+      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo;
+      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo;
+      claude-devtools-bridge
+    </div>
+
+    <h1>claude-devtools-bridge</h1>
+
+    <div class="tags">
+      <span>JavaScript</span>
+      <span>Node.js</span>
+      <span>Model Context Protocol</span>
+      <span>Chrome Extension (MV3)</span>
+      <span>Chrome DevTools Protocol</span>
+      <span>WebSocket</span>
+    </div>
+
+    <p>
+      <span class="pt">Uma ponte que dá ao <strong>Claude Code</strong> acesso ao <strong>Chrome DevTools Protocol</strong> por meio de uma extensão. Funciona no Chrome do dia a dia, sem precisar lançá-lo com <code>--remote-debugging-port</code>, em qualquer projeto onde o Claude Code for usado. Com ela o agente consegue ler erros do console, tirar screenshots, navegar, preencher formulários e inspecionar requisições da aba escolhida.</span>
+      <span class="en">A bridge that gives <strong>Claude Code</strong> access to the <strong>Chrome DevTools Protocol</strong> through an extension. It works in your everyday Chrome, without launching it with <code>--remote-debugging-port</code>, in any project where Claude Code is used. With it the agent can read console errors, take screenshots, navigate, fill in forms and inspect requests on the chosen tab.</span>
+    </p>
+
+    <a href="https://github.com/guilhermefelipetto/claude-devtools-bridge" target="_blank" class="github-btn">
+      <i class="fab fa-github"></i> <span class="pt">Ver no GitHub</span><span class="en">View on GitHub</span>
+    </a>
+
+    <h2><span class="pt">Arquitetura</span><span class="en">Architecture</span></h2>
+<pre>
+Claude Code ──stdio──► MCP server ──ws──► Bridge ──ws──► <span class="pt">Extensão Chrome</span><span class="en">Chrome extension</span> ──CDP──► <span class="pt">Aba</span><span class="en">Tab</span>
+</pre>
+    <table>
+      <thead>
+        <tr>
+          <th><span class="pt">Peça</span><span class="en">Piece</span></th>
+          <th><span class="pt">O que faz</span><span class="en">What it does</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>bridge/</code></td><td><span class="pt">Servidor WebSocket local em <code>127.0.0.1:9223</code> que roteia as mensagens.</span><span class="en">Local WebSocket server on <code>127.0.0.1:9223</code> that routes messages.</span></td></tr>
+        <tr><td><code>extension/</code></td><td><span class="pt">Extensão Chrome MV3 que usa a API <code>chrome.debugger</code> para falar CDP com a aba.</span><span class="en">Chrome MV3 extension that uses the <code>chrome.debugger</code> API to speak CDP to the tab.</span></td></tr>
+        <tr><td><code>mcp-server/</code></td><td><span class="pt">Servidor MCP via stdio que expõe as ferramentas <code>browser_*</code> ao Claude.</span><span class="en">stdio MCP server that exposes the <code>browser_*</code> tools to Claude.</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2><span class="pt">Ferramentas expostas</span><span class="en">Exposed tools</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span class="pt">Ferramenta</span><span class="en">Tool</span></th>
+          <th><span class="pt">O que faz</span><span class="en">What it does</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>browser_eval</code></td><td><span class="pt">Executa uma expressão JS na aba (<code>Runtime.evaluate</code>).</span><span class="en">Runs a JS expression in the tab (<code>Runtime.evaluate</code>).</span></td></tr>
+        <tr><td><code>browser_screenshot</code></td><td><span class="pt">Captura a aba como imagem, da viewport ou da página inteira.</span><span class="en">Captures the tab as an image, viewport or full page.</span></td></tr>
+        <tr><td><code>browser_navigate</code></td><td><span class="pt">Navega para uma URL e espera o carregamento.</span><span class="en">Navigates to a URL and waits for the load.</span></td></tr>
+        <tr><td><code>browser_wait_for</code></td><td><span class="pt">Espera um seletor aparecer, a URL conter um trecho ou uma requisição completar.</span><span class="en">Waits for a selector to appear, the URL to contain a string or a request to complete.</span></td></tr>
+        <tr><td><code>browser_click</code></td><td><span class="pt">Clica por seletor com eventos de mouse nativos.</span><span class="en">Clicks by selector with native mouse events.</span></td></tr>
+        <tr><td><code>browser_type</code></td><td><span class="pt">Foca um campo e digita com eventos de input nativos.</span><span class="en">Focuses a field and types with native input events.</span></td></tr>
+        <tr><td><code>browser_console_logs</code></td><td><span class="pt">Devolve o buffer de <code>console.*</code> e exceções não capturadas.</span><span class="en">Returns the <code>console.*</code> buffer and uncaught exceptions.</span></td></tr>
+        <tr><td><code>browser_network_requests</code></td><td><span class="pt">Devolve o buffer de requisições (URL, status, headers, falhas).</span><span class="en">Returns the request buffer (URL, status, headers, failures).</span></td></tr>
+        <tr><td><code>browser_status</code></td><td><span class="pt">Informa se o bridge e a extensão estão conectados e qual aba está anexada.</span><span class="en">Reports whether the bridge and extension are connected and which tab is attached.</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2><span class="pt">Instalação</span><span class="en">Setup</span></h2>
+<pre>
+$ npm install
+$ claude mcp add devtools-bridge --scope user -- node "$(pwd)/mcp-server/index.js"
+# <span class="pt">carregue a pasta extension/ em chrome://extensions (modo desenvolvedor)</span><span class="en">load the extension/ folder in chrome://extensions (developer mode)</span>
+$ npm start
+</pre>
+    <p>
+      <span class="pt">Com o bridge rodando, basta clicar no ícone da extensão na aba desejada e em <em>Attach to this tab</em>. As ferramentas <code>mcp__devtools-bridge__browser_*</code> ficam disponíveis no Claude Code.</span>
+      <span class="en">With the bridge running, click the extension icon on the tab you want and then <em>Attach to this tab</em>. The <code>mcp__devtools-bridge__browser_*</code> tools become available in Claude Code.</span>
+    </p>
+
+    <h2><span class="pt">Segurança</span><span class="en">Security</span></h2>
+    <ul>
+      <li><span class="pt">O bridge escuta apenas em <code>127.0.0.1</code>, sem exposição na rede.</span><span class="en">The bridge listens only on <code>127.0.0.1</code>, with no network exposure.</span></li>
+      <li><span class="pt">Não há autenticação: assume que só processos locais se conectam. Não use em máquinas compartilhadas.</span><span class="en">There is no authentication: it assumes only local processes connect. Don't use it on shared machines.</span></li>
+      <li><span class="pt">A extensão só age depois que o usuário clica em <em>Attach</em> manualmente, e o Chrome mostra a barra amarela de depuração enquanto ela está anexada.</span><span class="en">The extension only acts after the user manually clicks <em>Attach</em>, and Chrome shows the yellow debugging bar while it is attached.</span></li>
+    </ul>
+
+  </article>
+
+  <footer>
+    <p>&copy; 2026 Guilherme Felipetto.</p>
+  </footer>
+
+  <script>
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const body = document.body;
+    langToggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('lang-pt')) {
+        body.classList.remove('lang-pt'); body.classList.add('lang-en');
+        langToggleBtn.textContent = 'PT-BR'; document.documentElement.lang = "en";
+      } else {
+        body.classList.remove('lang-en'); body.classList.add('lang-pt');
+        langToggleBtn.textContent = 'EN'; document.documentElement.lang = "pt-BR";
+      }
+    });
+  </script>
+</body>
+</html>

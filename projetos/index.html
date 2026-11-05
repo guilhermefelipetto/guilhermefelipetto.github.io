@@ -113,6 +113,26 @@
     }
     .btn-outline:hover { background: #e2e2e2; }
 
+    .project-featured { border-left: 4px solid var(--link-color); }
+
+    .badge {
+      font-family: 'Open Sans', sans-serif; font-size: 0.7rem; font-weight: 600;
+      color: var(--text-secondary); background: #f8f9fa;
+      border: 1px solid var(--border-color); border-radius: 2px;
+      padding: 1px 6px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.03em;
+    }
+
+    .subsection-title {
+      font-family: 'Merriweather', serif; font-size: 1.3rem; color: #000;
+      margin: 40px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px;
+    }
+    .old-projects { list-style: none; font-size: 0.95rem; }
+    .old-projects li { padding: 8px 0; border-bottom: 1px dotted #ccc; }
+    .old-projects li:last-child { border-bottom: none; }
+    .old-projects a { color: var(--link-color); text-decoration: none; font-weight: 600; margin-right: 4px; }
+    .old-projects a:hover { text-decoration: underline; }
+    .old-year { font-size: 0.8rem; color: var(--text-secondary); margin-right: 8px; }
+
     footer {
       text-align: center; padding: 30px; background: #f8f9fa;
       border-top: 1px solid var(--border-color); color: var(--text-secondary);
@@ -141,48 +161,48 @@
       <span class="en">Projects</span>
     </h1>
     <p class="section-subtitle">
-      <span class="pt">Uma coleção de repositórios, ferramentas de linha de comando, algoritmos e experimentos.</span>
-      <span class="en">A collection of repositories, command-line tools, algorithms, and experiments.</span>
+      <span class="pt">Uma coleção de repositórios: pesquisa em processamento de imagens, experimentos de aprendizado de máquina, ferramentas e agentes.</span>
+      <span class="en">A collection of repositories: image processing research, machine learning experiments, tools and agents.</span>
     </p>
 
     <div class="projects-grid">
 
-      <div class="project-card">
-        <h3><a href="mt5_llm_agent/">MT5 LLM Agent</a></h3>
-        <div class="project-tags">Python • FastAPI • OpenAI • MetaTrader 5 • GARCH • Quant</div>
+      <div class="project-card project-featured">
+        <h3><a href="aresta/">aresta</a></h3>
+        <div class="project-tags">C++20 • SDL2 • Dear ImGui • OpenGL 3.3 • IFT / OIFT • MIT</div>
         <p class="project-desc">
-          <span class="pt">Agente de trading stateful que usa LLMs para decisões em tempo real no MetaTrader 5. Pipeline multi-timeframe com indicadores técnicos, GARCH/HAR-RV, sizing dinâmico e circuit breakers de risco.</span>
-          <span class="en">Stateful trading agent that uses LLMs for real-time decisions on MetaTrader 5. Multi-timeframe pipeline with technical indicators, GARCH/HAR-RV, dynamic sizing and risk circuit breakers.</span>
+          <span class="pt">Bancada de processamento de imagens em C++ escrita do zero: o processamento clássico do Gonzalez e segmentação por grafos (IFT/OIFT). Cadeia tipada de estágios inspecionáveis e cronometrados, validada contra scikit-image, OpenCV e numpy.</span>
+          <span class="en">Image processing workbench written from scratch in C++: classic Gonzalez processing and graph-based segmentation (IFT/OIFT). A typed chain of inspectable, timed stages, validated against scikit-image, OpenCV and numpy.</span>
         </p>
         <div class="project-links">
-          <a href="mt5_llm_agent/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
-          <a href="https://github.com/guilhermefelipetto/mt5_llm_agent" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+          <a href="aresta/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
+          <a href="https://github.com/guilhermefelipetto/aresta" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
         </div>
       </div>
 
       <div class="project-card">
-        <h3><a href="selene/">Selene</a></h3>
-        <div class="project-tags">Python • Discord • LLM • ChromaDB • Docker • Gemini</div>
+        <h3><a href="doclaynet_augmentation_study/"><span class="pt">DocLayNet em 10%</span><span class="en">DocLayNet at 10%</span></a></h3>
+        <div class="project-tags">Python • Detectron2 • Mask R-CNN • Document Layout • MAC5768</div>
         <p class="project-desc">
-          <span class="pt">Assistente para Discord com personalidade própria, memória vetorial (ChromaDB), execução de comandos em sandbox Docker, visão (Gemini) e troca dinâmica entre DeepSeek e modelos OpenAI.</span>
-          <span class="en">Discord assistant with its own personality, vector memory (ChromaDB), command execution in a Docker sandbox, vision (Gemini), and runtime switching between DeepSeek and OpenAI models.</span>
+          <span class="pt">Ablação de data augmentation e reprodução do efeito de vazamento (split por documento vs por página) no DocLayNet, com Mask R-CNN R50/Detectron2 em 10% do dataset. Material suplementar do artigo final da disciplina MAC5768 (IME-USP).</span>
+          <span class="en">Data augmentation ablation and a reproduction of the leakage effect (document-level vs page-level split) on DocLayNet, with Mask R-CNN R50/Detectron2 on 10% of the dataset. Supplementary material for the final paper of the MAC5768 course (IME-USP).</span>
         </p>
         <div class="project-links">
-          <a href="selene/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
-          <a href="https://github.com/guilhermefelipetto/selene" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+          <a href="doclaynet_augmentation_study/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
+          <a href="https://github.com/guilhermefelipetto/doclaynet-augmentation-study" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
         </div>
       </div>
 
       <div class="project-card">
-        <h3><a href="dirtree/">DirTree</a></h3>
-        <div class="project-tags">Python 3.12+ • PyQt5 • GUI Desktop • Tema Claro/Escuro • MIT</div>
+        <h3><a href="claude_devtools_bridge/">claude-devtools-bridge</a></h3>
+        <div class="project-tags">JavaScript • Node.js • MCP • Chrome MV3 • CDP</div>
         <p class="project-desc">
-          <span class="pt">Aplicação desktop em Python/PyQt5 para gerar árvores de diretórios com filtros customizáveis, ordenação independente para raiz/subdiretórios, tema claro/escuro e atualização em tempo real.</span>
-          <span class="en">Desktop app in Python/PyQt5 for generating directory trees with customizable filters, independent sorting for root/subdirectories, light/dark theme, and real-time preview.</span>
+          <span class="pt">Ponte que dá ao Claude Code acesso ao Chrome DevTools Protocol no Chrome do dia a dia: servidor MCP (stdio), bridge WebSocket local e extensão Chrome MV3. Expõe 9 ferramentas (eval, screenshot, navegação, clique, digitação, espera, logs de console e de rede).</span>
+          <span class="en">A bridge that gives Claude Code access to the Chrome DevTools Protocol in your everyday Chrome: an MCP server (stdio), a local WebSocket bridge and a Chrome MV3 extension. Exposes 9 tools (eval, screenshot, navigation, click, typing, waiting, console and network logs).</span>
         </p>
         <div class="project-links">
-          <a href="dirtree/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
-          <a href="https://github.com/guilhermefelipetto/dirtree" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+          <a href="claude_devtools_bridge/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
+          <a href="https://github.com/guilhermefelipetto/claude-devtools-bridge" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
         </div>
       </div>
 
@@ -199,10 +219,62 @@
         </div>
       </div>
 
+      <div class="project-card">
+        <h3><a href="mt5_llm_agent/">MT5 LLM Agent</a> <span class="badge"><span class="pt">arquivado</span><span class="en">archived</span></span></h3>
+        <div class="project-tags">Python • FastAPI • OpenAI • MetaTrader 5 • GARCH • Quant</div>
+        <p class="project-desc">
+          <span class="pt">Agente de trading stateful que usa LLMs para decisões em tempo real no MetaTrader 5. Pipeline multi-timeframe com indicadores técnicos, GARCH/HAR-RV, sizing dinâmico e circuit breakers de risco.</span>
+          <span class="en">Stateful trading agent that uses LLMs for real-time decisions on MetaTrader 5. Multi-timeframe pipeline with technical indicators, GARCH/HAR-RV, dynamic sizing and risk circuit breakers.</span>
+        </p>
+        <div class="project-links">
+          <a href="mt5_llm_agent/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
+          <a href="https://github.com/guilhermefelipetto/mt5_llm_agent" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3><a href="selene/">Selene</a> <span class="badge"><span class="pt">arquivado</span><span class="en">archived</span></span></h3>
+        <div class="project-tags">Python • Discord • LLM • ChromaDB • Docker • Gemini</div>
+        <p class="project-desc">
+          <span class="pt">Assistente para Discord com personalidade própria, memória vetorial (ChromaDB), execução de comandos em sandbox Docker, visão (Gemini) e troca dinâmica entre DeepSeek e modelos OpenAI.</span>
+          <span class="en">Discord assistant with its own personality, vector memory (ChromaDB), command execution in a Docker sandbox, vision (Gemini), and runtime switching between DeepSeek and OpenAI models.</span>
+        </p>
+        <div class="project-links">
+          <a href="selene/" class="btn-outline"><i class="fas fa-book-open"></i> <span class="pt">Ler mais</span><span class="en">Read more</span></a>
+          <a href="https://github.com/guilhermefelipetto/selene" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+
     </div>
+
+    <h2 class="subsection-title">
+      <span class="pt">Projetos antigos</span>
+      <span class="en">Older projects</span>
+    </h2>
+    <ul class="old-projects">
+      <li>
+        <a href="https://github.com/guilhermefelipetto/placas-cd" target="_blank">placas-cd</a> <span class="old-year">2024</span>
+        <span class="pt">Treino de Haar Cascade e OCR (Tesseract) para leitura de placas; projeto do 3º semestre.</span>
+        <span class="en">Haar Cascade training and OCR (Tesseract) for license plate reading; 3rd-semester project.</span>
+      </li>
+      <li>
+        <a href="https://github.com/guilhermefelipetto/projeto_sistema_recomendacao" target="_blank">projeto_sistema_recomendacao</a> <span class="old-year">2025</span>
+        <span class="pt">Sistema de recomendação simples em Python, feito para ensinar dois colegas.</span>
+        <span class="en">A simple recommender system in Python, built to teach two classmates.</span>
+      </li>
+      <li>
+        <a href="https://github.com/guilhermefelipetto/background-changer-brawlhalla" target="_blank">background-changer-brawlhalla</a> <span class="old-year">2025</span>
+        <span class="pt">Utilitário em Python que automatiza a troca do background dos mapas do Brawlhalla.</span>
+        <span class="en">Python utility that automates changing Brawlhalla's map backgrounds.</span>
+      </li>
+    </ul>
   </section>
 
   <footer>
+    <p>
+      <span class="pt">Esta página foi editada pela última vez em Novembro de 2026.</span>
+      <span class="en">This page was last edited in November 2026.</span>
+    </p>
     <p>&copy; 2026 Guilherme Felipetto.</p>
   </footer>
 

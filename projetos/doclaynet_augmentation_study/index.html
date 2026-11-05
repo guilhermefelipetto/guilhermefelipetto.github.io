@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DocLayNet em 10% | Guilherme Felipetto</title>
+  <meta name="description" content="Ablação de data augmentation e reprodução do efeito de vazamento no DocLayNet com Mask R-CNN R50/Detectron2. Artigo final de MAC5768 (IME-USP).">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Guilherme Felipetto">
+  <meta property="og:title" content="DocLayNet em 10% | Guilherme Felipetto">
+  <meta property="og:description" content="Data augmentation ajuda na análise de layout de documentos? Ablação no DocLayNet com Mask R-CNN R50 e experimento de vazamento por documento vs por página.">
+  <meta property="og:url" content="https://guilhermefelipetto.github.io/projetos/doclaynet_augmentation_study/">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DocLayNet em 10% | Guilherme Felipetto">
+  <meta name="twitter:description" content="Ablação de data augmentation no DocLayNet com Mask R-CNN R50.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #ffffff; --text-primary: #202122; --text-secondary: #54595d;
+      --link-color: #0645ad; --border-color: #a2a9b1; --accent: #eaecf0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body.lang-pt .en { display: none !important; }
+    body.lang-en .pt { display: none !important; }
+
+    body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
+
+    header { position: sticky; top: 0; z-index: 1000; background: #f8f9fa; border-bottom: 1px solid var(--border-color); padding: 10px 0; width: 100%; }
+    nav { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+    .logo { font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700; color: #000; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--link-color); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { text-decoration: underline; }
+    .lang-btn { background: var(--accent); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+    article { padding: 40px 15px; max-width: 800px; margin: 0 auto; min-height: 70vh; }
+
+    .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: var(--text-secondary); }
+    .breadcrumb a { color: var(--link-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-family: 'Merriweather', serif; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    h2 { font-family: 'Merriweather', serif; font-size: 1.4rem; margin: 30px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px; }
+    h3 { font-family: 'Merriweather', serif; font-size: 1.1rem; margin: 20px 0 10px; color: var(--text-primary); }
+    p { margin-bottom: 15px; text-align: justify; }
+    ul, ol { margin: 0 0 15px 25px; }
+    li { margin-bottom: 5px; }
+
+    .tags { margin-bottom: 25px; }
+    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); display: inline-block; margin-bottom: 4px; }
+
+    pre {
+      background: #f8f9fa; border: 1px solid var(--border-color);
+      padding: 15px; overflow-x: auto; font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem; margin-bottom: 20px; border-left: 4px solid var(--border-color);
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace; background: #eaecf0;
+      padding: 2px 5px; border-radius: 3px; font-size: 0.9em;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--border-color);
+      background: #f8f9fa;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    table {
+      width: 100%; border-collapse: collapse; margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid var(--border-color); padding: 6px 10px;
+      text-align: left; vertical-align: top;
+    }
+    th { background: #eaecf0; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+
+    .github-btn {
+      display: inline-block; margin-top: 10px; padding: 8px 15px;
+      background: #24292e; color: #fff; text-decoration: none;
+      border-radius: 4px; font-weight: 600; font-size: 0.9rem;
+    }
+    .github-btn:hover { background: #000; }
+
+    figure { margin: 20px 0 25px; }
+    figure img { max-width: 100%; height: auto; display: block; border: 1px solid var(--border-color); background: #fff; }
+    figcaption { font-size: 0.85rem; color: var(--text-secondary); margin-top: 6px; }
+    .secondary-btn { background: #f8f9fa; color: var(--link-color); border: 1px solid var(--border-color); margin-left: 6px; }
+    .secondary-btn:hover { background: #e2e2e2; }
+
+    footer { text-align: center; padding: 30px; background: #f8f9fa; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.85rem; margin-top: 50px; }
+  </style>
+</head>
+<body class="lang-pt">
+
+  <header>
+    <nav>
+      <a href="../../" class="logo">Guilherme Felipetto</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../../projetos/"><span class="pt">Voltar para Projetos</span><span class="en">Back to Projects</span></a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-btn">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <article>
+    <div class="breadcrumb">
+      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo;
+      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo;
+      <span class="pt">DocLayNet em 10%</span><span class="en">DocLayNet at 10%</span>
+    </div>
+
+    <h1><span class="pt">DocLayNet em 10%: ablação de data augmentation</span><span class="en">DocLayNet at 10%: a data augmentation ablation</span></h1>
+
+    <div class="tags">
+      <span>Python</span>
+      <span>Detectron2 0.6</span>
+      <span>PyTorch</span>
+      <span>Mask R-CNN R50</span>
+      <span>Document Layout Analysis</span>
+      <span>MAC5768 (IME-USP)</span>
+    </div>
+
+    <p>
+      <span class="pt">Material suplementar do artigo final da disciplina MAC5768 do IME-USP, <em>"Data augmentation ajuda na análise de layout de documentos? Um estudo empírico sobre o DocLayNet em escala reduzida"</em>. Os autores do DocLayNet (KDD'22) especulam que seus baselines se beneficiariam de data augmentation, mas não fazem esse experimento. Este estudo preenche essa lacuna.</span>
+      <span class="en">Supplementary material for the final paper of IME-USP's MAC5768 course, <em>"Does data augmentation help document layout analysis? An empirical study on DocLayNet at reduced scale"</em> (in Portuguese). The DocLayNet authors (KDD'22) speculate that their baselines would benefit from data augmentation but never run that experiment. This study fills that gap.</span>
+    </p>
+
+    <a href="https://github.com/guilhermefelipetto/doclaynet-augmentation-study" target="_blank" class="github-btn">
+      <i class="fab fa-github"></i> <span class="pt">Ver no GitHub</span><span class="en">View on GitHub</span>
+    </a>
+    <a href="https://github.com/guilhermefelipetto/doclaynet-augmentation-study/blob/main/paper.pdf" target="_blank" class="github-btn secondary-btn">
+      <i class="far fa-file-pdf"></i> <span class="pt">Ler o artigo (PDF)</span><span class="en">Read the paper (PDF)</span>
+    </a>
+
+    <h2><span class="pt">Método</span><span class="en">Method</span></h2>
+    <ul>
+      <li><span class="pt">Mask R-CNN R50 do Detectron2 na configuração do artigo original, exceto pelo flip horizontal, desabilitado por ser inadequado a texto, que tem orientação canônica.</span><span class="en">Detectron2's Mask R-CNN R50 in the original paper's configuration, except for horizontal flip, disabled because text has a canonical orientation.</span></li>
+      <li><span class="pt">Cerca de 10% do dataset de treino, amostrado por documento inteiro e estratificado por tipo de documento, com seed fixa.</span><span class="en">About 10% of the training set, sampled by whole document and stratified by document type, with a fixed seed.</span></li>
+      <li><span class="pt">Três famílias de augmentation pensadas para documento escaneado: geométrica (afim leve com fundo branco), fotométrica (brilho, contraste, gama, ruído) e filtros por convolução (blur, sharpen, erosão/dilatação).</span><span class="en">Three augmentation families designed for scanned documents: geometric (light affine with white fill), photometric (brightness, contrast, gamma, noise) and convolution filters (blur, sharpen, erosion/dilation).</span></li>
+      <li><span class="pt">Baseline treinado três vezes para estimar a barra de erro. Avaliação sempre no val completo (6.489 páginas), mAP@0.5:0.95 de bbox, a mesma métrica do artigo.</span><span class="en">Baseline trained three times to estimate the error bar. Evaluation always on the full val set (6,489 pages), bbox mAP@0.5:0.95, the same metric as the paper.</span></li>
+      <li><span class="pt">Treinos em 2× RTX 3090 Ti (cerca de 16 h para a fila da ablação). Cada rodada grava sua configuração resolvida e sua seed.</span><span class="en">Training on 2× RTX 3090 Ti (about 16 h for the ablation queue). Each run records its resolved config and seed.</span></li>
+    </ul>
+
+    <h2><span class="pt">Resultados da ablação</span><span class="en">Ablation results</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Augmentation</th>
+          <th>mAP</th>
+          <th><span class="pt">Δ vs baseline</span><span class="en">Δ vs baseline</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="pt">nenhuma (baseline, 3 seeds)</span><span class="en">none (baseline, 3 seeds)</span></td><td><span class="pt">61,7 ± 0,5</span><span class="en">61.7 ± 0.5</span></td><td>—</td></tr>
+        <tr><td><span class="pt">fotométrica</span><span class="en">photometric</span></td><td><span class="pt">62,2</span><span class="en">62.2</span></td><td><span class="pt">+0,5 (dentro do ruído)</span><span class="en">+0.5 (within noise)</span></td></tr>
+        <tr><td><span class="pt">convolução</span><span class="en">convolution</span></td><td><span class="pt">61,0</span><span class="en">61.0</span></td><td><span class="pt">−0,7 (na borda do ruído)</span><span class="en">−0.7 (at the edge of noise)</span></td></tr>
+        <tr><td><span class="pt">geométrica</span><span class="en">geometric</span></td><td><span class="pt">59,8</span><span class="en">59.8</span></td><td><span class="pt">−1,9</span><span class="en">−1.9</span></td></tr>
+        <tr><td><span class="pt">todas (2 seeds)</span><span class="en">all (2 seeds)</span></td><td><span class="pt">58,2</span><span class="en">58.2</span></td><td><span class="pt">−3,5</span><span class="en">−3.5</span></td></tr>
+      </tbody>
+    </table>
+
+    <figure>
+      <img src="https://raw.githubusercontent.com/guilhermefelipetto/doclaynet-augmentation-study/main/results/fig_ablation.png" alt="Gráfico da ablação de data augmentation" loading="lazy">
+    </figure>
+
+    <p>
+      <span class="pt">Nenhuma família melhora o resultado. A degradação se concentra no AP75, enquanto o AP50 fica estável ou levemente acima do baseline, o que indica perda de precisão de localização, e não de capacidade de detecção.</span>
+      <span class="en">No family improves the result. The degradation is concentrated in AP75, while AP50 stays stable or slightly above the baseline, which points to a loss of localization precision rather than of detection ability.</span>
+    </p>
+
+    <h2><span class="pt">Vazamento: split por documento vs por página</span><span class="en">Leakage: document-level vs page-level split</span></h2>
+    <p>
+      <span class="pt">O estudo reproduz o experimento de vazamento do artigo original, acrescentando um controle num conjunto neutro. Particionar os mesmos dados por página, em vez de por documento, infla o mAP em 18,4 pontos na validação interna (81,4 contra 62,9), mas os dois modelos ficam indistinguíveis quando avaliados no val oficial (60,7 contra 61,3).</span>
+      <span class="en">The study reproduces the original paper's leakage experiment, adding a control on a neutral set. Splitting the same data by page instead of by document inflates mAP by 18.4 points on the internal validation (81.4 vs 62.9), yet both models are indistinguishable when evaluated on the official val set (60.7 vs 61.3).</span>
+    </p>
+
+    <figure>
+      <img src="https://raw.githubusercontent.com/guilhermefelipetto/doclaynet-augmentation-study/main/results/fig_split.png" alt="Gráfico do experimento de vazamento" loading="lazy">
+    </figure>
+
+    <h2><span class="pt">Conclusão</span><span class="en">Conclusion</span></h2>
+    <blockquote>
+      <span class="pt">Para páginas digitais limpas como as do DocLayNet, augmentation que simula degradação de digitalização não ajuda, e o protocolo de particionamento pesa mais sobre a métrica do que qualquer intervenção feita no treino.</span>
+      <span class="en">For clean digital pages like DocLayNet's, augmentation that simulates scanning degradation does not help, and the splitting protocol weighs more on the metric than any training intervention we made.</span>
+    </blockquote>
+
+    <h2><span class="pt">Reprodução</span><span class="en">Reproduction</span></h2>
+<pre>
+# <span class="pt">subset de treino determinístico (seed 42)</span><span class="en">deterministic training subset (seed 42)</span>
+$ python scripts/sample_fraction.py \
+    --coco data/DocLayNet_core/COCO/train.json \
+    --fraction 0.10 --seed 42 --out data/subsets/train_10pct_seed42
+
+# <span class="pt">fila da ablação, uma instância por GPU</span><span class="en">ablation queue, one instance per GPU</span>
+$ ./scripts/run_queue.sh 0
+$ ./scripts/run_queue.sh 1
+
+# <span class="pt">junta os mAPs numa tabela</span><span class="en">collect mAPs into a table</span>
+$ python scripts/collect_results.py
+</pre>
+
+  </article>
+
+  <footer>
+    <p>&copy; 2026 Guilherme Felipetto.</p>
+  </footer>
+
+  <script>
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const body = document.body;
+    langToggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('lang-pt')) {
+        body.classList.remove('lang-pt'); body.classList.add('lang-en');
+        langToggleBtn.textContent = 'PT-BR'; document.documentElement.lang = "en";
+      } else {
+        body.classList.remove('lang-en'); body.classList.add('lang-pt');
+        langToggleBtn.textContent = 'EN'; document.documentElement.lang = "pt-BR";
+      }
+    });
+  </script>
+</body>
+</html>

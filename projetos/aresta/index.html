@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>aresta | Guilherme Felipetto</title>
+  <meta name="description" content="aresta — bancada de processamento de imagens em C++ escrita do zero: processamento clássico do Gonzalez e segmentação por grafos (IFT/OIFT).">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Guilherme Felipetto">
+  <meta property="og:title" content="aresta | Guilherme Felipetto">
+  <meta property="og:description" content="Bancada de processamento de imagens em C++ (SDL2, Dear ImGui, OpenGL): Gonzalez clássico e segmentação por grafos IFT/OIFT, validada contra scikit-image e OpenCV.">
+  <meta property="og:url" content="https://guilhermefelipetto.github.io/projetos/aresta/">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="aresta | Guilherme Felipetto">
+  <meta name="twitter:description" content="Bancada de processamento de imagens em C++ com segmentação por grafos (IFT/OIFT).">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #ffffff; --text-primary: #202122; --text-secondary: #54595d;
+      --link-color: #0645ad; --border-color: #a2a9b1; --accent: #eaecf0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body.lang-pt .en { display: none !important; }
+    body.lang-en .pt { display: none !important; }
+
+    body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
+
+    header { position: sticky; top: 0; z-index: 1000; background: #f8f9fa; border-bottom: 1px solid var(--border-color); padding: 10px 0; width: 100%; }
+    nav { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+    .logo { font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700; color: #000; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--link-color); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { text-decoration: underline; }
+    .lang-btn { background: var(--accent); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+    article { padding: 40px 15px; max-width: 800px; margin: 0 auto; min-height: 70vh; }
+
+    .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: var(--text-secondary); }
+    .breadcrumb a { color: var(--link-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-family: 'Merriweather', serif; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    h2 { font-family: 'Merriweather', serif; font-size: 1.4rem; margin: 30px 0 15px; border-bottom: 1px solid #eaecf0; padding-bottom: 5px; }
+    h3 { font-family: 'Merriweather', serif; font-size: 1.1rem; margin: 20px 0 10px; color: var(--text-primary); }
+    p { margin-bottom: 15px; text-align: justify; }
+    ul, ol { margin: 0 0 15px 25px; }
+    li { margin-bottom: 5px; }
+
+    .tags { margin-bottom: 25px; }
+    .tags span { background: #f8f9fa; border: 1px solid var(--border-color); padding: 3px 8px; font-size: 0.8rem; border-radius: 2px; margin-right: 5px; color: var(--text-secondary); display: inline-block; margin-bottom: 4px; }
+
+    pre {
+      background: #f8f9fa; border: 1px solid var(--border-color);
+      padding: 15px; overflow-x: auto; font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem; margin-bottom: 20px; border-left: 4px solid var(--border-color);
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace; background: #eaecf0;
+      padding: 2px 5px; border-radius: 3px; font-size: 0.9em;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--border-color);
+      background: #f8f9fa;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    table {
+      width: 100%; border-collapse: collapse; margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid var(--border-color); padding: 6px 10px;
+      text-align: left; vertical-align: top;
+    }
+    th { background: #eaecf0; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+
+    .github-btn {
+      display: inline-block; margin-top: 10px; padding: 8px 15px;
+      background: #24292e; color: #fff; text-decoration: none;
+      border-radius: 4px; font-weight: 600; font-size: 0.9rem;
+    }
+    .github-btn:hover { background: #000; }
+
+    figure { margin: 20px 0 25px; }
+    figure img { max-width: 100%; height: auto; display: block; border: 1px solid var(--border-color); background: #fff; }
+    figcaption { font-size: 0.85rem; color: var(--text-secondary); margin-top: 6px; }
+    .secondary-btn { background: #f8f9fa; color: var(--link-color); border: 1px solid var(--border-color); margin-left: 6px; }
+    .secondary-btn:hover { background: #e2e2e2; }
+
+    footer { text-align: center; padding: 30px; background: #f8f9fa; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.85rem; margin-top: 50px; }
+  </style>
+</head>
+<body class="lang-pt">
+
+  <header>
+    <nav>
+      <a href="../../" class="logo">Guilherme Felipetto</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../../projetos/"><span class="pt">Voltar para Projetos</span><span class="en">Back to Projects</span></a></li>
+        </ul>
+        <button id="lang-toggle" class="lang-btn">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <article>
+    <div class="breadcrumb">
+      <a href="../../"><span class="pt">Início</span><span class="en">Home</span></a> &raquo;
+      <a href="../"><span class="pt">Projetos</span><span class="en">Projects</span></a> &raquo;
+      aresta
+    </div>
+
+    <h1>aresta</h1>
+
+    <div class="tags">
+      <span>C++20</span>
+      <span>SDL2</span>
+      <span>Dear ImGui</span>
+      <span>OpenGL 3.3</span>
+      <span>CMake / Ninja</span>
+      <span>IFT / OIFT</span>
+      <span>MIT</span>
+    </div>
+
+    <p>
+      <span class="pt">O <strong>aresta</strong> é uma bancada de processamento de imagens em C++, escrita do zero, para estudo e experimentação de algoritmos. Reúne o processamento clássico do livro do Gonzalez e os algoritmos de segmentação por grafo da linha da Transformada Imagem-Floresta (IFT e OIFT), que são o tema da pesquisa de mestrado do autor no IME-USP.</span>
+      <span class="en"><strong>aresta</strong> is an image processing workbench written from scratch in C++ for studying and experimenting with algorithms. It brings together the classic processing from Gonzalez's textbook and the graph-based segmentation algorithms of the Image Foresting Transform line (IFT and OIFT), which are the topic of the author's Master's research at IME-USP.</span>
+    </p>
+
+    <a href="https://github.com/guilhermefelipetto/aresta" target="_blank" class="github-btn">
+      <i class="fab fa-github"></i> <span class="pt">Ver no GitHub</span><span class="en">View on GitHub</span>
+    </a>
+
+    <figure>
+      <img src="https://raw.githubusercontent.com/guilhermefelipetto/aresta/main/imagens/geral.png" alt="A janela do aresta com uma cadeia montada" loading="lazy">
+      <figcaption>
+        <span class="pt">A janela do aresta com uma cadeia montada.</span>
+        <span class="en">The aresta window with a chain set up.</span>
+      </figcaption>
+    </figure>
+
+    <h2><span class="pt">A cadeia</span><span class="en">The chain</span></h2>
+    <p>
+      <span class="pt">A unidade de trabalho é a <strong>cadeia</strong>: uma lista ordenada de operações em que a saída de cada estágio fica guardada, inspecionável e cronometrada. Mudar um parâmetro reavalia a cadeia inteira e mostra o efeito em qualquer ponto dela, não só no fim.</span>
+      <span class="en">The unit of work is the <strong>chain</strong>: an ordered list of operations where each stage's output is kept, inspectable and timed. Changing a parameter re-evaluates the whole chain and shows the effect at any point in it, not just at the end.</span>
+    </p>
+    <p>
+      <span class="pt">A cadeia é tipada. Cada estágio produz <em>cor</em> (RGBA float32 em espaço linear), <em>escalar</em> (<code>Map&lt;float&gt;</code>) ou <em>rótulo</em> (<code>Map&lt;int32_t&gt;</code>), e ligações inválidas são recusadas antes de rodar. As ligações são por id, então apagar um estágio do meio não reescreve as referências dos seguintes.</span>
+      <span class="en">The chain is typed. Each stage produces <em>color</em> (linear-space RGBA float32), <em>scalar</em> (<code>Map&lt;float&gt;</code>) or <em>label</em> (<code>Map&lt;int32_t&gt;</code>), and invalid connections are rejected before running. Connections are by id, so deleting a stage in the middle doesn't rewrite the references of the ones after it.</span>
+    </p>
+
+    <figure>
+      <img src="https://raw.githubusercontent.com/guilhermefelipetto/aresta/main/imagens/pipeline.png" alt="Os estágios de uma cadeia de segmentação, um a um" loading="lazy">
+      <figcaption>
+        <span class="pt">Segmentar a flor em cinco estágios: canal a* do Lab, Otsu, abertura, preenchimento e maior componente. A figura foi exportada pelo próprio aresta.</span>
+        <span class="en">Segmenting the flower in five stages: Lab a* channel, Otsu, opening, hole filling and largest component. The figure was exported by aresta itself.</span>
+      </figcaption>
+    </figure>
+
+    <h2><span class="pt">Operações</span><span class="en">Operations</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span class="pt">Grupo</span><span class="en">Group</span></th>
+          <th><span class="pt">Operações</span><span class="en">Operations</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="pt">Tom e histograma</span><span class="en">Tone and histogram</span></td><td><span class="pt">exposição, gama, curva por fórmula, equalização, CLAHE, casamento de histograma, Otsu e multi-Otsu</span><span class="en">exposure, gamma, formula curves, equalization, CLAHE, histogram matching, Otsu and multi-Otsu</span></td></tr>
+        <tr><td><span class="pt">Vizinhança</span><span class="en">Neighborhood</span></td><td><span class="pt">convolução com editor de kernel, médias, filtros de ordem, filtros adaptativos</span><span class="en">convolution with a kernel editor, means, order-statistic filters, adaptive filters</span></td></tr>
+        <tr><td><span class="pt">Frequência</span><span class="en">Frequency</span></td><td><span class="pt">FFT 2D, filtros ideal/Butterworth/gaussiano, degradação, filtro inverso, Wiener e mínimos quadrados restritos</span><span class="en">2D FFT, ideal/Butterworth/Gaussian filters, degradation, inverse filter, Wiener and constrained least squares</span></td></tr>
+        <tr><td><span class="pt">Cor</span><span class="en">Color</span></td><td>RGB, HSV, HSI, Lab, YCbCr, CMY, <span class="pt">gradiente vetorial, pseudo-cor</span><span class="en">vector gradient, pseudo-color</span></td></tr>
+        <tr><td><span class="pt">Binário e morfologia</span><span class="en">Binary and morphology</span></td><td><span class="pt">limiar local (Sauvola), Canny, LoG, Hough para retas e círculos, morfologia, afinamento, reconstrução geodésica, componentes, transformada de distância exata</span><span class="en">local thresholding (Sauvola), Canny, LoG, Hough for lines and circles, morphology, thinning, geodesic reconstruction, components, exact distance transform</span></td></tr>
+        <tr><td><span class="pt">Segmentação</span><span class="en">Segmentation</span></td><td><span class="pt">mínimos regionais com h, watershed por marcadores (IFT com custo fmax)</span><span class="en">regional minima with h, marker-based watershed (IFT with fmax cost)</span></td></tr>
+        <tr><td><span class="pt">Descrição</span><span class="en">Description</span></td><td><span class="pt">descritores de região e momentos de Hu, descritores de Fourier, textura por co-ocorrência (Haralick)</span><span class="en">region descriptors and Hu moments, Fourier descriptors, co-occurrence texture (Haralick)</span></td></tr>
+        <tr><td><span class="pt">Entre estágios</span><span class="en">Between stages</span></td><td><span class="pt">aritmética, overlay, ruído com semente fixa, métricas (RMSE, MAE, PSNR, SNR, SSIM)</span><span class="en">arithmetic, overlay, seeded noise, metrics (RMSE, MAE, PSNR, SNR, SSIM)</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2><span class="pt">Validação</span><span class="en">Validation</span></h2>
+    <ul>
+      <li><span class="pt">O watershed bate pixel a pixel com o <code>segmentation.watershed</code> do scikit-image, com e sem linha divisória e com e sem máscara.</span><span class="en">The watershed matches scikit-image's <code>segmentation.watershed</code> pixel by pixel, with and without watershed lines and with and without a mask.</span></li>
+      <li><span class="pt">Em 1024×1024 com 56 mil marcadores, o watershed roda em cerca de meio segundo, porque cada pixel entra na fila uma única vez.</span><span class="en">At 1024×1024 with 56 thousand markers, the watershed runs in about half a second, because each pixel enters the queue only once.</span></li>
+      <li><span class="pt">Área, centroide, eixos, orientação e momentos de Hu batem com o <code>regionprops</code>; os momentos de Hu em dez dígitos.</span><span class="en">Area, centroid, axes, orientation and Hu moments match <code>regionprops</code>; Hu moments to ten digits.</span></li>
+      <li><span class="pt">A fronteira sai igual à do <code>findContours</code> do OpenCV, ponto a ponto, e os coeficientes de Fourier batem com o <code>numpy.fft</code>.</span><span class="en">Boundaries match OpenCV's <code>findContours</code> point by point, and Fourier coefficients match <code>numpy.fft</code>.</span></li>
+      <li><span class="pt">O SSIM confere com o scikit-image em cinco casas, e as medidas de Haralick com o <code>graycoprops</code> até 1e-16.</span><span class="en">SSIM agrees with scikit-image to five decimal places, and Haralick measures with <code>graycoprops</code> to 1e-16.</span></li>
+    </ul>
+
+    <h2><span class="pt">Projetos e exportação</span><span class="en">Projects and export</span></h2>
+    <p>
+      <span class="pt">Um projeto <code>.aresta</code> é texto legível, uma linha por campo, para dar para comparar duas versões num diff. Qualquer estágio pode ser exportado como aparece (PNG, JPEG) ou com os valores crus (PFM, PGM de 16 bits, CSV, NPY), e a cadeia inteira pode ser exportada como uma figura com legendas, pronta para artigo.</span>
+      <span class="en">An <code>.aresta</code> project is readable text, one line per field, so two versions can be compared in a diff. Any stage can be exported as displayed (PNG, JPEG) or with raw values (PFM, 16-bit PGM, CSV, NPY), and the whole chain can be exported as a captioned figure ready for a paper.</span>
+    </p>
+
+    <h2><span class="pt">Build</span><span class="en">Build</span></h2>
+<pre>
+$ sudo apt install build-essential cmake ninja-build libsdl2-dev libgl-dev
+$ ./build.sh Release
+$ ./aresta imagem.png
+</pre>
+
+    <h2><span class="pt">Próximos passos</span><span class="en">Next steps</span></h2>
+    <ul>
+      <li><span class="pt">Pincel de sementes, IFT e OIFT sobre a imagem.</span><span class="en">Seed brush, IFT and OIFT on the image.</span></li>
+      <li><span class="pt">Bancada de grafos: montar, desenhar, rodar algoritmos e exportar.</span><span class="en">Graph workbench: build, draw, run algorithms and export.</span></li>
+      <li><span class="pt">Modo benchmark: rodar sobre um dataset, cronometrar e medir.</span><span class="en">Benchmark mode: run over a dataset, time and measure.</span></li>
+      <li><span class="pt">Wavelets e casamento por correlação.</span><span class="en">Wavelets and correlation matching.</span></li>
+    </ul>
+
+  </article>
+
+  <footer>
+    <p>&copy; 2026 Guilherme Felipetto.</p>
+  </footer>
+
+  <script>
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const body = document.body;
+    langToggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('lang-pt')) {
+        body.classList.remove('lang-pt'); body.classList.add('lang-en');
+        langToggleBtn.textContent = 'PT-BR'; document.documentElement.lang = "en";
+      } else {
+        body.classList.remove('lang-en'); body.classList.add('lang-pt');
+        langToggleBtn.textContent = 'EN'; document.documentElement.lang = "pt-BR";
+      }
+    });
+  </script>
+</body>
+</html>
